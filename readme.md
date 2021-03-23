@@ -2,7 +2,7 @@
 > An addon for [Hideous Destructor](https://codeberg.org/mc776/hideousdestructor). Adds a helmet that shows the HUD.
 
 ## What?
-Hideous Helmet adds a new armour piece called `HUD Helmet`.
+Hideous Helmet adds a "new armour" piece called `HUD Helmet`.
 
 What does it do?
 * Shows the HUD when you wear it. Clue's in the name.
