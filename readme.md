@@ -9,6 +9,10 @@ What does it do?
 * Does not provide defense.
 * *Note: Most of the HUD does not show up without the helmet.*
 
+Loadout codes:
+* hud helmet (spare) `hdh`
+* hud helmet         `hhw`
+
 
 ## Why??
 Well, I always wondered what if you could wear helmets in Hideous Destructor, then I thought about the HUD and the helmet.
