@@ -1,0 +1,12 @@
+GameInfo {
+	AddEventHandlers = "HHelmetSpawner"
+}
+
+map armor "Armor Test"{
+	music=""
+	nointermission
+	allowrespawn
+	noautosavehint
+	sky1="sky1"
+	next="range"
+}
