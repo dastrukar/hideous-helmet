@@ -23,10 +23,10 @@ class BrokenDummyHelmet:IdleDummy {
 }
 
 class HHelmetSpawner:EventHandler{
-	override void WorldThingSpawned(WorldEvent event) {
+	override void WorldThingSpawned(WorldEvent e) {
 		if(level.maptime > 1) return;
-		if(!event.Thing) return;
-		let T = event.Thing;
+		if(!e.Thing) return;
+		let T = e.Thing;
 
 		bool is_corpse = (
 			T.GetClassName() == "DeadRifleman" ||
