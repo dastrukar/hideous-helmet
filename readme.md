@@ -34,4 +34,4 @@ Though, it's up to you to try and see.
 ## Are there any releases?
 Nope.
 
-Just download the latest `master` repo and pray that it works.
+Just download the latest [`master`](https://github.com/dastrukar/hideous-helmet/archive/refs/heads/master.zip) repo and pray that it works.
