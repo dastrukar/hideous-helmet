@@ -1,5 +1,5 @@
 # Hideous Helmet
-> An addon for [Hideous Destructor](https://codeberg.org/mc776/hideousdestructor). Adds a helmet.
+> An addon for [Hideous Destructor](https://codeberg.org/mc776/hideousdestructor). Adds a helmet that shows the HUD.
 
 ## What?
 Hideous Helmet adds a new armour piece called `HUD Helmet`.
