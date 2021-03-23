@@ -140,7 +140,7 @@ class HDStatusBar:DoomStatusBar{
 	}
 	override void Draw(int state,double TicFrac){
 		hpl=hdplayerpawn(cplayer.mo);
-		let helmet=HDArmourWorn(cplayer.mo.findinventory("HDHelmetWorn"));
+		let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
 		if(
 			!cplayer
 			||!hpl
@@ -266,7 +266,7 @@ class HDStatusBar:DoomStatusBar{
 		);
 	}
 	void DrawFullScreenStuff(){
-        if (cplayer.mo.findinventory("HDHelmetWorn"))
+        if (cplayer.mo.findinventory("HHelmetWorn"))
 		DrawTexture(
 			GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(0,-14),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM,
@@ -417,7 +417,7 @@ class HDStatusBar:DoomStatusBar{
 	void DrawCommonStuff(bool usemughud){
 		let cp=HDPlayerPawn(CPlayer.mo);
 		if(!cp)return;
-        let helmet = HDArmourWorn(cp.findinventory("HDHelmetWorn"));
+        let helmet = HDArmourWorn(cp.findinventory("HHelmetWorn"));
 
 		int mxht=-4-mIndexFont.mFont.GetHeight();
 		int mhht=-4-mHUDFont.mFont.getheight();
@@ -964,7 +964,7 @@ class HDStatusBar:DoomStatusBar{
 	}
 
 	void DrawHelmet(vector2 helmetcoords,int flags){
-		let helmet=HDArmourWorn(cplayer.mo.findinventory("HDHelmetWorn"));
+		let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
 		if(helmet){
 			string helmetsprite="HELMA0";
 			string helmetback="HELMB0";

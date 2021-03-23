@@ -15,7 +15,7 @@ extend class HDPlayerPawn{
 	){
 		class<inventory> invclasses[6];
 		invclasses[STRIP_ARMOUR]="HDArmourWorn";
-        invclasses[STRIP_HELMET]="HDHelmetWorn";
+        invclasses[STRIP_HELMET]="HHelmetWorn";
 		invclasses[STRIP_RADSUIT]="WornRadsuit";
 		invclasses[STRIP_BACKPACK]="HDBackpack";
 		invclasses[STRIP_JETPACK]="HDJetpack";

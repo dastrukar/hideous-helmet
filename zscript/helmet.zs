@@ -1,7 +1,7 @@
 // This code is very hacky, might be a bit messy -dastrukar
 // Original code taken from Hideous Destructor
 
-class HDHelmet:HDArmour{
+class HHelmet:HDArmour{
 	default{
 		hdmagammo.maxperunit 50;
 		hdmagammo.magbulk 100;
@@ -31,18 +31,18 @@ class HDHelmet:HDArmour{
 		//strip intervening items on doubleclick
 		if(
 			invoker.cooldown<1
-			&&self.findinventory("HDHelmetWorn")
+			&&self.findinventory("HHelmetWorn")
 		){
-			self.dropinventory(self.findinventory("HDHelmetWorn"));
+			self.dropinventory(self.findinventory("HHelmetWorn"));
 			self.A_Log("Removing helmet first.", true);
 			invoker.cooldown=10;
 			return;
 		}
-		if(self.findinventory("HDHelmetWorn"))return;
+		if(self.findinventory("HHelmetWorn"))return;
 
 		//and finally put on the actual armour
-		HDHelmet.ArmourChangeEffect(self);
-		let worn=HDHelmetWorn(GiveInventoryType("HDHelmetWorn"));
+		HHelmet.ArmourChangeEffect(self);
+		let worn=HHelmetWorn(GiveInventoryType("HHelmetWorn"));
 		worn.durability=dbl;
 		invoker.amount--;
 		invoker.mags.pop();
@@ -64,15 +64,15 @@ class HDHelmet:HDArmour{
 		cooldown=0;
 		if(!other)return;
 		int durability=mags[mags.size()-1];
-		HDHelmet aaa=HDHelmet(other.findinventory("HDHelmet"));
+		HHelmet aaa=HHelmet(other.findinventory("HHelmet"));
 		//put on the armour right away
 		if(
 			other.player&&other.player.cmd.buttons&BT_USE
-			&&!other.findinventory("HDHelmetWorn")
+			&&!other.findinventory("HHelmetWorn")
 			//&&HDPlayerPawn.CheckStrip(other,-1,false)
 		){
-			HDHelmet.ArmourChangeEffect(other);
-			let worn=HDArmourWorn(other.GiveInventoryType("HDHelmetWorn"));
+			HHelmet.ArmourChangeEffect(other);
+			let worn=HDArmourWorn(other.GiveInventoryType("HHelmetWorn"));
 			worn.durability=durability;
 			destroy();
 			return;
@@ -86,7 +86,7 @@ class HDHelmet:HDArmour{
 			if(totalbulk*hdmath.getencumbrancemult()>3.)return;
 		}
 		if(!trypickup(other))return;
-		aaa=HDHelmet(other.findinventory("HDHelmet"));
+		aaa=HHelmet(other.findinventory("HHelmet"));
 		aaa.syncamount();
 		aaa.mags.insert(0,durability);
 		aaa.mags.pop();
@@ -132,7 +132,7 @@ class HDHelmet:HDArmour{
 	}
 }
 
-class HDHelmetWorn:HDArmourWorn {
+class HHelmetWorn:HDArmourWorn {
 	default{
 		tag "helmet";
 	}
@@ -164,8 +164,8 @@ class HDHelmetWorn:HDArmourWorn {
 		}
 
 		//finally actually take off the armour
-		HDHelmet.ArmourChangeEffect(owner);
-		let tossed=HDHelmet(owner.spawn("HDHelmet",
+		HHelmet.ArmourChangeEffect(owner);
+		let tossed=HHelmet(owner.spawn("HHelmet",
 			(owner.pos.x,owner.pos.y,owner.pos.z+owner.height-20),
 			ALLOW_REPLACE
 		));
@@ -185,14 +185,14 @@ class HudHelmet:HDPickupGiver{
 		+hdpickup.fitsinbackpack
 		+inventory.isarmor
 		inventory.icon "HELMA0";
-		hdpickupgiver.pickuptogive "HDHelmet";
+		hdpickupgiver.pickuptogive "HHelmet";
 		hdpickup.bulk 100;
 		hdpickup.refid "hdh";
 		tag "hud helmet (spare)";
 		inventory.pickupmessage "Picked up the HUD helmet.";
 	}
 	override void configureactualpickup(){
-		let aaa=HDHelmet(actualitem);
+		let aaa=HHelmet(actualitem);
 		aaa.mags.clear();
 		aaa.mags.push(50);
 		aaa.syncamount();
@@ -210,8 +210,8 @@ class HudHelmetWorn:HDPickup{
 	override void postbeginplay(){
 		super.postbeginplay();
 		if(owner){
-			owner.A_GiveInventory("HDHelmetWorn");
-			let ga=HDHelmetWorn(owner.findinventory("HDHelmetWorn"));
+			owner.A_GiveInventory("HHelmetWorn");
+			let ga=HHelmetWorn(owner.findinventory("HHelmetWorn"));
 			ga.durability=50;
 		}
 		destroy();

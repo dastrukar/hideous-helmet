@@ -59,8 +59,8 @@ extend class HDPlayerPawn{
 		// Helmet stuff
 		// "I don't really know how to get this working with the damage system here,
 		//  so I'll just do it the really dumb and simple way."
-		let helmet=HDArmourWorn(findinventory("HDHelmetWorn"));
-		if (checkinventory("HDHelmetWorn", 1)) {
+		let helmet=HDArmourWorn(findinventory("HHelmetWorn"));
+		if (checkinventory("HHelmetWorn", 1)) {
 			helmet.durability -= damage / 10;
 			if (helmet.durability < 1) { HDArmour.ArmourChangeEffect(self); helmet.destroy(); }
 		}
