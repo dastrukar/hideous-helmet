@@ -1,0 +1,1 @@
+alias hh_strip "netevent hh_strip";

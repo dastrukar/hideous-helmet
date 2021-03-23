@@ -1,5 +1,6 @@
 GameInfo {
 	AddEventHandlers = "HHelmetSpawner"
+	AddEventHandlers = "HHHandlers"
 }
 
 map armor "Armor Test"{
