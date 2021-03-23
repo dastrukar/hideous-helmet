@@ -11,8 +11,9 @@ What does it do?
 
 Loadout codes:
 * hud helmet (spare) `hdh`
-* hud helmet         `hhw`
+* hud helmet `hhw`
 
+Spawns at any armour and marine corpse. *(at least it should)*
 
 ## Why??
 Well, I always wondered what if you could wear helmets in Hideous Destructor, then I thought about the HUD and the helmet.
