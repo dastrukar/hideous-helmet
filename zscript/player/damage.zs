@@ -61,7 +61,7 @@ extend class HDPlayerPawn{
 		//  so I'll just do it the really dumb and simple way."
 		let helmet=HDArmourWorn(findinventory("HHelmetWorn"));
 		if (checkinventory("HHelmetWorn", 1)) {
-			helmet.durability -= damage / 10;
+			helmet.durability -= damage / 5;
 			if (helmet.durability < 1) { HDArmour.ArmourChangeEffect(self); helmet.destroy(); }
 		}
 		//it just goes through one of the gaping holes in your armour
