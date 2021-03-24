@@ -1,1 +1,5 @@
+addkeysection "Hideous Helmet" HideousHelmet
+
+addmenukey "Strip Helmet" hh_strip
+
 alias hh_strip "netevent hh_strip";
