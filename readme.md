@@ -15,7 +15,7 @@ Loadout codes:
 
 Spawns at any armour and marine corpse. *(at least it should)*
 
-## Why??
+## Why?
 Well, I always wondered what if you could wear helmets in Hideous Destructor, then I thought about the HUD and the helmet.
 
 Then, a question came up.
@@ -24,7 +24,6 @@ Then, a question came up.
 
 And here we are.
 
-
 ## Is this compatible with other addons?
 Probably not.
 
@@ -32,6 +31,4 @@ Though, it's up to you to try and see.
 
 
 ## Are there any releases?
-Nope.
-
 Just download the latest [`master`](https://github.com/dastrukar/hideous-helmet/archive/refs/heads/master.zip) repo and pray that it works.
