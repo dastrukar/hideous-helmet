@@ -465,12 +465,12 @@ class HDStatusBar:DoomStatusBar{
 		if(hpl.countinv("Backpack"))drawimage("BPAKA0",(-55,-4),DI_SCREEN_CENTER_BOTTOM|DI_ITEM_CENTER_BOTTOM);
 
 		//radsuit
-		if(hpl.countinv("WornRadsuit"))drawimage(
+		if(hpl.countinv("WornRadsuit")&&helmet)drawimage(
 			"SUITC0",(64,-4),DI_SCREEN_CENTER_BOTTOM|DI_ITEM_CENTER_BOTTOM
 		);
 
 		//bloodpack
-		if(hpl.countinv("BloodBagWorn") && helmet){
+		if(hpl.countinv("BloodBagWorn")&&helmet){
 			drawimage(
 				"PBLDA0",(68,-10),DI_SCREEN_CENTER_BOTTOM|DI_ITEM_CENTER_BOTTOM,scale:(0.6,0.6)
 			);
@@ -486,7 +486,7 @@ class HDStatusBar:DoomStatusBar{
 			pnewsmallfont,FormatNumber(hpl.health),
 			(0,mxht),DI_TEXT_ALIGN_CENTER|DI_SCREEN_CENTER_BOTTOM,
 			hpl.health>70?Font.CR_OLIVE:(hpl.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
-		);else if (helmet) DrawHealthTicker();
+		);else if(helmet) DrawHealthTicker();
 
 
 		//frags
@@ -509,7 +509,7 @@ class HDStatusBar:DoomStatusBar{
 		}
 
 		//armour
-		if (helmet)
+		if(helmet)
 		DrawArmour(
 			usemughud?((hudlevel==1?-85:-55),-4):(0,-mIndexFont.mFont.GetHeight()*2),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM
@@ -517,16 +517,27 @@ class HDStatusBar:DoomStatusBar{
 
 		//helmet
 		DrawHelmet(
-			usemughud?((hudlevel==1?-85:-55),-18):(0,-mIndexFont.mFont.GetHeight()*2-18),
+			usemughud?((hudlevel==1?-85:-55),-18):(0,-mIndexFont.mFont.GetHeight()*2-14),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM
 		);
 
 		//weapon readouts!
-		if (helmet)
-		if(cplayer.readyweapon&&cplayer.readyweapon!=WP_NOCHANGE)drawweaponstatus(cplayer.readyweapon);
+		let cweapon = cplayer.readyweapon;
+		if(cweapon&&cweapon!=WP_NOCHANGE){
+			bool is_gun = (
+				cweapon.slotnumber == 1 ||
+				cweapon.slotnumber == 2 ||
+				cweapon.slotnumber == 3 ||
+				cweapon.slotnumber == 4 ||
+				cweapon.slotnumber == 5 ||
+				cweapon.slotnumber == 6 ||
+				cweapon.slotnumber == 7 ||
+				cweapon.slotnumber == 8
+			);
+			if(helmet||!is_gun)drawweaponstatus(cweapon);
+		}
 
 		//weapon sprite
-		if (helmet)
 		if(
 			hudlevel==2
 			||cvar.getcvar("hd_hudsprite",cplayer).getbool()
@@ -536,11 +547,11 @@ class HDStatusBar:DoomStatusBar{
 
 		//full hud consequences
 		if(hudlevel==2){
-			if (helmet) drawweaponstash();
-			if (helmet) drawammocounters(mxht);
+			if(helmet) drawweaponstash();
+			if(helmet) drawammocounters(mxht);
 
 			//encumbrance
-			if(hpl.enc && helmet){
+			if(hpl.enc&&helmet){
 				double pocketenc=hpl.pocketenc;
 				drawstring(
 					pnewsmallfont,formatnumber(int(hpl.enc)),
@@ -580,7 +591,7 @@ class HDStatusBar:DoomStatusBar{
 			int wephelpheight=NewSmallFont.GetHeight()*5;
 
 			//compass
-			if (helmet){
+			if(helmet){
 				int STB_COMPRAD=12;vector2 compos=(-STB_COMPRAD,STB_COMPRAD)*2;
 				double compangle=hpl.angle;
 
