@@ -266,7 +266,7 @@ class HDStatusBar:DoomStatusBar{
 		);
 	}
 	void DrawFullScreenStuff(){
-        if (cplayer.mo.findinventory("HHelmetWorn"))
+		if (cplayer.mo.findinventory("HHelmetWorn"))
 		DrawTexture(
 			GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(0,-14),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM,
@@ -417,7 +417,7 @@ class HDStatusBar:DoomStatusBar{
 	void DrawCommonStuff(bool usemughud){
 		let cp=HDPlayerPawn(CPlayer.mo);
 		if(!cp)return;
-        let helmet = HDArmourWorn(cp.findinventory("HHelmetWorn"));
+		let helmet = HDArmourWorn(cp.findinventory("HHelmetWorn"));
 
 		int mxht=-4-mIndexFont.mFont.GetHeight();
 		int mhht=-4-mHUDFont.mFont.getheight();
@@ -509,24 +509,24 @@ class HDStatusBar:DoomStatusBar{
 		}
 
 		//armour
-        if (helmet)
+		if (helmet)
 		DrawArmour(
 			usemughud?((hudlevel==1?-85:-55),-4):(0,-mIndexFont.mFont.GetHeight()*2),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM
 		);
 
-        //helmet
-        DrawHelmet(
-			usemughud?((hudlevel==1?-85:-55),-16):(0,-mIndexFont.mFont.GetHeight()*2),
+		//helmet
+		DrawHelmet(
+			usemughud?((hudlevel==1?-85:-55),-18):(0,-mIndexFont.mFont.GetHeight()*2-18),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM
-        );
+		);
 
 		//weapon readouts!
-        if (helmet)
+		if (helmet)
 		if(cplayer.readyweapon&&cplayer.readyweapon!=WP_NOCHANGE)drawweaponstatus(cplayer.readyweapon);
 
 		//weapon sprite
-        if (helmet)
+		if (helmet)
 		if(
 			hudlevel==2
 			||cvar.getcvar("hd_hudsprite",cplayer).getbool()
