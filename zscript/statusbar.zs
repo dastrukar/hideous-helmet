@@ -534,7 +534,22 @@ class HDStatusBar:DoomStatusBar{
 				cweapon.slotnumber == 7 ||
 				cweapon.slotnumber == 8
 			);
-			if(helmet||!is_gun)drawweaponstatus(cweapon);
+			let whitelist = cvar.getcvar("hh_overwritewhitelist",cplayer).getbool();
+			if (whitelist){
+				bool is_listed;
+				let list_text = cvar.getcvar("hh_whitelist",cplayer).getstring();
+				array<string> wlist;wlist.clear();
+
+				list_text.split(wlist,",");
+				for(int i=0;i<wlist.size();i++){
+					array<string> templist;templist.clear();
+					wlist[i].split(templist, " ");
+					if(templist.size() != 0)
+					if(templist[0]==HDWeapon(cweapon).refid){ is_listed = true; break; }
+				}
+				if(is_listed)drawweaponstatus(cweapon);
+			}
+			else if(helmet||!is_gun)drawweaponstatus(cweapon);
 		}
 
 		//weapon sprite

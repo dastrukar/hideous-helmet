@@ -1,0 +1,2 @@
+user bool hh_overwritewhitelist=false;
+user string hh_whitelist="";

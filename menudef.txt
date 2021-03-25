@@ -1,0 +1,23 @@
+OptionMenu "HHOptions"{
+	Title "Hideous Helmet Options"
+
+	StaticText "Controls", "white"
+	Control "Strip helmet only", "hh_strip"
+	StaticText " "
+	StaticText " "
+
+	StaticText "By default, any weapon in slot 1-8 are excluded.", "white"
+	StaticText "If you want to overwrite it, go ahead.", "white"
+	StaticText "Note: Use loadout codes for overwriting.", "cyan"
+
+	Option "Overwrite Whitelist", "hh_overwritewhitelist", "OnOff"
+	TextField "Whitelist (Overwrite)", "hh_whitelist", "hh_overwritewhitelist"
+}
+
+AddOptionMenu "OptionsMenu"{
+	Submenu "Hideous Helmet Options", "HHOptions"
+}
+
+AddOptionMenu "HDOptionsMenu" after "HDControlsMenu" {
+	Submenu "Hideous Helmet Options", "HHOptions"
+}
