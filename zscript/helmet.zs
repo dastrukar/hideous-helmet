@@ -50,11 +50,11 @@ class HHelmet:HDArmour{
 		if(helptext){
 			string blah=string.format("You put on the helmet.");
 			double qual=double(worn.durability)/50;
-			if(qual<0.1)A_Log(blah.."Just don't get hit.",true);
-			else if(qual<0.3)A_Log(blah.."You cover your shameful nakedness with your filthy rags.",true);
-			else if(qual<0.6)A_Log(blah.."It's better than nothing.",true);
-			else if(qual<0.75)A_Log(blah.."This helmet has definitely seen better days.",true);
-			else if(qual<0.95)A_Log(blah.."Does this helmet even work?",true);
+			if(qual<0.1)A_Log(blah.." Just don't get hit.",true);
+			else if(qual<0.3)A_Log(blah.." Does this helmet even work?",true);
+			else if(qual<0.6)A_Log(blah.." It's better than nothing.",true);
+			else if(qual<0.75)A_Log(blah.." This helmet has definitely seen better days.",true);
+			else if(qual<0.95)A_Log(blah.." Seems to be fine.",true);
 		}
 
 		invoker.syncamount();
@@ -94,10 +94,10 @@ class HHelmet:HDArmour{
 		other.A_StartSound(pickupsound,CHAN_AUTO);
 		other.A_Log(string.format("\cg%s",pickupmessage()),true);
 	}
-	bool checkmega(){
-		mega=mags.size()&&mags[mags.size()-1]>1000;
+	void checkmega(){
+		//mega=mags.size()&&mags[mags.size()-1]>1000;
 		icon=texman.checkfortexture("HELMA0",TexMan.Type_MiscPatch);
-		return mega;
+		//return mega;
 	}
 	override void beginplay(){
 		cooldown=0;
@@ -121,6 +121,11 @@ class HHelmet:HDArmour{
 			else mags[i]=min(mags[i],HDCONST_GARRISONARMOUR);
 		}
 		checkmega();
+	}
+	override inventory createtossable(int amt){
+		let sct=super.createtossable(amt);
+		if(self)checkmega();
+		return sct;
 	}
 	states{
 	spawn:
