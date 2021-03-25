@@ -33,7 +33,7 @@ class HHelmetSpawner:EventHandler{
 			T.GetClassName() == "ReallyDeadRifleman"
 		);
 
-		if(T.GetClassName() == "HDArmour" && randompick(0,0,0,1) == 1) {
+		if((T.GetClassName() == "HDArmour" || is_corpse) && randompick(0,0,0,1) == 1) {
 			let helm = Actor.Spawn(is_corpse?"BrokenDummyHelmet":"DummyHelmet", (T.pos.x, T.pos.y, T.pos.z+5));
 			helm.vel.x += frandom(-2,2);
 			helm.vel.y += frandom(-2,2);
