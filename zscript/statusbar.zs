@@ -532,7 +532,9 @@ class HDStatusBar:DoomStatusBar{
 				cweapon.slotnumber == 5 ||
 				cweapon.slotnumber == 6 ||
 				cweapon.slotnumber == 7 ||
-				cweapon.slotnumber == 8
+				cweapon.slotnumber == 8 ||
+				cweapon.slotnumber == 9 ||
+				cweapon.slotnumber == 0
 			);
 			let whitelist = cvar.getcvar("hh_overwritewhitelist",cplayer).getbool();
 			if (whitelist){

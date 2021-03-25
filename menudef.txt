@@ -6,9 +6,10 @@ OptionMenu "HHOptions"{
 	StaticText " "
 	StaticText " "
 
-	StaticText "By default, any weapon in slot 1-8 are excluded.", "white"
+	StaticText "By default, any weapon in slot 0-9 are excluded.", "white"
 	StaticText "If you want to overwrite it, go ahead.", "white"
-	StaticText "Note: Use loadout codes for overwriting.", "cyan"
+	StaticText "Note: Use loadout codes and don't leave any spaces,", "cyan"
+	StaticText "because I suck at programming.", "cyan"
 
 	Option "Overwrite Whitelist", "hh_overwritewhitelist", "OnOff"
 	TextField "Whitelist (Overwrite)", "hh_whitelist", "hh_overwritewhitelist"
