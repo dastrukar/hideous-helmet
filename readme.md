@@ -10,8 +10,8 @@ What does it do?
 * *Note: Most of the HUD does not show up without the helmet.*
 
 Loadout codes:
-* hud helmet (spare) `hdh`
-* hud helmet `hhw`
+* `hdh` hud helmet (spare)
+* `hhw` hud helmet
 
 Spawns at any armour and marine corpse. *(at least it should)*
 
