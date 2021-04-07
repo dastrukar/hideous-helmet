@@ -13,9 +13,8 @@ extend class HDPlayerPawn{
 		int which,
 		bool remove=true
 	){
-		class<inventory> invclasses[6];
+		class<inventory> invclasses[5];
 		invclasses[STRIP_ARMOUR]="HDArmourWorn";
-        invclasses[STRIP_HELMET]="HHelmetWorn";
 		invclasses[STRIP_RADSUIT]="WornRadsuit";
 		invclasses[STRIP_BACKPACK]="HDBackpack";
 		invclasses[STRIP_JETPACK]="HDJetpack";
@@ -29,7 +28,8 @@ extend class HDPlayerPawn{
 		inventory preventory=null;
 		for(int i=invclasses.size()-1;i>which;i--){
 			if(caller.findinventory(invclasses[i],false)){
-				preventory=caller.findinventory(invclasses[i],true);
+				//preventory=caller.findinventory(invclasses[i],true);
+				preventory=caller.findinventory(invclasses[i],false);
 				if(
 					hdweapon(preventory)
 					&&!hdweapon(preventory).isbeingworn()
@@ -51,11 +51,10 @@ extend class HDPlayerPawn{
 }
 enum StripArmourLevels{
 	STRIP_ARMOUR=0,
-	STRIP_HELMET=1,
-	STRIP_RADSUIT=2,
-	STRIP_BACKPACK=3,
-	STRIP_JETPACK=4,
-	STRIP_BFG=5,
+	STRIP_RADSUIT=1,
+	STRIP_BACKPACK=2,
+	STRIP_JETPACK=3,
+	STRIP_BFG=4,
 }
 
 
