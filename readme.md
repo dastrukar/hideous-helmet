@@ -1,5 +1,5 @@
 # Hideous Helmet
-> An addon for [Hideous Destructor](https://codeberg.org/mc776/hideousdestructor). Adds a helmet that shows the HUD.
+> An addon for [Hideous Destructor](https://codeberg.org/mc776/hideousdestructor) [*(Forum link)*](https://forum.zdoom.org/viewtopic.php?f=43&t=12973). Adds a helmet that shows the HUD.
 
 ## What?
 Hideous Helmet adds a new "armour" piece called `HUD Helmet`.
@@ -27,7 +27,7 @@ And here we are.
 ## Is this compatible with other addons?
 Probably not.
 
-Though, it's up to you to try and see.
+Though, it's up to you to try and see. *(if none of the overwriting stuff breaks anything)*
 
 
 ## Are there any releases?
