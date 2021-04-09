@@ -73,6 +73,14 @@ class HDStatusBar:DoomStatusBar{
 	transient cvar hd_setweapondefault;
 	transient cvar hud_aspectscale;
 
+	transient cvar hh_facecam;
+	transient cvar hh_hideammo;
+	transient cvar hh_hidearmour;
+	transient cvar hh_hideinv;
+	transient cvar hh_hideweapons;
+	transient cvar hh_hidestatus;
+	transient cvar hh_hidecompass;
+
 	override void Tick(){
 		if(!hd_mugshot){
 			hd_mugshot=cvar.getcvar("hd_mugshot",cplayer);
@@ -85,6 +93,14 @@ class HDStatusBar:DoomStatusBar{
 			hd_weapondefaults=cvar.getcvar("hd_weapondefaults",cplayer); //TEMPORARY - TO DELETE LATER
 			hd_setweapondefault=cvar.getcvar("hd_setweapondefault",cplayer);
 			hud_aspectscale=cvar.getcvar("hud_aspectscale",cplayer);
+
+			hh_facecam=cvar.getcvar("hh_bigbrotheriswatchingyou", cplayer);
+			hh_hideammo=cvar.getcvar("hh_hideammo", cplayer);
+			hh_hidearmour=cvar.getcvar("hh_hidearmour", cplayer);
+			hh_hideinv=cvar.getcvar("hh_hideinv", cplayer);
+			hh_hideweapons=cvar.getcvar("hh_hideweapons", cplayer);
+			hh_hidestatus=cvar.getcvar("hh_hidestatus", cplayer);
+			hh_hidecompass=cvar.getcvar("hh_hidecompass", cplayer);
 		}
 		super.tick();
 		hpl=hdplayerpawn(cplayer.mo);
@@ -140,7 +156,7 @@ class HDStatusBar:DoomStatusBar{
 	}
 	override void Draw(int state,double TicFrac){
 		hpl=hdplayerpawn(cplayer.mo);
-		let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
+		let helmet=HDArmourWorn(hpl.findinventory("HHelmetWorn"));
 		if(
 			!cplayer
 			||!hpl
@@ -186,6 +202,9 @@ class HDStatusBar:DoomStatusBar{
 		SetSize(0,480,300);
 		BeginHUD();
 
+		HDArmourWorn helmet;
+		if(hpl) helmet = HDArmourWorn(hpl.findinventory("HHelmetWorn"));
+
 		//KEYS!
 		if(hpl.countinv("BlueCard"))drawimage("BKEYB0",(10,24),DI_TOPLEFT);
 		if(hpl.countinv("YellowCard"))drawimage("YKEYB0",(10,44),DI_TOPLEFT);
@@ -202,10 +221,12 @@ class HDStatusBar:DoomStatusBar{
 		);
 
 		//mugshot
+		if(helmet || !hh_facecam.getbool())
 		DrawTexture(GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(6,-14),DI_BOTTOMLEFT,alpha:blurred?0.2:1.);
 
 		//heartbeat/playercolour tracker
-		if(hpl && hpl.beatmax){
+		if(hpl && hpl.beatmax)
+		if(helmet||!hh_hidestatus.getbool()) {
 			float cpb=hpl.beatcount*1./hpl.beatmax;
 			float ysc=-(4+hpl.bloodpressure*0.05);
 			if(!hud_aspectscale.getbool())ysc*=1.2;
@@ -221,7 +242,7 @@ class HDStatusBar:DoomStatusBar{
 			pnewsmallfont,FormatNumber(CPlayer.mo.health),
 			(34,-24),DI_BOTTOMLEFT|DI_TEXT_ALIGN_CENTER,
 			cplayer.mo.health>70?Font.CR_OLIVE:(cplayer.mo.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
-		);else DrawHealthTicker((40,-24),DI_BOTTOMLEFT);
+		);else if(helmet||!hh_hidestatus.getbool()) DrawHealthTicker((40,-24),DI_BOTTOMLEFT);
 
 		//armour
 		DrawArmour((4,86),DI_TOPLEFT);
@@ -239,12 +260,12 @@ class HDStatusBar:DoomStatusBar{
 		}
 
 		//guns
-		drawselectedweapon(-80,-60,DI_BOTTOMRIGHT);
+		if(helmet||!hh_hideammo.getbool()) drawselectedweapon(-80,-60,DI_BOTTOMRIGHT);
 
 		drawammocounters(-18);
 		drawweaponstash(true,-48);
 
-		drawmypos(10);
+		if(helmet||!hh_hidecompass.getbool()) drawmypos(10);
 	}
 
 	void DrawMyPos(int downpos=(STB_COMPRAD<<2)){
@@ -266,7 +287,7 @@ class HDStatusBar:DoomStatusBar{
 		);
 	}
 	void DrawFullScreenStuff(){
-		if (cplayer.mo.findinventory("HHelmetWorn"))
+		if (hpl.findinventory("HHelmetWorn") || !hh_facecam.getbool())
 		DrawTexture(
 			GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(0,-14),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM,
@@ -486,7 +507,7 @@ class HDStatusBar:DoomStatusBar{
 			pnewsmallfont,FormatNumber(hpl.health),
 			(0,mxht),DI_TEXT_ALIGN_CENTER|DI_SCREEN_CENTER_BOTTOM,
 			hpl.health>70?Font.CR_OLIVE:(hpl.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
-		);else if(helmet) DrawHealthTicker();
+		);else if(helmet || !hh_hidestatus.getbool()) DrawHealthTicker();
 
 
 		//frags
@@ -498,7 +519,8 @@ class HDStatusBar:DoomStatusBar{
 
 
 		//heartbeat/playercolour tracker
-		if(hpl.beatmax && helmet){
+		if(hpl.beatmax)
+		if(helmet || !hh_hidestatus.getbool()){
 			float cpb=hpl.beatcount*1./hpl.beatmax;
 			float ysc=-(3+hpl.bloodpressure*0.05);
 			if(!hud_aspectscale.getbool())ysc*=1.2;
@@ -509,7 +531,6 @@ class HDStatusBar:DoomStatusBar{
 		}
 
 		//armour
-		if(helmet)
 		DrawArmour(
 			usemughud?((hudlevel==1?-85:-55),-4):(0,-mIndexFont.mFont.GetHeight()*2),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM
@@ -537,7 +558,7 @@ class HDStatusBar:DoomStatusBar{
 				cweapon.slotnumber == 0
 			);
 			let whitelist = cvar.getcvar("hh_overwritewhitelist",cplayer).getbool();
-			if (whitelist){
+			if (whitelist&&hh_hideammo.getbool()){
 				bool is_listed;
 				let list_text = cvar.getcvar("hh_whitelist",cplayer).getstring();
 				array<string> wlist;wlist.clear();
@@ -551,7 +572,7 @@ class HDStatusBar:DoomStatusBar{
 				}
 				if(is_listed)drawweaponstatus(cweapon);
 			}
-			else if(helmet||!is_gun)drawweaponstatus(cweapon);
+			else if(helmet||!hh_hideammo.getbool())drawweaponstatus(cweapon);
 		}
 
 		//weapon sprite
@@ -564,11 +585,11 @@ class HDStatusBar:DoomStatusBar{
 
 		//full hud consequences
 		if(hudlevel==2){
-			if(helmet) drawweaponstash();
-			if(helmet) drawammocounters(mxht);
+			if(helmet||!hh_hideweapons.getbool()) drawweaponstash();
+			if(helmet||!hh_hideinv.getbool()) drawammocounters(mxht);
 
 			//encumbrance
-			if(hpl.enc&&helmet){
+			if(hpl.enc){
 				double pocketenc=hpl.pocketenc;
 				drawstring(
 					pnewsmallfont,formatnumber(int(hpl.enc)),
@@ -608,7 +629,7 @@ class HDStatusBar:DoomStatusBar{
 			int wephelpheight=NewSmallFont.GetHeight()*5;
 
 			//compass
-			if(helmet){
+			if(helmet||!hh_hidecompass.getbool()){
 				int STB_COMPRAD=12;vector2 compos=(-STB_COMPRAD,STB_COMPRAD)*2;
 				double compangle=hpl.angle;
 
@@ -787,6 +808,7 @@ class HDStatusBar:DoomStatusBar{
 	}
 	void DrawArmour(vector2 armourcoords,int flags){
 		let armour=HDArmourWorn(cplayer.mo.findinventory("HDArmourWorn"));
+		let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
 		if(armour){
 			string armoursprite="ARMSA0";
 			string armourback="ARMER0";
@@ -794,12 +816,14 @@ class HDStatusBar:DoomStatusBar{
 				armoursprite="ARMCA0";
 				armourback="ARMER1";
 			}
+			if(helmet || !hh_hidearmour.getbool())
 			drawbar(
 				armoursprite,armourback,
 				armour.durability,armour.mega?HDCONST_BATTLEARMOUR:HDCONST_GARRISONARMOUR,
 				armourcoords,-1,SHADER_VERT,
 				flags
 			);
+			if(helmet)
 			drawstring(
 				pnewsmallfont,FormatNumber(armour.durability),
 				armourcoords+(10,-7),flags|DI_ITEM_CENTER|DI_TEXT_ALIGN_RIGHT,
