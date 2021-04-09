@@ -5,9 +5,9 @@
 Hideous Helmet adds a new "armour" piece called `HUD Helmet`.
 
 What does it do?
-* Shows the HUD when you wear it. Clue's in the name.
-* Does not provide defense.
-* *Note: Most of the HUD does not show up without the helmet.*
+* Shows the all of the HUD when you wear it.
+* Provides a bit of defense.
+* *Note: You may toggle which part of the HUD gets hidden when not wearing the helmet.*
 
 Loadout codes:
 * `hdh` hud helmet (spare)
