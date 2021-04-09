@@ -129,6 +129,7 @@ extend class HDPlayerPawn{
 			){
 				damage/=1.2;
 				let dmg = max(0, damage>>random(1,5));
+				if(hd_debug)
 				A_Log(string.format("helmet took %d %s damage",
 					dmg,
 					mod
