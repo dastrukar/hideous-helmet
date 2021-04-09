@@ -1,2 +1,11 @@
 user bool hh_overwritewhitelist=false;
 user string hh_whitelist="bak,drp,hrp";
+
+user bool hh_bigbrotheriswatchingyou=false;
+user bool hh_hideammo=false;
+user bool hh_hidearmour=false;
+user bool hh_hideinv=false;
+user bool hh_hideweapons=false;
+
+user bool hh_hidestatus=true;
+user bool hh_hidecompass=true;
