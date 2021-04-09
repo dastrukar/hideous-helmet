@@ -60,8 +60,81 @@ extend class HDPlayerPawn{
 		// "I don't really know how to get this working with the damage system here,
 		//  so I'll just do it the really dumb and simple way."
 		let helmet=HDArmourWorn(findinventory("HHelmetWorn"));
-		if (checkinventory("HHelmetWorn", 1)) {
-			helmet.durability -= damage / 5;
+		if (helmet) {
+			if(
+				mod=="teeth"||
+				mod=="claws"||
+				mod=="bite"||
+				mod=="scratch"||
+				mod=="nails"||
+				mod=="natural"
+			){
+				damage/=1.2;
+				let dmg = max(0, damage>>random(1,5));
+				if(hd_debug)
+				A_Log(string.format("helmet took %d %s damage",
+					dmg,
+					mod
+				));
+				helmet.durability -= dmg;
+			}else if(
+				mod=="thermal"||
+				mod=="fire"||
+				mod=="ice"||
+				mod=="heat"||
+				mod=="cold"||
+				mod=="plasma"||
+				mod=="burning"
+			){
+				if(random(0,5)){ 
+				damage-=10;
+				let dmg = max(0, damage>>random(1,5));
+				if(hd_debug)
+				A_Log(string.format("helmet took %d %s damage",
+					dmg,
+					mod
+				));
+				helmet.durability -= dmg;
+				}
+			}else if(
+				mod=="cutting"||
+				mod=="slashing"||
+				mod=="piercing"
+			){
+				let dmg = max(0, damage>>random(1,5));
+				if(hd_debug)
+				A_Log(string.format("helmet took %d %s damage",
+					dmg,
+					mod
+				));
+
+				helmet.durability -= dmg;
+			}else if(
+				mod!="bleedout"&&
+				mod!="internal"&&
+				mod!="invisiblebleedout"&&
+				mod!="maxhpdrain"&&
+				mod!="electro"&&
+				mod!="electrical"&&
+				mod!="lightning"&&
+				mod!="bolt"&&
+				mod!="balefire"&&
+				mod!="hellfire"&&
+				mod!="unholy"&&
+				mod!="staples"&&
+				mod!="falling"&&
+				mod!="drowning"&&
+				mod!="slime"&&
+				mod!="Melee"
+			){
+				damage/=1.2;
+				let dmg = max(0, damage>>random(1,5));
+				A_Log(string.format("helmet took %d %s damage",
+					dmg,
+					mod
+				));
+				helmet.durability -= dmg;
+			}
 			if (helmet.durability < 1) { HDArmour.ArmourChangeEffect(self); helmet.destroy(); }
 		}
 		//it just goes through one of the gaping holes in your armour
