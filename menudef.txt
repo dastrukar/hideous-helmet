@@ -2,17 +2,18 @@ OptionMenu "HHOptions"{
 	Title "Hideous Helmet Options"
 
 	StaticText "Controls", "white"
-	Control "Strip helmet only", "hh_strip"
+	Control "Strip helmet", "hh_strip"
 	StaticText " "
 	StaticText " "
 
-	StaticText "By default, any weapon in slot 0-9 are excluded.", "white"
-	StaticText "If you want to overwrite it, go ahead.", "white"
-	StaticText "Note: Use loadout codes and don't leave any spaces,", "cyan"
-	StaticText "because I suck at programming.", "cyan"
-
-	Option "Overwrite Whitelist", "hh_overwritewhitelist", "OnOff"
-	TextField "Whitelist (Overwrite)", "hh_whitelist", "hh_overwritewhitelist"
+	StaticText "When the helmet is off...", "white"
+	Option "Hide mugshot", "hh_bigbrotheriswatchingyou", "OnOff"
+	Option "Hide Weapon status", "hh_hideammo", "OnOff"
+	Option "Hide armour", "hh_hidearmour", "OnOff"
+	Option "Hide status", "hh_hidestatus", "OnOff"
+	Option "Hide compass", "hh_hidecompass", "OnOff"
+	StaticText " "
+	StaticText " "
 }
 
 AddOptionMenu "OptionsMenu"{
