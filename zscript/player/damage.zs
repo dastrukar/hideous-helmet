@@ -2,6 +2,105 @@
 // All damage that affects the player goes here.
 // ------------------------------------------------------------
 extend class HDPlayerPawn{
+	int DoHelmetStuff(
+		int damage,
+		name mod,
+		int flags
+	){
+		// Moved to a function for easier updating (sort of)
+
+		// Helmet stuff
+		// "I don't really know how to get this working with the damage system here,
+		//  so I'll just do it the really dumb and simple way."
+		int alv=(flags&DMG_NO_ARMOR||flags&DMG_FORCED)?0:self.armourlevel;
+		let helmet=HDArmourWorn(findinventory("HHelmetWorn"));
+		if (helmet) {
+			bool damagetaken;
+			let dmgdiff = helmet.durability;
+
+			float h_defense = 1.3;
+			float durability_dmg = max(0, damage>>random(3,5));
+
+			// I don't think I need this for now.
+			/*if(
+				mod=="teeth"||
+				mod=="claws"||
+				mod=="bite"||
+				mod=="scratch"||
+				mod=="nails"||
+				mod=="natural"
+			){
+				damage/=h_defense;
+				helmet.durability -= durability_dmg;
+				damagetaken = true;
+			}else*/ if(
+				mod=="thermal"||
+				mod=="fire"||
+				mod=="ice"||
+				mod=="heat"||
+				mod=="cold"||
+				mod=="plasma"||
+				mod=="burning"
+			){
+				// ngl, i don't actually know how this works.
+				// but i'm including it anyways, just in case
+				if(random(0,5)){
+					damage-=10;
+					helmet.durability -= durability_dmg;
+					damagetaken = true;
+				}
+			}else if(
+				mod=="cutting"||
+				mod=="slashing"||
+				mod=="piercing"
+			){
+				// Stuff that armour shouldn't block, but also take damage from
+				helmet.durability -= durability_dmg;
+				damagetaken = true;
+			}else if(
+				mod!="bleedout"&&
+				mod!="internal"&&
+				mod!="invisiblebleedout"&&
+				mod!="maxhpdrain"&&
+				mod!="electro"&&
+				mod!="electrical"&&
+				mod!="lightning"&&
+				mod!="bolt"&&
+				mod!="balefire"&&
+				mod!="hellfire"&&
+				mod!="unholy"&&
+				mod!="staples"&&
+				mod!="falling"&&
+				mod!="drowning"&&
+				mod!="slime"&&
+				mod!="bashing"&&
+				mod!="Melee"
+			){
+				// Basically any other damage type that armour should block
+				//damage/=h_defense;
+				helmet.durability -= durability_dmg;
+				damagetaken = true;
+			}
+			//if (damagetaken && hd_debug) { DoHelmetDebug(dmgdiff-helmet.durability, mod); }
+			if (helmet.durability < 1) { HDArmour.ArmourChangeEffect(self); helmet.destroy(); }
+		}
+		return int(damage);
+	}
+
+	void DoHelmetDebug(
+		int actualdamage,
+		name mod
+	){
+		A_Log(string.format("damage before: %d", damage));
+		A_Log(string.format(
+			"helmet took %d %s damage",
+			actualdamage,
+			mod
+		));
+		A_Log(string.format("damage %d", damage));
+	}
+
+
 	int inpain;
 	override int DamageMobj(
 		actor inflictor,
@@ -11,6 +110,7 @@ extend class HDPlayerPawn{
 		int flags,
 		double angle
 	){
+		A_Log(string.format("Damage took %d", damage));
 		//"You have to be aware of recursively called code pointers in death states.
 		//It can easily happen that Actor A dies, calling function B in its death state,
 		//which in turn nukes the data which is being checked in DamageMobj."
@@ -52,92 +152,14 @@ extend class HDPlayerPawn{
 
 		damage=HDMagicShield.ShieldDamageCheck(inflictor,source,self,damage,mod,flags);
 
+		// helmet stuff
+		damage=DoHelmetStuff(damage, mod, flags);
+
+		//excess hp
 
 		if(inflictor&&inflictor.bpiercearmor)flags|=DMG_NO_ARMOR;
 		let armr=HDArmourWorn(findinventory("HDArmourWorn"));
 
-		// Helmet stuff
-		// "I don't really know how to get this working with the damage system here,
-		//  so I'll just do it the really dumb and simple way."
-		let helmet=HDArmourWorn(findinventory("HHelmetWorn"));
-		if (helmet) {
-			if(
-				mod=="teeth"||
-				mod=="claws"||
-				mod=="bite"||
-				mod=="scratch"||
-				mod=="nails"||
-				mod=="natural"
-			){
-				damage/=1.2;
-				let dmg = max(0, damage>>random(1,5));
-				if(hd_debug)
-				A_Log(string.format("helmet took %d %s damage",
-					dmg,
-					mod
-				));
-				helmet.durability -= dmg;
-			}else if(
-				mod=="thermal"||
-				mod=="fire"||
-				mod=="ice"||
-				mod=="heat"||
-				mod=="cold"||
-				mod=="plasma"||
-				mod=="burning"
-			){
-				if(random(0,5)){ 
-				damage-=10;
-				let dmg = max(0, damage>>random(1,5));
-				if(hd_debug)
-				A_Log(string.format("helmet took %d %s damage",
-					dmg,
-					mod
-				));
-				helmet.durability -= dmg;
-				}
-			}else if(
-				mod=="cutting"||
-				mod=="slashing"||
-				mod=="piercing"
-			){
-				let dmg = max(0, damage>>random(1,5));
-				if(hd_debug)
-				A_Log(string.format("helmet took %d %s damage",
-					dmg,
-					mod
-				));
-
-				helmet.durability -= dmg;
-			}else if(
-				mod!="bleedout"&&
-				mod!="internal"&&
-				mod!="invisiblebleedout"&&
-				mod!="maxhpdrain"&&
-				mod!="electro"&&
-				mod!="electrical"&&
-				mod!="lightning"&&
-				mod!="bolt"&&
-				mod!="balefire"&&
-				mod!="hellfire"&&
-				mod!="unholy"&&
-				mod!="staples"&&
-				mod!="falling"&&
-				mod!="drowning"&&
-				mod!="slime"&&
-				mod!="Melee"
-			){
-				damage/=1.2;
-				let dmg = max(0, damage>>random(1,5));
-				if(hd_debug)
-				A_Log(string.format("helmet took %d %s damage",
-					dmg,
-					mod
-				));
-				helmet.durability -= dmg;
-			}
-			if (helmet.durability < 1) { HDArmour.ArmourChangeEffect(self); helmet.destroy(); }
-		}
 		//it just goes through one of the gaping holes in your armour
 		if(
 			armr
@@ -245,7 +267,6 @@ extend class HDPlayerPawn{
 			else if(impactangle>80)alv=random(1,alv);
 		}
 
-		//excess hp
 		if(mod=="maxhpdrain"){
 			damage=min(health-1,damage);
 			flags|=DMG_NO_PAIN|DMG_THRUSTLESS;
