@@ -27,9 +27,9 @@ Then, a question came up.
 And here we are.
 
 ## Is this compatible with other addons?
-Probably not.
+It should work fine with other addons. *(if none of the overwriting stuff breaks anything)*
 
-Though, it's up to you to try and see. *(if none of the overwriting stuff breaks anything)*
+Though, it's up to you to try and see.
 
 
 ## Are there any releases?
