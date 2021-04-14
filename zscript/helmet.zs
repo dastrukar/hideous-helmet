@@ -118,7 +118,7 @@ class HHelmet:HDArmour{
 		super.syncamount();
 		for(int i=0;i<amount;i++){
 			if(mags[i]>=1000)mags[i]=max(mags[i],1001);
-			else mags[i]=min(mags[i],HDCONST_GARRISONARMOUR);
+			else mags[i]=min(mags[i],50);
 		}
 		checkmega();
 	}
