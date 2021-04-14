@@ -110,7 +110,6 @@ extend class HDPlayerPawn{
 		int flags,
 		double angle
 	){
-		A_Log(string.format("Damage took %d", damage));
 		//"You have to be aware of recursively called code pointers in death states.
 		//It can easily happen that Actor A dies, calling function B in its death state,
 		//which in turn nukes the data which is being checked in DamageMobj."
