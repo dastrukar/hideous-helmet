@@ -1,5 +1,6 @@
 # Hideous Helmet
 > An addon for [Hideous Destructor](https://codeberg.org/mc776/hideousdestructor) [*(Forum link)*](https://forum.zdoom.org/viewtopic.php?f=43&t=12973). Adds a helmet that shows the HUD.
+>
 > Alternatively known as "HUD Helmet"
 
 ## What?
