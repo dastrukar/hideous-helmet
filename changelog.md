@@ -1,6 +1,11 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 
+16/04/2021
+> who needs to look at ground, when you can look at hud???? (am tired)
+
+* Added a "bleed indicator", with an optional "wounds counter" *(both are toggleable)*
+
 14/04/2021
 > TIL that bullets calculate damage on their own
 
