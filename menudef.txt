@@ -1,3 +1,8 @@
+OptionValue "YN"{
+	0, "No"
+	1, "Yes"
+}
+
 OptionMenu "HHOptions"{
 	Title "Hideous Helmet Options"
 
@@ -7,13 +12,16 @@ OptionMenu "HHOptions"{
 	StaticText " "
 
 	StaticText "When the helmet is off...", "white"
-	Option "Hide mugshot", "hh_bigbrotheriswatchingyou", "OnOff"
-	Option "Hide Weapon status", "hh_hideammo", "OnOff"
-	Option "Hide armour", "hh_hidearmour", "OnOff"
-	Option "Hide status", "hh_hidestatus", "OnOff"
-	Option "Hide compass", "hh_hidecompass", "OnOff"
+	Option "Hide mugshot", "hh_bigbrotheriswatchingyou", "YN"
+	Option "Hide Weapon status", "hh_hideammo", "YN"
+	Option "Hide armour", "hh_hidearmour", "YN"
+	Option "Hide status", "hh_hidestatus", "YN"
+	Option "Hide compass", "hh_hidecompass", "YN"
 	StaticText " "
 	StaticText " "
+	StaticText "When the helmet is on...", "white"
+	Option "Show bleed indicator", "hh_showbleed", "YN"
+	Option "Show wound count", "hh_woundcounter", "YN", "hh_showbleed"
 }
 
 AddOptionMenu "OptionsMenu"{

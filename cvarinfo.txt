@@ -11,3 +11,6 @@ user bool hh_hidestatus=true;
 user bool hh_hidecompass=true;
 
 user bool hh_showoverlay=false;
+
+user bool hh_showbleed=true;
+user bool hh_woundcounter=true;

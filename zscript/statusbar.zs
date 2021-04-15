@@ -81,6 +81,9 @@ class HDStatusBar:DoomStatusBar{
 	transient cvar hh_hidestatus;
 	transient cvar hh_hidecompass;
 
+	transient cvar hh_showbleed;
+	transient cvar hh_woundcounter;
+
 	override void Tick(){
 		if(!hd_mugshot){
 			hd_mugshot=cvar.getcvar("hd_mugshot",cplayer);
@@ -101,6 +104,9 @@ class HDStatusBar:DoomStatusBar{
 			hh_hideweapons=cvar.getcvar("hh_hideweapons", cplayer);
 			hh_hidestatus=cvar.getcvar("hh_hidestatus", cplayer);
 			hh_hidecompass=cvar.getcvar("hh_hidecompass", cplayer);
+
+			hh_showbleed=cvar.getcvar("hh_showbleed", cplayer);
+			hh_woundcounter=cvar.getcvar("hh_woundcounter", cplayer);
 		}
 		super.tick();
 		hpl=hdplayerpawn(cplayer.mo);
@@ -439,6 +445,7 @@ class HDStatusBar:DoomStatusBar{
 		let cp=HDPlayerPawn(CPlayer.mo);
 		if(!cp)return;
 		let helmet = HDArmourWorn(cp.findinventory("HHelmetWorn"));
+		DrawHelmetOverlay((0,0));
 
 		int mxht=-4-mIndexFont.mFont.GetHeight();
 		int mhht=-4-mHUDFont.mFont.getheight();
@@ -541,6 +548,7 @@ class HDStatusBar:DoomStatusBar{
 			usemughud?((hudlevel==1?-85:-55),-18):(0,-mIndexFont.mFont.GetHeight()*2-14),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM
 		);
+		if(helmet)DrawWoundCount((46,-30));
 
 		//weapon readouts!
 		let cweapon = cplayer.readyweapon;
@@ -1031,6 +1039,47 @@ class HDStatusBar:DoomStatusBar{
 				helmetcoords+(10,-7),flags|DI_ITEM_CENTER|DI_TEXT_ALIGN_RIGHT,
 				Font.CR_DARKGRAY,scale:(0.5,0.5)
 			);
+		}
+	}
+
+	void DrawHelmetOverlay(Vector2 overlaycoords){
+		let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
+		if(helmet){
+			string overlaysprite="STBAR";
+			drawimage(
+				overlaysprite,
+				overlaycoords
+			);
+		}
+	}
+
+	void DrawWoundCount(Vector2 coords){
+		if(hh_showbleed.getbool()){
+			int of=0;
+			let wounds=hpl.woundcount;
+			if(wounds){
+				drawimage(
+					"BLUDC0",(coords.x,coords.y+1),
+					DI_SCREEN_CENTER_BOTTOM|DI_ITEM_LEFT_TOP,
+					0.6,
+					scale:(0.5,0.5)
+				);
+				of=clamp(int(wounds*0.2),1,3);
+				if(hpl.flip)of=-of;
+			}
+			drawrect(coords.x+2,coords.y+of,2,6);
+			drawrect(coords.x,coords.y+2+of,6,2);
+
+			if(hh_woundcounter.getbool()){
+				let wcol=wounds<1? Font.CR_WHITE:Font.CR_RED;
+				drawstring(
+					mIndexFont,
+					formatnumber(wounds,3),
+					coords+(8,1),
+					DI_SCREEN_CENTER_BOTTOM|DI_TEXT_ALIGN_LEFT,
+					wcol
+				);
+			}
 		}
 	}
 }
