@@ -5,7 +5,9 @@
 
 ## What?
 Hideous Helmet adds a new "armour" piece called `HUD Helmet`.
+
 Some of the HUD is hidden without the helmet.
+
 *Note: You may toggle which part of the HUD gets hidden when not wearing the helmet.*
 
 ### Info about the helmet
