@@ -87,8 +87,6 @@ class HHelmet:HDMagAmmo{
 	}
 
 	override void actualpickup(actor other,bool silent){
-		other.A_Log(string.format("magsize %d", mags.size()));
-		other.A_Log(string.format("amount: %d", amount));
 		cooldown=0;
 		if(!other)return;
 		int durability=mags[mags.size()-1];
