@@ -1,6 +1,14 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 
+(2)18/04/2021
+> Maybe I should use a proper version scheme
+
+* Fixed helmet not equipping when holding use on pickup.
+* "Hide weapon status" shouldn't hide anything in slot 9 anymore...
+* ...which fixes not being able to see what you have while incapacitated.
+* Added option, "Slot 4 shows weapon status". Only takes effect when "Hide weapon status" is enabled. *(might change this)*
+
 18/04/2021
 > I hate bugs
 
