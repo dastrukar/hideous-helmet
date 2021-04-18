@@ -24,14 +24,12 @@ class HHelmet:HDMagAmmo{
 	}
 
 	override void AddAMag(int addamt){
-		console.printf("AddAMag");
 		if(addamt<0)addamt=50;
 		mags.push(addamt);
 		amount=mags.size();
 	}
 
 	override void MaxCheat(){
-		console.printf("MaxCheat");
 		syncamount();
 		for(int i=0;i<amount;i++){
 			mags[i]=50;
@@ -39,7 +37,6 @@ class HHelmet:HDMagAmmo{
 	}
 
 	action void A_WearArmour(){
-		console.printf("A_WearArmour");
 		bool helptext=!!player&&cvar.getcvar("hd_helptext",player).getbool();
 		invoker.syncamount();
 		int dbl=invoker.mags[invoker.mags.size()-1];
@@ -85,13 +82,11 @@ class HHelmet:HDMagAmmo{
 	}
 
 	override void doeffect(){
-		//console.printf(string.format("magsize %d", mags.size()));
 		if(cooldown>0)cooldown--;
 		if(!amount)destroy();
 	}
 
 	override void actualpickup(actor other,bool silent){
-		console.printf("actualpickup");
 		other.A_Log(string.format("magsize %d", mags.size()));
 		other.A_Log(string.format("amount: %d", amount));
 		cooldown=0;
@@ -112,15 +107,12 @@ class HHelmet:HDMagAmmo{
 		if(!trypickup(other))return;
 		aaa=HHelmet(other.findinventory("HHelmet"));
 		aaa.syncamount();
-		//aaa.mags.insert(0,durability);
-		//aaa.mags.pop();
 		other.A_StartSound(pickupsound,CHAN_AUTO);
 		other.A_Log(string.format("\cg%s",pickupmessage()),true);
 	}
 	override void beginplay(){
 		cooldown=0;
-		//mags.push(50);
-		//super.beginplay();
+		super.beginplay();
 	}
 	override void consolidate(){}
 	override double getbulk(){
@@ -135,7 +127,6 @@ class HHelmet:HDMagAmmo{
 		if(amount<1){destroy();return;}
 		super.syncamount();
 		icon=texman.checkfortexture("HELMA0",TexMan.Type_MiscPatch);
-		console.printf(string.format("amount: %d", amount));
 		for(int i=0;i<amount;i++){
 			mags[i]=min(mags[i],50);
 		}
