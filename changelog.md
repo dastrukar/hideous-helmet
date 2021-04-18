@@ -1,7 +1,7 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 
-(2)18/04/2021
+18/04/2021 [2]
 > Maybe I should use a proper version scheme
 
 * Fixed helmet not equipping when holding use on pickup.
@@ -9,7 +9,7 @@ Date format: DD/MM/YYYY
 * ...which fixes not being able to see what you have while incapacitated.
 * Added option, "Slot 4 shows weapon status". Only takes effect when "Hide weapon status" is enabled. *(might change this)*
 
-18/04/2021
+18/04/2021 [1]
 > I hate bugs
 
 * Fixed the backpack giving more than 1 helmet when you have 0 helmets in your inventory...
