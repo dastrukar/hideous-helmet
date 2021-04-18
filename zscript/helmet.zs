@@ -1,22 +1,45 @@
 // This code is very hacky, might be a bit messy -dastrukar
 // Original code taken from Hideous Destructor
 
-class HHelmet:HDArmour{
+class HHelmet:HDMagAmmo{
 	default{
+		+inventory.invbar
+		+hdpickup.cheatnogive
+		+hdpickup.notinpockets
+		+inventory.isarmor
+		inventory.amount 1;
 		hdmagammo.maxperunit 50;
 		hdmagammo.magbulk 100;
-		inventory.amount 1;
+		tag "helmet";
 		inventory.icon "HELMA0";
 		inventory.pickupmessage "Picked up the HUD helmet.";
-		tag "helmet";
+	}
+	int cooldown;
+
+	override bool isused(){return true;}
+	override int getsbarnum(int flags){
+		int ms=mags.size()-1;
+		if(ms<0)return -1000000;
+		return mags[ms]%1000;
 	}
 
 	override void AddAMag(int addamt){
+		console.printf("AddAMag");
 		if(addamt<0)addamt=50;
 		mags.push(addamt);
 		amount=mags.size();
 	}
+
+	override void MaxCheat(){
+		console.printf("MaxCheat");
+		syncamount();
+		for(int i=0;i<amount;i++){
+			mags[i]=50;
+		}
+	}
+
 	action void A_WearArmour(){
+		console.printf("A_WearArmour");
 		bool helptext=!!player&&cvar.getcvar("hd_helptext",player).getbool();
 		invoker.syncamount();
 		int dbl=invoker.mags[invoker.mags.size()-1];
@@ -41,7 +64,7 @@ class HHelmet:HDArmour{
 		if(self.findinventory("HHelmetWorn"))return;
 
 		//and finally put on the actual armour
-		HHelmet.ArmourChangeEffect(self);
+		HDArmour.ArmourChangeEffect(self);
 		let worn=HHelmetWorn(GiveInventoryType("HHelmetWorn"));
 		worn.durability=dbl;
 		invoker.amount--;
@@ -55,12 +78,22 @@ class HHelmet:HDArmour{
 			else if(qual<0.6)A_Log(blah.." It's better than nothing.",true);
 			else if(qual<0.75)A_Log(blah.." This helmet has definitely seen better days.",true);
 			else if(qual<0.95)A_Log(blah.." Seems to be fine.",true);
+			else A_Log(blah,true);
 		}
 
 		invoker.syncamount();
 	}
 
+	override void doeffect(){
+		//console.printf(string.format("magsize %d", mags.size()));
+		if(cooldown>0)cooldown--;
+		if(!amount)destroy();
+	}
+
 	override void actualpickup(actor other,bool silent){
+		console.printf("actualpickup");
+		other.A_Log(string.format("magsize %d", mags.size()));
+		other.A_Log(string.format("amount: %d", amount));
 		cooldown=0;
 		if(!other)return;
 		int durability=mags[mags.size()-1];
@@ -68,45 +101,30 @@ class HHelmet:HDArmour{
 		//put on the armour right away
 		if(
 			other.player&&other.player.cmd.buttons&BT_USE
-			&&!other.findinventory("HHelmetWorn")
-			//&&HDPlayerPawn.CheckStrip(other,-1,false)
+			&&!aaa
 		){
-			HHelmet.ArmourChangeEffect(other);
+			HDArmour.ArmourChangeEffect(other);
 			let worn=HDArmourWorn(other.GiveInventoryType("HHelmetWorn"));
 			worn.durability=durability;
 			destroy();
 			return;
 		}
-		//one megaarmour = 2 regular armour
-		if(aaa){
-			double totalbulk=(durability>=1000)?2.:1.;
-			for(int i=0;i<aaa.mags.size();i++){
-				totalbulk+=(aaa.mags[i]>=1000)?2.:1.;
-			}
-			if(totalbulk*hdmath.getencumbrancemult()>3.)return;
-		}
 		if(!trypickup(other))return;
 		aaa=HHelmet(other.findinventory("HHelmet"));
 		aaa.syncamount();
-		aaa.mags.insert(0,durability);
-		aaa.mags.pop();
-		aaa.checkmega();
+		//aaa.mags.insert(0,durability);
+		//aaa.mags.pop();
 		other.A_StartSound(pickupsound,CHAN_AUTO);
 		other.A_Log(string.format("\cg%s",pickupmessage()),true);
 	}
-	void checkmega(){
-		//mega=mags.size()&&mags[mags.size()-1]>1000;
-		icon=texman.checkfortexture("HELMA0",TexMan.Type_MiscPatch);
-		//return mega;
-	}
 	override void beginplay(){
 		cooldown=0;
-		mags.push(50);
-		super.beginplay();
+		//mags.push(50);
+		//super.beginplay();
 	}
+	override void consolidate(){}
 	override double getbulk(){
 		syncamount();
-		checkmega();
 		double blk=0;
 		for(int i=0;i<amount;i++){
 			blk+=100;
@@ -116,16 +134,11 @@ class HHelmet:HDArmour{
 	override void syncamount(){
 		if(amount<1){destroy();return;}
 		super.syncamount();
+		icon=texman.checkfortexture("HELMA0",TexMan.Type_MiscPatch);
+		console.printf(string.format("amount: %d", amount));
 		for(int i=0;i<amount;i++){
-			if(mags[i]>=1000)mags[i]=max(mags[i],1001);
-			else mags[i]=min(mags[i],50);
+			mags[i]=min(mags[i],50);
 		}
-		checkmega();
-	}
-	override inventory createtossable(int amt){
-		let sct=super.createtossable(amt);
-		if(self)checkmega();
-		return sct;
 	}
 	states{
 	spawn:
@@ -169,7 +182,7 @@ class HHelmetWorn:HDArmourWorn {
 		}
 
 		//finally actually take off the armour
-		HHelmet.ArmourChangeEffect(owner);
+		HDArmour.ArmourChangeEffect(owner);
 		let tossed=HHelmet(owner.spawn("HHelmet",
 			(owner.pos.x,owner.pos.y,owner.pos.z+owner.height-20),
 			ALLOW_REPLACE
