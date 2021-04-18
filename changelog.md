@@ -1,6 +1,13 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 
+18/04/2021
+> I hate bugs
+
+* Fixed the backpack giving more than 1 helmet when you have 0 helmets in your inventory...
+* ...which also fixes `summon hhelmet` spawning more than 1 helmet
+* Wearing the helmet will now always display a message. *(unless hd_helptext is false)*
+
 16/04/2021
 > who needs to look at ground, when you can look at hud???? (am tired)
 
