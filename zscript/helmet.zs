@@ -90,11 +90,10 @@ class HHelmet:HDMagAmmo{
 		cooldown=0;
 		if(!other)return;
 		int durability=mags[mags.size()-1];
-		HHelmet aaa=HHelmet(other.findinventory("HHelmet"));
 		//put on the armour right away
 		if(
 			other.player&&other.player.cmd.buttons&BT_USE
-			&&!aaa
+			&&!other.findinventory("HHelmetWorn")
 		){
 			HDArmour.ArmourChangeEffect(other);
 			let worn=HDArmourWorn(other.GiveInventoryType("HHelmetWorn"));
@@ -103,7 +102,7 @@ class HHelmet:HDMagAmmo{
 			return;
 		}
 		if(!trypickup(other))return;
-		aaa=HHelmet(other.findinventory("HHelmet"));
+		HHelmet aaa=HHelmet(other.findinventory("HHelmet"));
 		aaa.syncamount();
 		other.A_StartSound(pickupsound,CHAN_AUTO);
 		other.A_Log(string.format("\cg%s",pickupmessage()),true);
