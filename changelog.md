@@ -5,7 +5,8 @@ Date format: DD/MM/YYYY
 > I hate bugs
 
 * Fixed the backpack giving more than 1 helmet when you have 0 helmets in your inventory...
-* ...which also fixes `summon hhelmet` spawning more than 1 helmet
+* ...which also fixes `summon hhelmet` spawning more than 1 helmet...
+* ...and also fixes the bulk of the helmet being wrong while in the backpack.
 * Wearing the helmet will now always display a message. *(unless hd_helptext is false)*
 
 16/04/2021
