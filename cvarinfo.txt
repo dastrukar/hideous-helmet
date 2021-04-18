@@ -10,7 +10,7 @@ user bool hh_hideweapons=false;
 user bool hh_hidestatus=true;
 user bool hh_hidecompass=true;
 
-user bool hh_slot4special=false;
+user bool hh_slot4special=true;
 user bool hh_showoverlay=false;
 
 user bool hh_showbleed=true;
