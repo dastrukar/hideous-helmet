@@ -144,8 +144,8 @@ class HHelmetWorn:HDArmourWorn {
 	}
 
 	override void beginplay(){
-		durability=50;
 		super.beginplay();
+		durability=50;
 	}
 	override void postbeginplay(){
 		super.postbeginplay();
