@@ -64,14 +64,17 @@ class HHelmetSpawner:EventHandler {
 
 		Actor helm;
 		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z+5);
-		if (T.GetClassName() == "HideousShotgunGuy") if (HideousShotgunGuy(T).wep == -1) {
+		if (T.GetClassName() == "HideousShotgunGuy") {
 			if (
+				HideousShotgunGuy(T).wep == -1 &&
 				!T.findinventory("HasDroppedHelmetBefore", false) &&
 				frandom(0,1) >= hh_jackbootspawn
-			) helm = Actor.Spawn("BrokenDummyHelmet", t_pos);
+			) {
+				helm = Actor.Spawn("BrokenDummyHelmet", t_pos);
 
-			// Make sure the jackboot can't drop another helmet again
-			T.setinventory("HasDroppedHelmetBefore", 1);
+				// Make sure the jackboot can't drop another helmet again
+				T.setinventory("HasDroppedHelmetBefore", 1);
+			}
 		}
 
 		if (helm) {
