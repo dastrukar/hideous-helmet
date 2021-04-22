@@ -1,4 +1,7 @@
-// Code borrowed from Ugly as Sin by Caligari87.
+// Some code borrowed from Ugly as Sin by Caligari87.
+
+class HasDroppedHelmetBefore:InventoryFlag{
+}
 
 class DummyHelmet:IdleDummy {
 	override void postbeginplay() {
@@ -22,19 +25,44 @@ class BrokenDummyHelmet:IdleDummy {
 	}
 }
 
-class HHelmetSpawner:EventHandler{
+class HHelmetSpawner:EventHandler {
 	override void WorldThingSpawned(WorldEvent e) {
 		if(level.maptime > 1) return;
 		if(!e.Thing) return;
 		let T = e.Thing;
+
+		float hh_armourspawn = 1 - cvar.getcvar("hh_armourspawn").getfloat();
+		float hh_corpsespawn = 1 - cvar.getcvar("hh_corpsespawn").getfloat();
 
 		bool is_corpse = (
 			T.GetClassName() == "DeadRifleman" ||
 			T.GetClassName() == "ReallyDeadRifleman"
 		);
 
-		if((T.GetClassName() == "HDArmour" || is_corpse) && randompick(0,0,1) == 1) {
-			let helm = Actor.Spawn(is_corpse?"BrokenDummyHelmet":"DummyHelmet", (T.pos.x, T.pos.y, T.pos.z+5));
+		Actor helm;
+		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z+5);
+		if (T.GetClassName() == "HDArmour" && frandom(0,1) >= hh_armourspawn) helm = Actor.Spawn("DummyHelmet", t_pos);
+		else if (is_corpse && frandom(0,1) >= hh_corpsespawn) helm = Actor.Spawn("BrokenDummyHelmet", t_pos);
+
+		if (helm) {
+			helm.vel.x += frandom(-2,2);
+			helm.vel.y += frandom(-2,2);
+			helm.vel.z += frandom(1,3);
+		}
+	}
+
+	// Jackboots have helmets, drop em
+	override void WorldThingDied(WorldEvent e) {
+		if (!e.Thing) return;
+		let T = e.Thing;
+
+		float hh_jackbootspawn = 1 - cvar.getcvar("hh_jackbootspawn").getfloat();
+
+		Actor helm;
+		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z+5);
+		if (T.GetClassName() == "UndeadJackbootman" && frandom(0,1) >= randomnum) helm = Actor.Spawn("BrokenDummyHelmet", t_pos);
+
+		if (helm) {
 			helm.vel.x += frandom(-2,2);
 			helm.vel.y += frandom(-2,2);
 			helm.vel.z += frandom(1,3);
