@@ -64,7 +64,7 @@ class HHelmetSpawner:EventHandler {
 
 		Actor helm;
 		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z+5);
-		if (T.GetClassName() == "UndeadJackbootman") {
+		if (T.GetClassName() == "HideousShotgunGuy") if (HideousShotgunGuy(T).wep == -1) {
 			if (
 				!T.findinventory("HasDroppedHelmetBefore", false) &&
 				frandom(0,1) >= hh_jackbootspawn
