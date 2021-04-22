@@ -70,11 +70,11 @@ class HHelmet:HDMagAmmo{
 		if(helptext){
 			string blah=string.format("You put on the helmet.");
 			double qual=double(worn.durability)/50;
-			if(qual<0.1)A_Log(blah.." Just don't get hit.",true);
+			if(qual<0.2)A_Log(blah.." Just don't get hit.",true);
 			else if(qual<0.3)A_Log(blah.." Does this helmet even work?",true);
-			else if(qual<0.6)A_Log(blah.." It's better than nothing.",true);
-			else if(qual<0.75)A_Log(blah.." This helmet has definitely seen better days.",true);
-			else if(qual<0.95)A_Log(blah.." Seems to be fine.",true);
+			else if(qual<0.5)A_Log(blah.." It's better than nothing.",true);
+			else if(qual<0.7)A_Log(blah.." This helmet has definitely seen better days.",true);
+			else if(qual<0.9)A_Log(blah.." Seems to be fine.",true);
 			else A_Log(blah,true);
 		}
 
