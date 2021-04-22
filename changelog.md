@@ -9,7 +9,7 @@ Date format: DD/MM/YYYY
 * Armour now spawns helmets more frequently. *(50% chance by default)*
 * Helmet jackboots now drop helmets.
 
-18/04/2021[2]
+18/04/2021 [2]
 > Maybe I should use a proper version scheme
 
 * Fixed helmet not equipping when holding use on pickup.
