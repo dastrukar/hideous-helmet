@@ -69,6 +69,7 @@ class HHelmetSpawner:EventHandler {
 				!T.findinventory("HasDroppedHelmetBefore", false) &&
 				frandom(0,1) >= hh_jackbootspawn
 			) helm = Actor.Spawn("BrokenDummyHelmet", t_pos);
+
 			// Make sure the jackboot can't drop another helmet again
 			T.setinventory("HasDroppedHelmetBefore", 1);
 		}
