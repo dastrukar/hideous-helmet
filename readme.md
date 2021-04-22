@@ -26,6 +26,8 @@ Some of the HUD is hidden without the helmet.
 * `hhw` hud helmet
 
 Spawns at any armour and marine corpse. *(at least it should)*
+Jackboots with helmets should also drop them on death.
+*(You can tweak the spawn rate)*
 
 ## Why?
 Well, I always wondered what if you could wear helmets in Hideous Destructor, then I thought about the HUD and the helmet.
