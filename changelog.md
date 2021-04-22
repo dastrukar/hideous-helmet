@@ -1,7 +1,15 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 
-18/04/2021 [2]
+22/04/2021
+> The "decide your own RNG" update
+
+* Fixed `give hhelmetworn` having 144 durability. *(hopefully)*
+* Added options to tweak helmet spawn rate.
+* Armour now spawns helmets more frequently. *(50% chance by default)*
+* Helmet jackboots now drop helmets.
+
+18/04/2021[2]
 > Maybe I should use a proper version scheme
 
 * Fixed helmet not equipping when holding use on pickup.
