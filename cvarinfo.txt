@@ -19,4 +19,4 @@ user bool hh_woundcounter=true;
 
 server float hh_armourspawn=0.45;
 server float hh_corpsespawn=0.35;
-server float hh_jackbootspawn=0.25;
+server float hh_jackbootspawn=0.35;
