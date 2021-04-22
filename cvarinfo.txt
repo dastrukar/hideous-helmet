@@ -15,3 +15,8 @@ user bool hh_showoverlay=false;
 
 user bool hh_showbleed=true;
 user bool hh_woundcounter=true;
+
+
+server float hh_armourspawn=0.45;
+server float hh_corpsespawn=0.35;
+server float hh_jackbootspawn=0.25;
