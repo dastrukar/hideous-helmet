@@ -32,7 +32,7 @@ OptionMenu "HHRNG"{
 	Title "Spawn rate options"
 
 	Slider "Spawn at armour", "hh_armourspawn", 0.00, 1.00, 0.05, 2
-	Slider "Spawn at corpse", "hh_corpsespawn", 0.00, 1.00, 0.05, 2
+	Slider "Spawn at marine corpse", "hh_corpsespawn", 0.00, 1.00, 0.05, 2
 	Slider "Spawn from helmet jackboots", "hh_jackbootspawn", 0.00, 1.00, 0.05, 2
 }
 
