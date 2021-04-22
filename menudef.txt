@@ -6,9 +6,11 @@ OptionValue "YN"{
 OptionMenu "HHOptions"{
 	Title "Hideous Helmet Options"
 
+	Submenu "Spawn rate options", "HHRNG"
+	StaticText " "
+
 	StaticText "Controls", "white"
 	Control "Strip helmet", "hh_strip"
-	StaticText " "
 	StaticText " "
 
 	StaticText "When the helmet is off...", "white"
@@ -18,14 +20,20 @@ OptionMenu "HHOptions"{
 	Option "Hide status", "hh_hidestatus", "YN"
 	Option "Hide compass", "hh_hidecompass", "YN"
 	StaticText " "
-	StaticText " "
 	StaticText "When the helmet is on...", "white"
 	Option "Show bleed indicator", "hh_showbleed", "YN"
 	Option "Show wound count", "hh_woundcounter", "YN", "hh_showbleed"
 	StaticText " "
-	StaticText " "
 	StaticText "When true, any weapon in slot 4 will ignore 'Hide Weapon status'.", "white"
 	Option "Slot 4 shows weapon status", "hh_slot4special", "YN", "hh_hideammo"
+}
+
+OptionMenu "HHRNG"{
+	Title "Spawn rate options"
+
+	Slider "Spawn at armour", "hh_armourspawn", 0.00, 1.00, 0.05, 2
+	Slider "Spawn at corpse", "hh_corpsespawn", 0.00, 1.00, 0.05, 2
+	Slider "Spawn from helmet jackboots", "hh_jackbootspawn", 0.00, 1.00, 0.05, 2
 }
 
 AddOptionMenu "OptionsMenu"{
