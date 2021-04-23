@@ -1,7 +1,10 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 
-23/04/2021
+23/04/2021 [2]
+* Removed unused option "Slot 4 shows weapon status"
+
+23/04/2021 [1]
 > I probably should've added more options for "Hide weapon status" early on
 
 * Added helmet sprite for Freedoom.
