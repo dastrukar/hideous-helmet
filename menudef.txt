@@ -42,16 +42,16 @@ OptionMenu "HHWPN"{
 	StaticText " "
 
 	StaticText "Hide weapon status on:", "white"
-	Option "Weapon Slot 1", "hh_showslot1", "YN"
-	Option "Weapon Slot 2", "hh_showslot2", "YN"
-	Option "Weapon Slot 3", "hh_showslot3", "YN"
-	Option "Weapon Slot 4", "hh_showslot4", "YN"
-	Option "Weapon Slot 5", "hh_showslot5", "YN"
-	Option "Weapon Slot 6", "hh_showslot6", "YN"
-	Option "Weapon Slot 7", "hh_showslot7", "YN"
-	Option "Weapon Slot 8", "hh_showslot8", "YN"
-	Option "Weapon Slot 9", "hh_showslot9", "YN"
-	Option "Weapon Slot 0", "hh_showslot0", "YN"
+	Option "Weapon Slot 1", "hh_hideslot1", "YN"
+	Option "Weapon Slot 2", "hh_hideslot2", "YN"
+	Option "Weapon Slot 3", "hh_hideslot3", "YN"
+	Option "Weapon Slot 4", "hh_hideslot4", "YN"
+	Option "Weapon Slot 5", "hh_hideslot5", "YN"
+	Option "Weapon Slot 6", "hh_hideslot6", "YN"
+	Option "Weapon Slot 7", "hh_hideslot7", "YN"
+	Option "Weapon Slot 8", "hh_hideslot8", "YN"
+	Option "Weapon Slot 9", "hh_hideslot9", "YN"
+	Option "Weapon Slot 0", "hh_hideslot0", "YN"
 }
 
 AddOptionMenu "OptionsMenu"{
