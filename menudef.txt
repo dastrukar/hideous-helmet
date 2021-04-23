@@ -7,6 +7,7 @@ OptionMenu "HHOptions"{
 	Title "Hideous Helmet Options"
 
 	Submenu "Spawn rate options", "HHRNG"
+	Submenu "'Hide Weapon status' options", "HHWPN"
 	StaticText " "
 
 	StaticText "Controls", "white"
@@ -34,6 +35,26 @@ OptionMenu "HHRNG"{
 	Slider "Spawn at armour", "hh_armourspawn", 0.00, 1.00, 0.05, 2
 	Slider "Spawn at marine corpse", "hh_corpsespawn", 0.00, 1.00, 0.05, 2
 	Slider "Spawn from helmet jackboots", "hh_jackbootspawn", 0.00, 1.00, 0.05, 2
+}
+
+OptionMenu "HHWPN"{
+	Title "'Hide Weapon status' options"
+
+	StaticText "The following options only apply,"
+	StaticText "if 'Hide Weapon status' is true."
+	StaticText " "
+
+	StaticText "Show weapon status on:", "white"
+	Option "Weapon Slot 1", "hh_showslot1", "YN"
+	Option "Weapon Slot 2", "hh_showslot2", "YN"
+	Option "Weapon Slot 3", "hh_showslot3", "YN"
+	Option "Weapon Slot 4", "hh_showslot4", "YN"
+	Option "Weapon Slot 5", "hh_showslot5", "YN"
+	Option "Weapon Slot 6", "hh_showslot6", "YN"
+	Option "Weapon Slot 7", "hh_showslot7", "YN"
+	Option "Weapon Slot 8", "hh_showslot8", "YN"
+	Option "Weapon Slot 9", "hh_showslot9", "YN"
+	Option "Weapon Slot 0", "hh_showslot0", "YN"
 }
 
 AddOptionMenu "OptionsMenu"{
