@@ -41,7 +41,7 @@ OptionMenu "HHWPN"{
 	StaticText "if 'Hide Weapon status' is true."
 	StaticText " "
 
-	StaticText "Show weapon status on:", "white"
+	StaticText "Hide weapon status on:", "white"
 	Option "Weapon Slot 1", "hh_showslot1", "YN"
 	Option "Weapon Slot 2", "hh_showslot2", "YN"
 	Option "Weapon Slot 3", "hh_showslot3", "YN"

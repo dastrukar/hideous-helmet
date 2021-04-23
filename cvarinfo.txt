@@ -10,16 +10,16 @@ user bool hh_hideweapons=false;
 user bool hh_hidestatus=true;
 user bool hh_hidecompass=true;
 
-user bool hh_showslot1=false;
-user bool hh_showslot2=false;
-user bool hh_showslot3=false;
-user bool hh_showslot4=true;
-user bool hh_showslot5=false;
-user bool hh_showslot6=false;
-user bool hh_showslot7=false;
-user bool hh_showslot8=false;
-user bool hh_showslot9=true;
-user bool hh_showslot0=true;
+user bool hh_hideslot1=true;
+user bool hh_hideslot2=true;
+user bool hh_hideslot3=true;
+user bool hh_hideslot4=false;
+user bool hh_hideslot5=true;
+user bool hh_hideslot6=true;
+user bool hh_hideslot7=true;
+user bool hh_hideslot8=true;
+user bool hh_hideslot9=false;
+user bool hh_hideslot0=false;
 user bool hh_showoverlay=false;
 
 user bool hh_showbleed=true;

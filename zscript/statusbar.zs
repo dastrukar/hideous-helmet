@@ -84,16 +84,16 @@ class HDStatusBar:DoomStatusBar{
 	transient cvar hh_showbleed;
 	transient cvar hh_woundcounter;
 
-	transient cvar hh_showslot1;
-	transient cvar hh_showslot2;
-	transient cvar hh_showslot3;
-	transient cvar hh_showslot4;
-	transient cvar hh_showslot5;
-	transient cvar hh_showslot6;
-	transient cvar hh_showslot7;
-	transient cvar hh_showslot8;
-	transient cvar hh_showslot9;
-	transient cvar hh_showslot0;
+	transient cvar hh_hideslot1;
+	transient cvar hh_hideslot2;
+	transient cvar hh_hideslot3;
+	transient cvar hh_hideslot4;
+	transient cvar hh_hideslot5;
+	transient cvar hh_hideslot6;
+	transient cvar hh_hideslot7;
+	transient cvar hh_hideslot8;
+	transient cvar hh_hideslot9;
+	transient cvar hh_hideslot0;
 
 	override void Tick(){
 		if(!hd_mugshot){
@@ -119,16 +119,16 @@ class HDStatusBar:DoomStatusBar{
 			hh_showbleed=cvar.getcvar("hh_showbleed", cplayer);
 			hh_woundcounter=cvar.getcvar("hh_woundcounter", cplayer);
 
-			hh_showslot1=cvar.getcvar("hh_showslot1", cplayer);
-			hh_showslot2=cvar.getcvar("hh_showslot2", cplayer);
-			hh_showslot3=cvar.getcvar("hh_showslot3", cplayer);
-			hh_showslot4=cvar.getcvar("hh_showslot4", cplayer);
-			hh_showslot5=cvar.getcvar("hh_showslot5", cplayer);
-			hh_showslot6=cvar.getcvar("hh_showslot6", cplayer);
-			hh_showslot7=cvar.getcvar("hh_showslot7", cplayer);
-			hh_showslot8=cvar.getcvar("hh_showslot8", cplayer);
-			hh_showslot9=cvar.getcvar("hh_showslot9", cplayer);
-			hh_showslot0=cvar.getcvar("hh_showslot0", cplayer);
+			hh_hideslot1=cvar.getcvar("hh_hideslot1", cplayer);
+			hh_hideslot2=cvar.getcvar("hh_hideslot2", cplayer);
+			hh_hideslot3=cvar.getcvar("hh_hideslot3", cplayer);
+			hh_hideslot4=cvar.getcvar("hh_hideslot4", cplayer);
+			hh_hideslot5=cvar.getcvar("hh_hideslot5", cplayer);
+			hh_hideslot6=cvar.getcvar("hh_hideslot6", cplayer);
+			hh_hideslot7=cvar.getcvar("hh_hideslot7", cplayer);
+			hh_hideslot8=cvar.getcvar("hh_hideslot8", cplayer);
+			hh_hideslot9=cvar.getcvar("hh_hideslot9", cplayer);
+			hh_hideslot0=cvar.getcvar("hh_hideslot0", cplayer);
 		}
 		super.tick();
 		hpl=hdplayerpawn(cplayer.mo);
@@ -1079,17 +1079,17 @@ class HDStatusBar:DoomStatusBar{
 		let cweapon = cplayer.readyweapon;
 		let helmet  = HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
 		if(cweapon&&cweapon!=WP_NOCHANGE){
-			bool is_allowed = (
-				(hh_showslot1.getbool() && cweapon.slotnumber == 1) ||
-				(hh_showslot2.getbool() && cweapon.slotnumber == 2) ||
-				(hh_showslot3.getbool() && cweapon.slotnumber == 3) ||
-				(hh_showslot4.getbool() && cweapon.slotnumber == 4) ||
-				(hh_showslot5.getbool() && cweapon.slotnumber == 5) ||
-				(hh_showslot6.getbool() && cweapon.slotnumber == 6) ||
-				(hh_showslot7.getbool() && cweapon.slotnumber == 7) ||
-				(hh_showslot8.getbool() && cweapon.slotnumber == 8) ||
-				(hh_showslot9.getbool() && cweapon.slotnumber == 9) ||
-				(hh_showslot0.getbool() && cweapon.slotnumber == 0)
+			bool is_gun = (
+				(hh_hideslot1.getbool() && cweapon.slotnumber == 1) ||
+				(hh_hideslot2.getbool() && cweapon.slotnumber == 2) ||
+				(hh_hideslot3.getbool() && cweapon.slotnumber == 3) ||
+				(hh_hideslot4.getbool() && cweapon.slotnumber == 4) ||
+				(hh_hideslot5.getbool() && cweapon.slotnumber == 5) ||
+				(hh_hideslot6.getbool() && cweapon.slotnumber == 6) ||
+				(hh_hideslot7.getbool() && cweapon.slotnumber == 7) ||
+				(hh_hideslot8.getbool() && cweapon.slotnumber == 8) ||
+				(hh_hideslot9.getbool() && cweapon.slotnumber == 9) ||
+				(hh_hideslot0.getbool() && cweapon.slotnumber == 0)
 			);
 			let whitelist = cvar.getcvar("hh_overwritewhitelist",cplayer).getbool();
 			if (whitelist&&hh_hideammo.getbool()){
@@ -1106,7 +1106,7 @@ class HDStatusBar:DoomStatusBar{
 				}
 				if(is_listed)drawweaponstatus(cweapon);
 			}
-			else if((helmet||is_allowed)||!hh_hideammo.getbool())drawweaponstatus(cweapon);
+			else if((helmet||!is_gun)||!hh_hideammo.getbool())drawweaponstatus(cweapon);
 		}
 	}
 }
