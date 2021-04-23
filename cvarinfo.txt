@@ -20,7 +20,6 @@ user bool hh_showslot7=false;
 user bool hh_showslot8=false;
 user bool hh_showslot9=true;
 user bool hh_showslot0=true;
-user bool hh_slot4special=true;
 user bool hh_showoverlay=false;
 
 user bool hh_showbleed=true;

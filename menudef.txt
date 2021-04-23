@@ -24,9 +24,6 @@ OptionMenu "HHOptions"{
 	StaticText "When the helmet is on...", "white"
 	Option "Show bleed indicator", "hh_showbleed", "YN"
 	Option "Show wound count", "hh_woundcounter", "YN", "hh_showbleed"
-	StaticText " "
-	StaticText "When true, any weapon in slot 4 will ignore 'Hide Weapon status'.", "white"
-	Option "Slot 4 shows weapon status", "hh_slot4special", "YN", "hh_hideammo"
 }
 
 OptionMenu "HHRNG"{
