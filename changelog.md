@@ -1,6 +1,10 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 
+23/04/2021 [3]
+> How did I miss this
+* Reworked "Hide weapon status" options, mag manager should display fine now.
+
 23/04/2021 [2]
 * Removed unused option "Slot 4 shows weapon status"
 
