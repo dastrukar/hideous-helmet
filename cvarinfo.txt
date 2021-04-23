@@ -10,6 +10,16 @@ user bool hh_hideweapons=false;
 user bool hh_hidestatus=true;
 user bool hh_hidecompass=true;
 
+user bool hh_showslot1=false;
+user bool hh_showslot2=false;
+user bool hh_showslot3=false;
+user bool hh_showslot4=true;
+user bool hh_showslot5=false;
+user bool hh_showslot6=false;
+user bool hh_showslot7=false;
+user bool hh_showslot8=false;
+user bool hh_showslot9=true;
+user bool hh_showslot0=true;
 user bool hh_slot4special=true;
 user bool hh_showoverlay=false;
 
