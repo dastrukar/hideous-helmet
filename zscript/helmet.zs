@@ -1,6 +1,7 @@
 // This code is very hacky, might be a bit messy -dastrukar
 // Original code taken from Hideous Destructor
 
+// HDMagAmmo is used, due to how backpacks handle icons for HDArmour
 class HHelmet:HDMagAmmo{
 	default{
 		+inventory.invbar
@@ -104,6 +105,8 @@ class HHelmet:HDMagAmmo{
 		if(!trypickup(other))return;
 		HHelmet aaa=HHelmet(other.findinventory("HHelmet"));
 		aaa.syncamount();
+		aaa.mags.insert(0, durability);
+		aaa.mags.pop();
 		other.A_StartSound(pickupsound,CHAN_AUTO);
 		other.A_Log(string.format("\cg%s",pickupmessage()),true);
 	}
@@ -154,8 +157,6 @@ class HHelmetWorn:HDArmourWorn {
 		return 100;
 	}
 	override inventory CreateTossable(int amt){
-		//if(HDPlayerPawn.CheckStrip(owner,STRIP_ARMOUR))return null;
-
 		//armour sometimes crumbles into dust
 		if(durability<random(1,3)){
 			for(int i=0;i<10;i++){
