@@ -35,18 +35,18 @@ class HHelmetSpawner:EventHandler {
 		hh_corpsespawn = 1 - cvar.getcvar("hh_corpsespawn").getfloat();
 	}
 	override void WorldThingSpawned(WorldEvent e) {
-		if(level.maptime > 1) return;
-		if(!e.Thing) return;
+		if(level.maptime > 1 || !e.Thing) return;
 		let T = e.Thing;
+		let T_name = T.GetClassName();
 
 		bool is_corpse = (
-			T.GetClassName() == "DeadRifleman" ||
-			T.GetClassName() == "ReallyDeadRifleman"
+			T_name == "DeadRifleman" ||
+			T_name == "ReallyDeadRifleman"
 		);
 
 		Actor helm;
 		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z+5);
-		if (T.GetClassName() == "HDArmour" && frandom(0,1) >= hh_armourspawn) helm = Actor.Spawn("DummyHelmet", t_pos);
+		if (T_name == "HDArmour" && frandom(0,1) >= hh_armourspawn) helm = Actor.Spawn("DummyHelmet", t_pos);
 		else if (is_corpse && frandom(0,1) >= hh_corpsespawn) helm = Actor.Spawn("BrokenDummyHelmet", t_pos);
 
 		if (helm) {
@@ -60,21 +60,24 @@ class HHelmetSpawner:EventHandler {
 	override void WorldThingDied(WorldEvent e) {
 		if (!e.Thing) return;
 		let T = e.Thing;
-
+		let T_name = T.GetClassName();
 
 		Actor helm;
 		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z+5);
-		if (T.GetClassName() == "HideousShotgunGuy") {
-			if (
-				HideousShotgunGuy(T).wep == -1 &&
-				!T.findinventory("HasDroppedHelmetBefore", false) &&
-				frandom(0,1) >= hh_jackbootspawn
-			) {
-				helm = Actor.Spawn("BrokenDummyHelmet", t_pos);
+		bool is_guy = (
+			T_name == "HideousShotgunGuy" ||
+			T_name == "UndeadJackbootMan"
+		);
+		if (
+			is_guy &&
+			HideousShotgunGuy(T).wep == -1 &&
+			!T.findinventory("HasDroppedHelmetBefore", false) &&
+			frandom(0,1) >= hh_jackbootspawn
+		) {
+			helm = Actor.Spawn("BrokenDummyHelmet", t_pos);
 
-				// Make sure the jackboot can't drop another helmet again
-				T.setinventory("HasDroppedHelmetBefore", 1);
-			}
+			// Make sure the jackboot can't drop another helmet again
+			T.setinventory("HasDroppedHelmetBefore", 1);
 		}
 
 		if (helm) {
