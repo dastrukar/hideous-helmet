@@ -1,6 +1,9 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 
+26/04/2021
+* Fixed helmet changing to durability 50, when you had more than 1 helmet.
+
 23/04/2021 [3]
 > How did I miss this
 * Reworked "Hide weapon status" options, mag manager should display fine now.
