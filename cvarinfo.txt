@@ -19,7 +19,7 @@ user bool hh_hideslot6=true;
 user bool hh_hideslot7=true;
 user bool hh_hideslot8=true;
 user bool hh_hideslot9=false;
-user bool hh_hideslot0=false;
+user bool hh_hideslot0=true;
 user bool hh_showoverlay=false;
 
 user bool hh_showbleed=true;
