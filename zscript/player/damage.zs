@@ -151,14 +151,12 @@ extend class HDPlayerPawn{
 
 		damage=HDMagicShield.ShieldDamageCheck(inflictor,source,self,damage,mod,flags);
 
-		// helmet stuff
-		damage=DoHelmetStuff(damage, mod, flags);
+		//helmet stuff
+		damage=DoHelmetStuff(damage,mod,flags);
 
-		//excess hp
 
 		if(inflictor&&inflictor.bpiercearmor)flags|=DMG_NO_ARMOR;
 		let armr=HDArmourWorn(findinventory("HDArmourWorn"));
-
 		//it just goes through one of the gaping holes in your armour
 		if(
 			armr
@@ -266,6 +264,7 @@ extend class HDPlayerPawn{
 			else if(impactangle>80)alv=random(1,alv);
 		}
 
+		//excess hp
 		if(mod=="maxhpdrain"){
 			damage=min(health-1,damage);
 			flags|=DMG_NO_PAIN|DMG_THRUSTLESS;
@@ -463,7 +462,12 @@ extend class HDPlayerPawn{
 			}
 			damage=clamp(damage,0,health-7);
 			if(mod!="internal")mod="falling";
+
+			if(!random(0,7))hdbleedingwound.inflict(
+				source,random(1,3),1,false,self
+			);
 		}
+
 
 		//check for destruction after armour depleted, not before
 		if(armr&&armr.durability<1){
