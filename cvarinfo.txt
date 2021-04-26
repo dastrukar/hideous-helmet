@@ -9,6 +9,7 @@ user bool hh_hideweapons=false;
 
 user bool hh_hidestatus=true;
 user bool hh_hidecompass=true;
+user bool hh_hidebbaginfo=true;
 
 user bool hh_hideslot1=true;
 user bool hh_hideslot2=true;

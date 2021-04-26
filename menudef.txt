@@ -20,6 +20,7 @@ OptionMenu "HHOptions"{
 	Option "Hide armour", "hh_hidearmour", "YN"
 	Option "Hide status", "hh_hidestatus", "YN"
 	Option "Hide compass", "hh_hidecompass", "YN"
+	Option "Hide second blood info", "hh_hidebbaginfo", "YN"
 	StaticText " "
 	StaticText "When the helmet is on...", "white"
 	StaticText "-Bleed Indicator-", "white"
