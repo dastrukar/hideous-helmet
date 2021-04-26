@@ -83,6 +83,7 @@ class HDStatusBar:DoomStatusBar{
 
 	transient cvar hh_showbleed;
 	transient cvar hh_woundcounter;
+	transient cvar hh_showbleedwhenbleeding;
 
 	transient cvar hh_hideslot1;
 	transient cvar hh_hideslot2;
@@ -118,6 +119,7 @@ class HDStatusBar:DoomStatusBar{
 
 			hh_showbleed=cvar.getcvar("hh_showbleed", cplayer);
 			hh_woundcounter=cvar.getcvar("hh_woundcounter", cplayer);
+			hh_showbleedwhenbleeding=cvar.getcvar("hh_showbleedwhenbleeding", cplayer);
 
 			hh_hideslot1=cvar.getcvar("hh_hideslot1", cplayer);
 			hh_hideslot2=cvar.getcvar("hh_hideslot2", cplayer);
@@ -274,6 +276,7 @@ class HDStatusBar:DoomStatusBar{
 
 		//armour
 		DrawArmour((4,86),DI_TOPLEFT);
+		DrawHelmet((24,86),DI_TOPLEFT);
 
 		//inventory
 		DrawInvSel(6,100,10,109,DI_TOPLEFT);
@@ -1049,6 +1052,7 @@ class HDStatusBar:DoomStatusBar{
 		if(hh_showbleed.getbool()){
 			int of=0;
 			let wounds=hpl.woundcount;
+			if(hh_showbleedwhenbleeding.getbool()&&!wounds) return;
 			if(wounds){
 				drawimage(
 					"BLUDC0",(coords.x,coords.y+1),
