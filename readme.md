@@ -11,7 +11,7 @@ Some of the HUD is hidden without the helmet.
 *Note: You may toggle which part of the HUD gets hidden when not wearing the helmet.*
 
 ### Info about the helmet
-* Shows the all of the HUD when you wear it.
+* Shows all of the HUD when you wear it, with some extra stuff. *(extra stuff is toggleable)*
 * Provides a bit of defense, mostly for the head.
 * Can be worn without removing armour first.
 * *Should be noted that you can use medikit with the helmet on.*
@@ -25,12 +25,13 @@ Some of the HUD is hidden without the helmet.
 * `hdh` hud helmet (spare)
 * `hhw` hud helmet
 
+### Spawn info:
 Spawns at any armour and marine corpse. *(at least it should)*
 Jackboots with helmets should also drop them on death.
 *(You can tweak the spawn rate)*
 
 ## Why?
-Well, I always wondered what if you could wear helmets in Hideous Destructor, then I thought about the HUD and the helmet.
+Well, I always wondered what if you could wear a helmet item in Hideous Destructor, then I thought about combining the HUD and helmet together.
 
 Then, a question came up.
 
@@ -45,3 +46,8 @@ Just download the latest [`master`](https://github.com/dastrukar/hideous-helmet/
 It should work fine with other addons. *(if none of the overwriting stuff breaks anything)*
 
 Though, it's up to you to try and see.
+
+## Notice
+It should be noted that armour does indeed provide some form of defense to the head.
+
+The helmet is basically just armour, but has higher defense on the head.
