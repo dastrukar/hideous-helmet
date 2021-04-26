@@ -24,6 +24,7 @@ user bool hh_showoverlay=false;
 
 user bool hh_showbleed=true;
 user bool hh_woundcounter=true;
+user bool hh_showbleedwhenbleeding=false;
 
 
 server float hh_armourspawn=0.50;

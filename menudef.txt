@@ -22,8 +22,10 @@ OptionMenu "HHOptions"{
 	Option "Hide compass", "hh_hidecompass", "YN"
 	StaticText " "
 	StaticText "When the helmet is on...", "white"
+	StaticText "-Bleed Indicator-", "white"
 	Option "Show bleed indicator", "hh_showbleed", "YN"
 	Option "Show wound count", "hh_woundcounter", "YN", "hh_showbleed"
+	Option "Hide indicator when not bleeding", "hh_showbleedwhenbleeding", "YN", "hh_showbleed"
 }
 
 OptionMenu "HHRNG"{
