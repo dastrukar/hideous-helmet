@@ -27,6 +27,8 @@ user bool hh_showbleed=true;
 user bool hh_woundcounter=true;
 user bool hh_showbleedwhenbleeding=false;
 
+server int hh_mindurability=5;
+server int hh_maxdurability=30;
 
 server float hh_armourspawn=0.50;
 server float hh_marinespawn=0.35;

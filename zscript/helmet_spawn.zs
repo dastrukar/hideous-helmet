@@ -18,9 +18,13 @@ class BrokenDummyHelmet:IdleDummy {
 	override void postbeginplay() {
 		super.postbeginplay();
 		let helm = HHelmet(spawn("HHelmet", pos, ALLOW_REPLACE));
+
+		int hh_mindurability = cvar.getcvar("hh_mindurability").getint();
+		int hh_maxdurability = cvar.getcvar("hh_maxdurability").getint();
+
 		helm.vel = vel;
 		helm.mags.clear();
-		helm.mags.push(frandom(10, 40));
+		helm.mags.push(frandom(hh_mindurability, hh_maxdurability));
 		helm.syncamount();
 	}
 }

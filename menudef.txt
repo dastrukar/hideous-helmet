@@ -6,7 +6,7 @@ OptionValue "YN"{
 OptionMenu "HHOptions"{
 	Title "Hideous Helmet Options"
 
-	Submenu "Spawn rate options", "HHRNG"
+	Submenu "Spawn options", "HHRNG"
 	Submenu "Reduced info options", "HHREDUCE"
 	Submenu "'Hide Weapon status' options", "HHWPN"
 	StaticText " "
@@ -30,11 +30,17 @@ OptionMenu "HHOptions"{
 }
 
 OptionMenu "HHRNG"{
-	Title "Spawn rate options"
+	Title "Spawn options"
 
+	StaticText "Spawn rate", "white"
 	Slider "Spawn at armour", "hh_armourspawn", 0.00, 1.00, 0.05, 2
 	Slider "Spawn from marines", "hh_marinespawn", 0.00, 1.00, 0.05, 2
 	Slider "Spawn from helmet jackboots", "hh_jackbootspawn", 0.00, 1.00, 0.05, 2
+	StaticText " "
+
+	StaticText "Helmet spawned from enemies", "white"
+	Slider "Min. Durability", "hh_mindurability", 0, 50, 1
+	Slider "Max Durability", "hh_maxdurability", 0, 50, 1
 }
 
 OptionMenu "HHWPN"{
