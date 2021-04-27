@@ -28,26 +28,22 @@ class BrokenDummyHelmet:IdleDummy {
 class HHelmetSpawner:EventHandler {
 	float hh_jackbootspawn;
 	float hh_armourspawn;
-	float hh_corpsespawn;
+	float hh_marinespawn;
 	override void WorldLoaded(WorldEvent e) {
 		hh_jackbootspawn = 1 - cvar.getcvar("hh_jackbootspawn").getfloat();
 		hh_armourspawn = 1 - cvar.getcvar("hh_armourspawn").getfloat();
-		hh_corpsespawn = 1 - cvar.getcvar("hh_corpsespawn").getfloat();
+		hh_marinespawn = 1 - cvar.getcvar("hh_marinespawn").getfloat();
 	}
+
+	// Armour should come with helmets
 	override void WorldThingSpawned(WorldEvent e) {
-		if(level.maptime > 1 || !e.Thing) return;
+		if(level.maptime > 2 || !e.Thing) return;
 		let T = e.Thing;
 		let T_name = T.GetClassName();
-
-		bool is_corpse = (
-			T_name == "DeadRifleman" ||
-			T_name == "ReallyDeadRifleman"
-		);
 
 		Actor helm;
 		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z+5);
 		if (T_name == "HDArmour" && frandom(0,1) >= hh_armourspawn) helm = Actor.Spawn("DummyHelmet", t_pos);
-		else if (is_corpse && frandom(0,1) >= hh_corpsespawn) helm = Actor.Spawn("BrokenDummyHelmet", t_pos);
 
 		if (helm) {
 			helm.vel.x += frandom(-2,2);
@@ -56,7 +52,7 @@ class HHelmetSpawner:EventHandler {
 		}
 	}
 
-	// Jackboots have helmets, drop em
+	// Enemies have helmets, drop em
 	override void WorldThingDied(WorldEvent e) {
 		if (!e.Thing) return;
 		let T = e.Thing;
@@ -64,19 +60,29 @@ class HHelmetSpawner:EventHandler {
 
 		Actor helm;
 		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z+5);
-		bool is_guy = (
-			T_name == "HideousShotgunGuy" ||
-			T_name == "UndeadJackbootMan"
-		);
-		if (
-			is_guy &&
-			HideousShotgunGuy(T).wep == -1 &&
-			!T.findinventory("HasDroppedHelmetBefore", false) &&
-			frandom(0,1) >= hh_jackbootspawn
-		) {
-			helm = Actor.Spawn("BrokenDummyHelmet", t_pos);
 
-			// Make sure the jackboot can't drop another helmet again
+		// Jackboots
+		bool is_jackboot = ((
+			T_name == "HideousShotgunGuy" ||
+			T_name == "UndeadJackbootMan" ||
+			T_name == "DeadHideousShotgunGuy") &&
+			HideousShotgunGuy(T).wep == -1
+		);
+
+		// Marines
+		bool is_marine = (
+			T_name == "DeadRifleman" ||
+			T_name == "ReallyDeadRifleman" ||
+			T_name == "UndeadRifleman"
+		);
+
+		if (is_jackboot || is_marine) {
+			if (
+				!T.findinventory("HasDroppedHelmetBefore", false) &&
+				frandom(0,1) >= hh_jackbootspawn
+			) helm = Actor.Spawn("BrokenDummyHelmet", t_pos);
+
+			// Make sure the enemy can't try to drop another helmet again
 			T.setinventory("HasDroppedHelmetBefore", 1);
 		}
 

@@ -29,5 +29,5 @@ user bool hh_showbleedwhenbleeding=false;
 
 
 server float hh_armourspawn=0.50;
-server float hh_corpsespawn=0.35;
+server float hh_marinespawn=0.35;
 server float hh_jackbootspawn=0.35;
