@@ -530,7 +530,7 @@ class HDStatusBar:DoomStatusBar{
 			);
 			if(
 				hudlevel==2&&
-				(!hh_hidebbaginfo.getbool()||helmet)
+				(helmet)
 			)drawstring(
 				pnewsmallfont,FormatNumber(BloodBagWorn(hpl.findinventory("BloodBagWorn")).bloodleft),
 				(72,-10),DI_SCREEN_CENTER_BOTTOM|DI_TEXT_ALIGN_RIGHT,Font.CR_RED,scale:(0.5,0.5)
