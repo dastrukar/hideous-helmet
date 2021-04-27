@@ -580,7 +580,7 @@ class HDStatusBar:DoomStatusBar{
 		if(helmet)DrawWoundCount((46,-30));
 
 		//weapon readouts!
-		DrawWeaponStuff();
+		if(cplayer.readyweapon&&cplayer.readyweapon!=WP_NOCHANGE)drawweaponstatus(cplayer.readyweapon);
 
 		//weapon sprite
 		if(
@@ -1083,38 +1083,4 @@ class HDStatusBar:DoomStatusBar{
 		}
 	}
 
-	void DrawWeaponStuff(){
-		let cweapon = cplayer.readyweapon;
-		let helmet  = HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
-		if(cweapon&&cweapon!=WP_NOCHANGE){
-			bool is_gun = (
-				(hh_hideslot1.getbool() && cweapon.slotnumber == 1) ||
-				(hh_hideslot2.getbool() && cweapon.slotnumber == 2) ||
-				(hh_hideslot3.getbool() && cweapon.slotnumber == 3) ||
-				(hh_hideslot4.getbool() && cweapon.slotnumber == 4) ||
-				(hh_hideslot5.getbool() && cweapon.slotnumber == 5) ||
-				(hh_hideslot6.getbool() && cweapon.slotnumber == 6) ||
-				(hh_hideslot7.getbool() && cweapon.slotnumber == 7) ||
-				(hh_hideslot8.getbool() && cweapon.slotnumber == 8) ||
-				(hh_hideslot9.getbool() && cweapon.slotnumber == 9) ||
-				(hh_hideslot0.getbool() && cweapon.slotnumber == 0)
-			);
-			let whitelist = cvar.getcvar("hh_overwritewhitelist",cplayer).getbool();
-			if (whitelist&&hh_hideammo.getbool()){
-				bool is_listed;
-				let list_text = cvar.getcvar("hh_whitelist",cplayer).getstring();
-				array<string> wlist;wlist.clear();
-
-				list_text.split(wlist,",");
-				for(int i=0;i<wlist.size();i++){
-					array<string> templist;templist.clear();
-					wlist[i].split(templist, " ");
-					if(templist.size() != 0)
-					if(templist[0]==HDWeapon(cweapon).refid){ is_listed = true; break; }
-				}
-				if(is_listed)drawweaponstatus(cweapon);
-			}
-			else if((helmet||!is_gun)||!hh_hideammo.getbool())drawweaponstatus(cweapon);
-		}
-	}
 }
