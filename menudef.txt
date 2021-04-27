@@ -7,7 +7,6 @@ OptionMenu "HHOptions"{
 	Title "Hideous Helmet Options"
 
 	Submenu "Spawn options", "HHRNG"
-	Submenu "Reduced info options", "HHREDUCE"
 	Submenu "'Hide Weapon status' options", "HHWPN"
 	StaticText " "
 
