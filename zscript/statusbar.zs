@@ -80,7 +80,6 @@ class HDStatusBar:DoomStatusBar{
 	transient cvar hh_hideweapons;
 	transient cvar hh_hidestatus;
 	transient cvar hh_hidecompass;
-	transient cvar hh_hidebbaginfo;
 
 	transient cvar hh_showbleed;
 	transient cvar hh_woundcounter;
@@ -117,7 +116,6 @@ class HDStatusBar:DoomStatusBar{
 			hh_hideweapons=cvar.getcvar("hh_hideweapons", cplayer);
 			hh_hidestatus=cvar.getcvar("hh_hidestatus", cplayer);
 			hh_hidecompass=cvar.getcvar("hh_hidecompass", cplayer);
-			hh_hidebbaginfo=cvar.getcvar("hh_hidebbaginfo", cplayer);
 
 			hh_showbleed=cvar.getcvar("hh_showbleed", cplayer);
 			hh_woundcounter=cvar.getcvar("hh_woundcounter", cplayer);
@@ -285,7 +283,7 @@ class HDStatusBar:DoomStatusBar{
 		if(hpl.countinv("WornRadsuit"))drawimage("SUITC0",(11,137),DI_TOPLEFT);
 		if(hpl.countinv("BloodBagWorn")){
 			drawimage("PBLDA0",(8,134),DI_TOPLEFT,scale:(0.6,0.6));
-			if(!hh_hidebbaginfo.getbool()||helmet)
+			if(helmet)
 			drawstring(
 				pnewsmallfont,FormatNumber(BloodBagWorn(hpl.findinventory("BloodBagWorn")).bloodleft),
 				(14,136),DI_TOPLEFT|DI_TEXT_ALIGN_RIGHT,
