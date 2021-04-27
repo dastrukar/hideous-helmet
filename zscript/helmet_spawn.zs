@@ -24,7 +24,7 @@ class BrokenDummyHelmet:IdleDummy {
 
 		helm.vel = vel;
 		helm.mags.clear();
-		helm.mags.push(frandom(hh_mindurability, hh_maxdurability));
+		helm.mags.push(random(hh_mindurability, hh_maxdurability));
 		helm.syncamount();
 	}
 }
