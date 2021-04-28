@@ -60,6 +60,9 @@ OptionMenu "HHWPN"{
 	Option "Weapon Slot 8", "hh_hideslot8", "YN"
 	Option "Weapon Slot 9", "hh_hideslot9", "YN"
 	Option "Weapon Slot 0", "hh_hideslot0", "YN"
+
+	StaticText " "
+	Option "Hide firemode", "hh_hidefiremode", "YN"
 }
 
 AddOptionMenu "OptionsMenu"{
