@@ -1449,7 +1449,7 @@ if(hd_debug)console.printf("BLOCKED  "..depleteshield.."    OF  "..bulletpower..
 			// durability stuff
 			if(helmetshell>0){
 				// helmet takes some damage
-				int ddd=random(-1,(int(min(pen,helmetshell)*stamina)>>12));
+				int ddd=random(-1,(int(min(pen,helmetshell)*stamina)>>14));
 				if(ddd<1&&pen>helmetshell)ddd=1;
 				if(ddd>0)helmet.durability-=ddd;
 			}else if(helmetshell>-0.5){
