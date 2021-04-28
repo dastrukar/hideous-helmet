@@ -1429,14 +1429,14 @@ if(hd_debug)console.printf("BLOCKED  "..depleteshield.."    OF  "..bulletpower..
 			double hitheight = hitactoristall?((hitpos.z-hitactor.pos.z)/hitactor.height):0.5;
 
 			// i mean, do you really expect a damaged helmet to block damage as well as it should?
-			float sucks = helmet.durability * frandom(0.6,1.6);
+			float sucks = helmet.durability * frandom(0.4,1.8);
 			if(hd_debug) console.printf(hitactor.getclassname().."  helmet sucks:  "..sucks);
 
 			float helmetshell;
 			// headshot
-			if(hitheight>0.8) helmetshell = sucks>25? frandom(10,15) : frandom(5,10);
+			if(hitheight>0.8) helmetshell = sucks>25? frandom(15,20) : frandom(5,10);
 			// magical helmet leg defense
-			else if(hitheight<0.4) helmetshell = sucks>25? frandom(1,3) : frandom(0,1);
+			else if(hitheight<0.4) helmetshell = sucks>25? frandom(2,3) : frandom(0,1);
 			// imagine that the helmet has a magical net
 			else helmetshell = sucks>25? frandom(4,8) : frandom(1,3);
 
