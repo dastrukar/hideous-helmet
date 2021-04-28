@@ -1429,7 +1429,7 @@ if(hd_debug)console.printf("BLOCKED  "..depleteshield.."    OF  "..bulletpower..
 			double hitheight = hitactoristall?((hitpos.z-hitactor.pos.z)/hitactor.height):0.5;
 
 			// i mean, do you really expect a damaged helmet to block damage as well as it should?
-			float sucks = helmet.durability * frandom(0.4,1.6);
+			float sucks = helmet.durability * frandom(0.6,1.6);
 			if(hd_debug) console.printf(hitactor.getclassname().."  helmet sucks:  "..sucks);
 
 			float helmetshell;
