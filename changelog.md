@@ -1,7 +1,7 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
-PENDING
+28/04/2021
 > Weapon status rework coming soon...
 
 * Fixed Radsuit and Blood Bag not displaying on the HUD without helmet.
