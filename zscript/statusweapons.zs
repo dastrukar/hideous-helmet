@@ -16,7 +16,7 @@ extend class HDStatusBar{
 					posy:-10
 				);
 			}
-		}else if(hdw){
+		}else if(hdw&&!hh_hidefiremode.getbool()){
 			GetWeaponFiremode(hdw);
 		}
 	}
@@ -105,41 +105,55 @@ extend class HDStatusBar{
 	// I can't determine what int the weapon uses for its firemode,
 	// so it's better to just let the user handle it.
 	//
-	// If you wish to add your own stuff,
-	// just add a text file starting with: hh_firemodecodes
-	// ending with whatever suffix you desire.
-	//
-	// Please don't name your text file "hh_firemodecodes.txt",
-	// or you'll end up overwriting the default settings.
-	// Please always use a suffix of your own choice, thanks.
+	// If you wish to add your own stuff, please refer to hh_manual.md
 	void GetWeaponFiremode(hdweapon hdw){
-		string fm=Wads.ReadLump(Wads.CheckNumForName("hh_firemodecodes",0));
 		array<string> text;text.clear();
 		array<string> img;img.clear();
+		array<string> bitwise;bitwise.clear();
 		int id;
 		int check;
-		fm.split(text,";");
+
+		// Get all the text files that match
+		int lump=-1;
+		while(-1!=(lump=Wads.FindLump("hh_firemodecodes",lump+1))){
+			string s=Wads.ReadLump(lump);
+			s.split(text,"\n");
+		}
 
 		// Get the segments
 		for(int i=0;i<text.size();i++){
 			array<string> temp;temp.clear();
 			text[i].split(temp,":");
-			if(temp[0].length()>3) temp[0].remove(0,temp[0].length()-3);
 
-			if(temp[0]==hdw.refid){
+			if(temp.size()!=0&&temp[0]==hdw.refid){
 				id=temp[1].toint(10);
 				temp[2].split(img,",");
+				if(temp.size()>3) temp[3].split(bitwise,",");
 				break;
 			}
 		}
 
 		string types[7];
-		if(img.size()<=7) for(int i=0;i<img.size();i++){types[i]=img[i];}
-		else for(int i=0;i<=6;i++){types[i]=img[i];}
-		drawwepcounter(
-			hdw.weaponstatus[id],
-			-22,-10,
-			types[0], types[1], types[2], types[3], types[4], types[5], types[6]
-		);
+		for(int i=0;i<img.size();i++) types[i]=img[i];
+
+		// Use Bitwise AND comparison?
+		if(!(bitwise.size()<1)){
+			string icon;
+			for(int i=0;i<bitwise.size();i++){
+				if(bitwise[i]=="blank"&&!icon) icon=img[i];
+				else if(hdw.weaponstatus[id]&bitwise[i].toint(10)) icon=img[i];
+			}
+			drawimage(
+				icon,
+				(-22,-10),
+				DI_SCREEN_CENTER_BOTTOM|DI_TRANSLATABLE|DI_ITEM_RIGHT
+			);
+		}else{
+			drawwepcounter(
+				hdw.weaponstatus[id],
+				-22,-10,
+				types[0], types[1], types[2], types[3], types[4], types[5], types[6]
+			);
+		}
 	}
 }

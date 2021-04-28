@@ -95,6 +95,7 @@ class HDStatusBar:DoomStatusBar{
 	transient cvar hh_hideslot8;
 	transient cvar hh_hideslot9;
 	transient cvar hh_hideslot0;
+	transient cvar hh_hidefiremode;
 
 	override void Tick(){
 		if(!hd_mugshot){
@@ -131,6 +132,7 @@ class HDStatusBar:DoomStatusBar{
 			hh_hideslot8=cvar.getcvar("hh_hideslot8", cplayer);
 			hh_hideslot9=cvar.getcvar("hh_hideslot9", cplayer);
 			hh_hideslot0=cvar.getcvar("hh_hideslot0", cplayer);
+			hh_hidefiremode=cvar.getcvar("hh_hidefiremode", cplayer);
 		}
 		super.tick();
 		hpl=hdplayerpawn(cplayer.mo);
