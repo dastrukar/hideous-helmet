@@ -1,7 +1,10 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
-**29/04/2021**
+**29/04/2021 [2]**
+* Fixed an oversight where grenades would cause a VM abort.
+---
+**29/04/2021 [1]**
 * Made the helmet a bit more durable. *(the defense nerf made it less durable)*
 ---
 **28/04/2021**
