@@ -138,7 +138,7 @@ extend class HDStatusBar{
 
 		string types[7];
 		if(img.size()<=7) for(int i=0;i<img.size();i++) types[i]=img[i];
-		else for(int i=0;i<7;i++) types[i]=img[i]
+		else for(int i=0;i<7;i++) types[i]=img[i];
 
 		// Use Bitwise AND comparison?
 		if(!(bitwise.size()<1)){
