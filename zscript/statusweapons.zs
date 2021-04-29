@@ -125,7 +125,10 @@ extend class HDStatusBar{
 			array<string> temp;temp.clear();
 			text[i].split(temp,":");
 
-			if(temp.size()!=0&&temp[0]==hdw.refid){
+			if(
+				temp.size()>=3&&
+				temp[0]==hdw.refid
+			){
 				id=temp[1].toint(10);
 				temp[2].split(img,",");
 				if(temp.size()>3) temp[3].split(bitwise,",");
@@ -134,7 +137,8 @@ extend class HDStatusBar{
 		}
 
 		string types[7];
-		for(int i=0;i<img.size();i++) types[i]=img[i];
+		if(img.size()<=7) for(int i=0;i<img.size();i++) types[i]=img[i];
+		else for(int i=0;i<7;i++) types[i]=img[i]
 
 		// Use Bitwise AND comparison?
 		if(!(bitwise.size()<1)){
