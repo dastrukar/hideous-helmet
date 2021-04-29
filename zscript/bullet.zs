@@ -1441,7 +1441,7 @@ if(hd_debug)console.printf("BLOCKED  "..depleteshield.."    OF  "..bulletpower..
 			else helmetshell = sucks>25? frandom(4,8) : frandom(1,3);
 
 			if(hd_debug&&hitheight>0.8) console.printf("HEADSHOT.");
-			else if(hd_debug&&hitheight>0.4) console.printf("leg shot.");
+			else if(hd_debug&&hitheight<0.4) console.printf("leg shot.");
 			else if(hd_debug) console.printf("body shot.");
 
 			if(hd_debug)console.printf(hitactor.getclassname().."  armour(helmet) resistance:  "..helmetshell);
@@ -1449,7 +1449,8 @@ if(hd_debug)console.printf("BLOCKED  "..depleteshield.."    OF  "..bulletpower..
 			// durability stuff
 			if(helmetshell>0){
 				// helmet takes some damage
-				int ddd=random(-1,(int(min(pen,helmetshell)*stamina)>>14));
+				int ddd=random(-1,(int(min(pen,helmetshell)*stamina)>>12));
+
 				if(ddd<1&&pen>helmetshell)ddd=1;
 				if(ddd>0)helmet.durability-=ddd;
 			}else if(helmetshell>-0.5){
