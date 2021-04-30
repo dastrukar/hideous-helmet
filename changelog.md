@@ -1,6 +1,10 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**30/04/2021**
+* Undo helmet durability buff.
+* Added weapons from PB's Weapon Addon, and Icarus' weapons to "hh_firemodecode". *(now you don't have to add it yourself :])*
+---
 **29/04/2021 [2]**
 * Fixed an oversight where grenades would cause a VM abort.
 ---
