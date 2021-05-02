@@ -3,6 +3,7 @@
 
 // HDMagAmmo is used, due to how backpacks handle icons for HDArmour
 
+const HHCONST_HUDHELMET=50;
 const ENC_HUDHELMET=200;
 
 class HHelmet:HDMagAmmo{
@@ -12,7 +13,7 @@ class HHelmet:HDMagAmmo{
 		+hdpickup.notinpockets
 		+inventory.isarmor
 		inventory.amount 1;
-		hdmagammo.maxperunit 50;
+		hdmagammo.maxperunit HHCONST_HUDHELMET;
 		hdmagammo.magbulk ENC_HUDHELMET;
 		tag "helmet";
 		inventory.icon "HELMA0";
@@ -28,7 +29,7 @@ class HHelmet:HDMagAmmo{
 	}
 
 	override void AddAMag(int addamt){
-		if(addamt<0)addamt=50;
+		if(addamt<0)addamt=HHCONST_HUDHELMET;
 		mags.push(addamt);
 		amount=mags.size();
 	}
@@ -36,7 +37,7 @@ class HHelmet:HDMagAmmo{
 	override void MaxCheat(){
 		syncamount();
 		for(int i=0;i<amount;i++){
-			mags[i]=50;
+			mags[i]=HHCONST_HUDHELMET;
 		}
 	}
 
@@ -73,7 +74,7 @@ class HHelmet:HDMagAmmo{
 
 		if(helptext){
 			string blah=string.format("You put on the helmet.");
-			double qual=double(worn.durability)/50;
+			double qual=double(worn.durability)/HHCONST_HUDHELMET;
 			if(qual<0.2)A_Log(blah.." Just don't get hit.",true);
 			else if(qual<0.3)A_Log(blah.." Does this helmet even work?",true);
 			else if(qual<0.5)A_Log(blah.." It's better than nothing.",true);
@@ -122,7 +123,7 @@ class HHelmet:HDMagAmmo{
 		syncamount();
 		double blk=0;
 		for(int i=0;i<amount;i++){
-			blk+=100;
+			blk+=ENC_HUDHELMET;
 		}
 		return blk;
 	}
@@ -131,7 +132,7 @@ class HHelmet:HDMagAmmo{
 		super.syncamount();
 		icon=texman.checkfortexture("HELMA0",TexMan.Type_MiscPatch);
 		for(int i=0;i<amount;i++){
-			mags[i]=min(mags[i],50);
+			mags[i]=min(mags[i],HHCONST_HUDHELMET);
 		}
 	}
 	states{
@@ -151,7 +152,7 @@ class HHelmetWorn:HDArmourWorn {
 
 	override void beginplay(){
 		super.beginplay();
-		durability=50;
+		durability=HHCONST_HUDHELMET;
 	}
 	override void postbeginplay(){
 		super.postbeginplay();
@@ -204,7 +205,7 @@ class HudHelmet:HDPickupGiver{
 	override void configureactualpickup(){
 		let aaa=HHelmet(actualitem);
 		aaa.mags.clear();
-		aaa.mags.push(50);
+		aaa.mags.push(HHCONST_HUDHELMET);
 		aaa.syncamount();
 	}
 }
@@ -222,7 +223,7 @@ class HudHelmetWorn:HDPickup{
 		if(owner){
 			owner.A_GiveInventory("HHelmetWorn");
 			let ga=HHelmetWorn(owner.findinventory("HHelmetWorn"));
-			ga.durability=50;
+			ga.durability=HHCONST_HUDHELMET;
 		}
 		destroy();
 	}
