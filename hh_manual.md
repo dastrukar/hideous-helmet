@@ -42,7 +42,7 @@ condition0  ..  condition1  ..  condition2  ..
   icon0    ...    icon1    ...    icon2    ...
 ```
 
-* `blank` : Self explanatory. *(refer to the examples below)*
+* `blank` : Self explanatory.
 
 ### Examples:
 Normal:
