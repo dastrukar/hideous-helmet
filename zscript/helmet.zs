@@ -2,6 +2,9 @@
 // Original code taken from Hideous Destructor
 
 // HDMagAmmo is used, due to how backpacks handle icons for HDArmour
+
+const ENC_HUDHELMET=200;
+
 class HHelmet:HDMagAmmo{
 	default{
 		+inventory.invbar
@@ -10,7 +13,7 @@ class HHelmet:HDMagAmmo{
 		+inventory.isarmor
 		inventory.amount 1;
 		hdmagammo.maxperunit 50;
-		hdmagammo.magbulk 100;
+		hdmagammo.magbulk ENC_HUDHELMET;
 		tag "helmet";
 		inventory.icon "HELMA0";
 		inventory.pickupmessage "Picked up the HUD helmet.";
@@ -154,7 +157,7 @@ class HHelmetWorn:HDArmourWorn {
 		super.postbeginplay();
 	}
 	override double getbulk(){
-		return 100;
+		return ENC_HUDHELMET * 0.1;
 	}
 	override inventory CreateTossable(int amt){
 		//armour sometimes crumbles into dust
