@@ -1,6 +1,10 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**1/05/2021**
+* Increased bulk of helmet when not worn.
+* Decreased bulk of helmet when worn.
+---
 **30/04/2021**
 * Undo helmet durability buff.
 * Added weapons from PB's Weapon Addon, and Icarus' weapons to "hh_firemodecode". *(now you don't have to add it yourself :])*
