@@ -1,5 +1,6 @@
 GameInfo {
 	AddEventHandlers = "HHelmetSpawner"
+	AddEventHandlers = "HHelmetSkins"
 	AddEventHandlers = "HHHandlers"
 }
 

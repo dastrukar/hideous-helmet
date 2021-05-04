@@ -1,6 +1,9 @@
 user bool hh_overwritewhitelist=false;
 user string hh_whitelist="bak,drp,hrp";
 
+user string hh_nohelmskin="";
+user string hh_helmetskin="";
+
 user bool hh_bigbrotheriswatchingyou=false;
 user bool hh_hideammo=true;
 user bool hh_hidearmour=false;
