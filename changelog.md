@@ -1,6 +1,10 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**4/05/2021**
+* You can now change your skin based on whether you have a helmet or not. *(Change with CVar "hh_nohelmskin" and "hh_helmetskin")*
+* Added better menu info.
+---
 **2/05/2021**
 * Increased bulk of helmet when not worn.
 * Decreased bulk of helmet when worn.
