@@ -64,6 +64,7 @@ class HHelmet:HDMagAmmo{
 			return;
 		}
 		if(self.findinventory("HHelmetWorn"))return;
+		if(HDPlayerPawn(self).striptime>0)return;
 
 		//and finally put on the actual armour
 		HDArmour.ArmourChangeEffect(self);
@@ -99,6 +100,7 @@ class HHelmet:HDMagAmmo{
 		if(
 			other.player&&other.player.cmd.buttons&BT_USE
 			&&!other.findinventory("HHelmetWorn")
+			&&HDPlayerPawn(other).striptime==0
 		){
 			HDArmour.ArmourChangeEffect(other);
 			let worn=HDArmourWorn(other.GiveInventoryType("HHelmetWorn"));
@@ -161,6 +163,8 @@ class HHelmetWorn:HDArmourWorn {
 		return ENC_HUDHELMET * 0.1;
 	}
 	override inventory CreateTossable(int amt){
+		let hdp=HDPlayerPawn(owner);
+		if(hdp.striptime>0)return null;
 		//armour sometimes crumbles into dust
 		if(durability<random(1,3)){
 			for(int i=0;i<10;i++){
@@ -176,6 +180,7 @@ class HHelmetWorn:HDArmourWorn {
 
 		//finally actually take off the armour
 		HDArmour.ArmourChangeEffect(owner);
+		HDPlayerPawn(owner).striptime=25;
 		let tossed=HHelmet(owner.spawn("HHelmet",
 			(owner.pos.x,owner.pos.y,owner.pos.z+owner.height-20),
 			ALLOW_REPLACE
