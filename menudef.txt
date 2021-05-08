@@ -95,7 +95,7 @@ OptionMenu "HHSKIN"{
 OptionMenu "HHPOS"{
 	Title "Position Options"
 
-	Slider "Sprite offset", "hh_helmetoffsety", -100, 100, 1
+	Slider "Sprite Y offset", "hh_helmetoffsety", -100, 100, 1
 	Option "Durability text placement", "hh_durabilitytop", "TB"
 }
 
