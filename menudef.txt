@@ -3,12 +3,18 @@ OptionValue "YN"{
 	1, "Yes"
 }
 
+OptionValue "TB"{
+	0, "Bottom"
+	1, "Top"
+}
+
 OptionMenu "HHOptions"{
 	Title "Hideous Helmet Options"
 
 	Submenu "Spawn options", "HHRNG"
 	Submenu "'Hide Weapon status' options", "HHWPN"
 	Submenu "Skin options", "HHSKIN"
+	Submenu "Position options", "HHPOS"
 	StaticText " "
 
 	StaticText "Controls", "white"
@@ -84,6 +90,13 @@ OptionMenu "HHSKIN"{
 	StaticText "CVars:"
 	StaticText "hh_nohelmskin : Skin to use when you don't have a helmet.", "white"
 	StaticText "hh_helmetskin : Skin to use when you have a helmet.", "white"
+}
+
+OptionMenu "HHPOS"{
+	Title "Position Options"
+
+	Slider "Sprite offset", "hh_helmetoffsety", -100, 100, 1
+	Option "Durability text placement", "hh_durabilitytop", "TB"
 }
 
 AddOptionMenu "OptionsMenu"{

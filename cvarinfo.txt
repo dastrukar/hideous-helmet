@@ -30,6 +30,9 @@ user bool hh_showbleed=true;
 user bool hh_woundcounter=true;
 user bool hh_showbleedwhenbleeding=false;
 
+user int hh_helmetoffsety=0;
+user bool hh_durabilitytop=false;
+
 server int hh_mindurability=5;
 server int hh_maxdurability=35;
 

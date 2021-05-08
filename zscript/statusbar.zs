@@ -97,6 +97,9 @@ class HDStatusBar:DoomStatusBar{
 	transient cvar hh_hideslot0;
 	transient cvar hh_hidefiremode;
 
+	transient cvar hh_helmetoffsety;
+	transient cvar hh_durabilitytop;
+
 	override void Tick(){
 		if(!hd_mugshot){
 			hd_mugshot=cvar.getcvar("hd_mugshot",cplayer);
@@ -133,6 +136,9 @@ class HDStatusBar:DoomStatusBar{
 			hh_hideslot9=cvar.getcvar("hh_hideslot9", cplayer);
 			hh_hideslot0=cvar.getcvar("hh_hideslot0", cplayer);
 			hh_hidefiremode=cvar.getcvar("hh_hidefiremode", cplayer);
+
+			hh_helmetoffsety=cvar.getcvar("hh_helmetoffsety", cplayer);
+			hh_durabilitytop=cvar.getcvar("hh_durabilitytop", cplayer);
 		}
 		super.tick();
 		hpl=hdplayerpawn(cplayer.mo);
@@ -473,7 +479,7 @@ class HDStatusBar:DoomStatusBar{
 		let cp=HDPlayerPawn(CPlayer.mo);
 		if(!cp)return;
 		let helmet = HDArmourWorn(cp.findinventory("HHelmetWorn"));
-		DrawHelmetOverlay((0,0));
+		//DrawHelmetOverlay((0,0));
 
 		int mxht=-4-mIndexFont.mFont.GetHeight();
 		int mhht=-4-mHUDFont.mFont.getheight();
@@ -1029,15 +1035,18 @@ class HDStatusBar:DoomStatusBar{
 		if(helmet){
 			string helmetsprite="HELMA0";
 			string helmetback="HELMB0";
+			let d=hh_durabilitytop.getbool();
+			let coords=(helmetcoords.x,helmetcoords.y+hh_helmetoffsety.getint());
 			drawbar(
 				helmetsprite,helmetback,
 				helmet.durability,50,
-				helmetcoords,-1,SHADER_VERT,
+				coords,-1,SHADER_VERT,
 				flags
 			);
 			drawstring(
 				pnewsmallfont,FormatNumber(helmet.durability),
-				helmetcoords+(10,-7),flags|DI_ITEM_CENTER|DI_TEXT_ALIGN_RIGHT,
+				coords+(10,d?-14:-7),
+				flags|DI_ITEM_CENTER|DI_TEXT_ALIGN_RIGHT,
 				Font.CR_DARKGRAY,scale:(0.5,0.5)
 			);
 		}
