@@ -12,12 +12,16 @@ class HHelmetSkins:EventHandler {
     override void WorldTick() {
         for (int i; i < p.size(); i++) {
             PlayerInfo player = players[p[i]];
-            string noskin = CVar.GetCVar("hh_nohelmskin", players[p[i]]).GetString();
-            string skin   = CVar.GetCVar("hh_helmetskin", players[p[i]]).GetString();
-            HHelmetWorn helmet = HHelmetWorn(players[p[i]].mo.findinventory("HHelmetWorn"));
 
-            if (helmet) CVar.GetCVar("hd_skin", players[p[i]]).SetString(skin);
-            else CVar.GetCVar("hd_skin", players[p[i]]).SetString(noskin);
+            bool hh_changeskin = CVar.GetCVar("hh_changeskin", player).GetBool()
+            if (hh_changeskin) {
+                string noskin = CVar.GetCVar("hh_nohelmskin", player).GetString();
+                string skin   = CVar.GetCVar("hh_helmetskin", player).GetString();
+                HHelmetWorn helmet = HHelmetWorn(player.mo.findinventory("HHelmetWorn"));
+
+                if (helmet) CVar.GetCVar("hd_skin", player).SetString(skin);
+                else CVar.GetCVar("hd_skin", player).SetString(noskin);
+            }
         }
     }
 }

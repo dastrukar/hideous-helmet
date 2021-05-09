@@ -77,6 +77,8 @@ OptionMenu "HHWPN"{
 OptionMenu "HHSKIN"{
 	Title "Skin Options"
 
+	Option "Change skin based on whether you have a helmet or not" "hh_changeskin" "YN"
+
 	StaticText "Change the following CVars in the console,", "white"
 	StaticText "if you wish to change skins", "white"
 	StaticText "based on whether you have the helmet or not.", "white"
