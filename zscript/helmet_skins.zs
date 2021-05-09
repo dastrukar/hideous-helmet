@@ -14,10 +14,10 @@ class HHelmetSkins:EventHandler {
             PlayerInfo player = players[p[i]];
             string noskin = CVar.GetCVar("hh_nohelmskin", players[p[i]]).GetString();
             string skin   = CVar.GetCVar("hh_helmetskin", players[p[i]]).GetString();
-            HDArmourWorn helmet = HDArmourWorn(players[p[i]].mo.findinventory("HHelmetWorn"));
+            HHelmetWorn helmet = HHelmetWorn(players[p[i]].mo.findinventory("HHelmetWorn"));
 
-            if (helmet && skin != "") CVar.GetCVar("hd_skin", players[p[i]]).SetString(skin);
-            else if (noskin != "") CVar.GetCVar("hd_skin", players[p[i]]).SetString(noskin);
+            if (helmet) CVar.GetCVar("hd_skin", players[p[i]]).SetString(skin);
+            else CVar.GetCVar("hd_skin", players[p[i]]).SetString(noskin);
         }
     }
 }
