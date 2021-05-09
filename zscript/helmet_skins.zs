@@ -13,7 +13,7 @@ class HHelmetSkins:EventHandler {
         for (int i; i < p.size(); i++) {
             PlayerInfo player = players[p[i]];
 
-            bool hh_changeskin = CVar.GetCVar("hh_changeskin", player).GetBool()
+            bool hh_changeskin = CVar.GetCVar("hh_changeskin", player).GetBool();
             if (hh_changeskin) {
                 string noskin = CVar.GetCVar("hh_nohelmskin", player).GetString();
                 string skin   = CVar.GetCVar("hh_helmetskin", player).GetString();
