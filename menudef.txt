@@ -29,7 +29,7 @@ OptionMenu "HHOptions"{
 	Option "Hide compass", "hh_hidecompass", "YN"
 	StaticText " "
 	StaticText "When the helmet is on...", "white"
-	StaticText "-Bleed Indicator-", "white"
+	StaticText "-Bleed Indicator-", "yellow"
 	Option "Show bleed indicator", "hh_showbleed", "YN"
 	Option "Show wound count", "hh_woundcounter", "YN", "hh_showbleed"
 	Option "Hide indicator when not bleeding", "hh_showbleedwhenbleeding", "YN", "hh_showbleed"
@@ -52,22 +52,11 @@ OptionMenu "HHRNG"{
 OptionMenu "HHWPN"{
 	Title "'Hide Weapon status' options"
 
-	StaticText "The following options only apply,"
-	StaticText "if 'Hide Weapon status' is true."
+	StaticText "The following options only apply,", "yellow"
+	StaticText "if 'Hide Weapon status' is true.", "yellow"
 	StaticText " "
 
-	StaticText "Hide weapon status on:", "white"
-	Option "Weapon Slot 1", "hh_hideslot1", "YN"
-	Option "Weapon Slot 2", "hh_hideslot2", "YN"
-	Option "Weapon Slot 3", "hh_hideslot3", "YN"
-	Option "Weapon Slot 4", "hh_hideslot4", "YN"
-	Option "Weapon Slot 5", "hh_hideslot5", "YN"
-	Option "Weapon Slot 6", "hh_hideslot6", "YN"
-	Option "Weapon Slot 7", "hh_hideslot7", "YN"
-	Option "Weapon Slot 8", "hh_hideslot8", "YN"
-	Option "Weapon Slot 9", "hh_hideslot9", "YN"
-	Option "Weapon Slot 0", "hh_hideslot0", "YN"
-
+	Submenu "Whitelist editor", "HHWhitelistMenu"
 	StaticText " "
 	StaticText "Due to how the HUD works,", "white"
 	StaticText "weapon firemode indicators are defined in hh_firemodecodes.txt", "white"
@@ -77,19 +66,12 @@ OptionMenu "HHWPN"{
 OptionMenu "HHSKIN"{
 	Title "Skin Options"
 
-	Option "Change skin based on whether you have a helmet or not", "hh_changeskin", "YN"
+	StaticText "Change skin based on whether you have a helmet or not", "red"
+	Option "Value:", "hh_changeskin", "YN"
 
-	StaticText "Change the following CVars in the console,", "white"
-	StaticText "if you wish to change skins", "white"
-	StaticText "based on whether you have the helmet or not.", "white"
-	StaticText " "
-	StaticText "Leave both at default values,", "white"
-	StaticText "if you wish to not change skins", "white"
-	StaticText "based on whether you have the helmet or not.", "white"
-	StaticText " "
 	StaticText " "
 
-	StaticText "CVars:"
+	StaticText "CVars:", "yellow"
 	StaticText "hh_nohelmskin : Skin to use when you don't have a helmet.", "white"
 	StaticText "hh_helmetskin : Skin to use when you have a helmet.", "white"
 }

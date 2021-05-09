@@ -4,3 +4,4 @@ version "4.5"
 #include "zscript/helmet_skins.zs"
 
 #include "zscript/cmds.zs"
+#include "zscript/weaponstatus_menu.zs"

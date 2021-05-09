@@ -82,22 +82,46 @@ extend class HDStatusBar{
 		return maxperunit;
 	}
 
+	// Helmet stuff
+	// Returns True, if not a weapon, is in whitelist, or the player has a helmet worn
 	bool CheckWeaponStuff(weapon w){
-		if(w&&w!=WP_NOCHANGE){
-			let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
-			bool is_gun = (
-				(hh_hideslot1.getbool() && w.slotnumber == 1) ||
-				(hh_hideslot2.getbool() && w.slotnumber == 2) ||
-				(hh_hideslot3.getbool() && w.slotnumber == 3) ||
-				(hh_hideslot4.getbool() && w.slotnumber == 4) ||
-				(hh_hideslot5.getbool() && w.slotnumber == 5) ||
-				(hh_hideslot6.getbool() && w.slotnumber == 6) ||
-				(hh_hideslot7.getbool() && w.slotnumber == 7) ||
-				(hh_hideslot8.getbool() && w.slotnumber == 8) ||
-				(hh_hideslot9.getbool() && w.slotnumber == 9) ||
-				(hh_hideslot0.getbool() && w.slotnumber == 0)
-			);
-			if (helmet||!is_gun) return true;
+		let helmet = HDArmourWorn(CPlayer.mo.FindInventory("HHelmetWorn"));
+		if (helmet) return true;
+		if (w && w != WP_NOCHANGE) {
+			// Read from hh_weaponwhitelist
+			array<string> whitelist; whitelist.clear();
+			bool is_gun = (w.SlotNumber >= 0);
+			string text = CVar.GetCVar("hh_weaponwhitelist", CPlayer).GetString();
+
+			// If the weapon doesn't have a slot number, then it ain't a weapon
+			if (!is_gun) return true;
+			text.split(whitelist," ");
+			for (int i = 0; i < whitelist.size(); i++) {
+				// Is this a slot number?
+				string text = whitelist[i];
+				bool is_slot = (
+					text == "1" ||
+					text == "2" ||
+					text == "3" ||
+					text == "4" ||
+					text == "5" ||
+					text == "6" ||
+					text == "7" ||
+					text == "8" ||
+					text == "9" ||
+					text == "0"
+				);
+
+				// Are these weapons in the whitelist?
+				if ((
+					is_slot &&
+					w.slotnumber == whitelist[i].toint(10)
+				) || (
+					HDWeapon(w).refid == whitelist[i]
+				)) return true;
+			}
+
+			return false;
 		}
 		return false;
 	}
@@ -106,53 +130,53 @@ extend class HDStatusBar{
 	// so it's better to just let the user handle it.
 	//
 	// If you wish to add your own stuff, please refer to hh_manual.md
-	void GetWeaponFiremode(hdweapon hdw){
-		array<string> text;text.clear();
-		array<string> img;img.clear();
+	void GetWeaponFiremode(hdweapon hdw) {
+		array<string> text;   text.clear();
+		array<string> img;    img.clear();
 		array<string> bitwise;bitwise.clear();
 		int id;
 		int check;
 
 		// Get all the text files that match
-		int lump=-1;
-		while(-1!=(lump=Wads.FindLump("hh_firemodecodes",lump+1))){
-			string s=Wads.ReadLump(lump);
-			s.split(text,"\n");
+		int lump = -1;
+		while (-1 != (lump=Wads.FindLump("hh_firemodecodes",lump + 1))) {
+			string s = Wads.ReadLump(lump);
+			s.split(text, "\n");
 		}
 
 		// Get the segments
-		for(int i=0;i<text.size();i++){
-			array<string> temp;temp.clear();
-			text[i].split(temp,":");
+		for (int i = 0; i < text.size(); i++) {
+			array<string> temp; temp.clear();
+			text[i].split(temp, ":");
 
-			if(
-				temp.size()>=3&&
-				temp[0]==hdw.refid
-			){
-				id=temp[1].toint(10);
-				temp[2].split(img,",");
-				if(temp.size()>3) temp[3].split(bitwise,",");
+			if (
+				temp.size() >= 3 &&
+				temp[0] == hdw.refid
+			) {
+				id = temp[1].toint(10);
+				temp[2].split(img, ",");
+				if (temp.size() > 3) temp[3].split(bitwise, ",");
 				break;
 			}
 		}
 
 		string types[7];
-		if(img.size()<=7) for(int i=0;i<img.size();i++) types[i]=img[i];
-		else for(int i=0;i<7;i++) types[i]=img[i];
+		if (img.size() <= 7) for (int i = 0; i < img.size(); i++) types[i] = img[i];
+		else for (int i = 0; i < 7; i++) types[i] = img[i];
 
 		// Use Bitwise AND comparison?
-		if(!(bitwise.size()<1)){
+		if (!(bitwise.size() < 1)) {
 			string icon;
-			for(int i=0;i<bitwise.size();i++){
-				if(bitwise[i]=="blank"&&!icon) icon=img[i];
-				else if(hdw.weaponstatus[id]&bitwise[i].toint(10)) icon=img[i];
+			for (int i = 0; i < bitwise.size(); i++) {
+				if (bitwise[i] == "blank" && !icon) icon = img[i];
+				else if (hdw.weaponstatus[id] & bitwise[i].toint(10)) icon = img[i];
 			}
 			drawimage(
 				icon,
 				(-22,-10),
 				DI_SCREEN_CENTER_BOTTOM|DI_TRANSLATABLE|DI_ITEM_RIGHT
 			);
-		}else{
+		} else {
 			drawwepcounter(
 				hdw.weaponstatus[id],
 				-22,-10,

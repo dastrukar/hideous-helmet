@@ -14,16 +14,6 @@ user bool hh_hideweapons=false;
 user bool hh_hidestatus=true;
 user bool hh_hidecompass=true;
 
-user bool hh_hideslot1=true;
-user bool hh_hideslot2=true;
-user bool hh_hideslot3=true;
-user bool hh_hideslot4=false;
-user bool hh_hideslot5=true;
-user bool hh_hideslot6=true;
-user bool hh_hideslot7=true;
-user bool hh_hideslot8=true;
-user bool hh_hideslot9=false;
-user bool hh_hideslot0=true;
 user bool hh_hidefiremode=false;
 user bool hh_showoverlay=false;
 
