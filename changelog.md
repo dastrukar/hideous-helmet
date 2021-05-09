@@ -46,7 +46,7 @@ Date format: DD/MM/YYYY
 **26/04/2021 [2]**
 > Hope this doesn't break anything
 
-* Updated to latest master of Hideous Destructor.
+* Updated to latest main of Hideous Destructor.
 * Helmet should now show up in the automap, even though it's going to get blocked by the inventory...
 * Added option for bleed indicator, "Hide indicator when not bleeding".
 ---
