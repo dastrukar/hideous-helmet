@@ -1,6 +1,18 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**10/05/2021**
+> Here's the long overdue "Hide weapon status" rework, and some other minor additions/fixes.
+
+* Reworked "Hide weapon status", with a brand new whitelist system. *(and pray that it works)*
+* Fixed strip message showing up for every player.
+* Fixed strip cooldown not being applied.
+* Fixed helmet skin not working in multiplayer. *(hopefully)*
+* Added some options to adjust the helmet's position on the HUD.
+* "hh_strip" will now also equip helmet.
+* Helmet skin change is now toggleable. *(Turned off by default)*
+* Default skin now works with helmet skin change.
+---
 **4/05/2021**
 * You can now change your skin based on whether you have a helmet or not. *(Change with CVar "hh_nohelmskin" and "hh_helmetskin")*
 * Added better menu info.
