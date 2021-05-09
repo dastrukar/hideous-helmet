@@ -8,7 +8,6 @@ class HHHandlers:EventHandler {
 		if (alive&&e.name~=="hh_strip") {
 			if (player.FindInventory("HHelmetWorn")) {
 				player.DropInventory(HHelmetWorn(player.findinventory("HHelmetWorn")));
-				player.A_Log("Removing helmet first.");
 			} else if (player.FindInventory("HHelmet")) player.UseInventory(player.FindInventory("HHelmet"));
 		}
 	}

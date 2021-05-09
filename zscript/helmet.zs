@@ -188,6 +188,7 @@ class HHelmetWorn:HDArmourWorn {
 		tossed.mags.clear();
 		tossed.mags.push(durability);
 		tossed.amount=1;
+		owner.A_Log("Removing helmet first.",true);
 		destroy();
 		return tossed;
 	}
