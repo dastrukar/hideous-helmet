@@ -1,6 +1,9 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**11/05/2021**
+* Update to latest main of Hideous Destructor.
+---
 **10/05/2021**
 > Here's the long overdue "Hide weapon status" rework, and some other minor additions/fixes.
 
