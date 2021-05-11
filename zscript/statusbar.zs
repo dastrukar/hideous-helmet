@@ -51,7 +51,34 @@ class HDStatusBar:DoomStatusBar{
 			}
 		}
 		bigitemyofs=-20;
+
+		//build circle mask
+		circleShape = new('Shape2D');
+
+		let angStep = 360. / circleVertCount;
+		let ang = 0.;
+
+		for(int i = 0; i < circleVertCount; i++){
+			let vx = sin(ang) / 2;
+			let vy = cos(ang) / 2;
+
+			let vert = (vx, vy);
+
+			circleVerts[i] = vert;
+			circleShape.PushCoord(vert + (.5, .5));
+			circleShape.PushVertex((vx, vy));
+
+			if(i + 2 < circleVertCount) circleShape.PushTriangle(0, i + 1, i + 2);
+
+			ang += angStep;
+		}
 	}
+
+	const circleVertCount = 24;
+
+	Shape2D circleShape;
+	vector2 circleVerts[circleVertCount];
+
 	enum HDStatBar{
 		STB_COMPRAD=12,
 		STB_BEATERSIZE=15,
@@ -1025,6 +1052,55 @@ class HDStatusBar:DoomStatusBar{
 		}else cellsprite="CELLD0";
 		drawimage(cellsprite,(posx,posy),flags:flags,alpha:bttc?1.:0.3);
 	}
+
+	void DrawCircle(TextureID tex, vector2 pos, double scale = 1, vector2 uvOffset = (0, 0), double uvScale = 1, bool center = true){
+		let hudScale = GetHUDScale();
+
+		//convert sbar coords to screen coords
+		pos.x *= hudScale.x;
+		pos.y *= hudScale.y;
+
+		if(center) pos += (screen.GetWidth(), screen.GetHeight()) / 2;
+
+		int sx, sy;
+		[sx, sy] = texman.GetSize(tex);
+
+		//offset and scale UV coords
+		bool uvDirty = false;
+		if(uvOffset.x != 0 || uvOffset.y != 0 || uvScale != 1){
+			uvScale /= scale;
+
+			uvOffset *= -1;
+
+			uvOffset.x /= sx;
+			uvOffset.y /= sy;
+
+			circleShape.Clear(Shape2D.C_Coords);
+			for(int i = 0; i < circleVertCount; i++)
+				circleShape.PushCoord(circleVerts[i] / uvScale + uvOffset + (.5, .5));
+
+			uvDirty = true;
+		}
+
+		let trans = new('Shape2DTransform');
+
+		trans.Scale((sx * hudScale.x, sy * hudScale.y) * scale);
+		trans.Translate(pos);
+
+		circleShape.SetTransform(trans);
+
+		screen.DrawShape(tex, false, circleShape);
+
+		trans.Destroy();
+
+		//reset to original UV coords
+		if(uvDirty){
+			circleShape.Clear(Shape2D.C_Coords);
+			for(int i = 0; i < circleVertCount; i++)
+				circleShape.PushCoord(circleVerts[i] + (.5, .5));
+		}
+	}
+
 	enum HDSBarNums{
 		SBAR_MAXAMMOCOLS=7,
 		SBAR_AMMOROW=14,
@@ -1093,5 +1169,4 @@ class HDStatusBar:DoomStatusBar{
 			}
 		}
 	}
-
 }
