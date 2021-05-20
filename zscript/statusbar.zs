@@ -221,7 +221,6 @@ class HDStatusBar:DoomStatusBar{
 	}
 	override void Draw(int state,double TicFrac){
 		hpl=hdplayerpawn(cplayer.mo);
-		let helmet=HDArmourWorn(hpl.findinventory("HHelmetWorn"));
 		if(
 			!cplayer
 			||!hpl
