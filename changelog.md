@@ -1,5 +1,10 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
+--
+**21/05/2021**
+> Thanks to Ace for the fix.
+
+* Fixed an oversight that would cause a VM Abort if the player loaded a multiplayer save.
 ---
 **20/05/2021**
 * Fixed a bug that would cause a VM Abort if the player wasn't HDPlayerPawn.
