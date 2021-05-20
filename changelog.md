@@ -1,6 +1,9 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**20/05/2021**
+* Fixed a bug that would cause a VM Abort if the player wasn't HDPlayerPawn.
+---
 **11/05/2021**
 > Hopefully this doesn't break anything.
 
