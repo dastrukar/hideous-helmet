@@ -163,7 +163,7 @@ class HHelmet : HDMagAmmo{
         }
     }
 
-    States{
+    States {
         Spawn:
             HELM A -1;
             stop;
@@ -174,7 +174,7 @@ class HHelmet : HDMagAmmo{
 }
 
 class HHelmetWorn:HDArmourWorn {
-    Default{
+    Default {
         HDPickup.refid "hhw";
         Tag "helmet";
     }
@@ -244,11 +244,11 @@ class HudHelmet:HDPickupGiver {
         Inventory.pickupmessage "Picked up the HUD helmet.";
     }
 
-    override void ConfigureActualPickup(){
-        let aaa=HHelmet(actualitem);
-        aaa.mags.clear();
-        aaa.mags.push(HHCONST_HUDHELMET);
-        aaa.syncamount();
+    override void ConfigureActualPickup() {
+        let aaa = HHelmet(actualitem);
+        aaa.mags.Clear();
+        aaa.mags.Push(HHCONST_HUDHELMET);
+        aaa.SyncAmount();
     }
 }
 
