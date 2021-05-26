@@ -227,6 +227,93 @@ class HHelmetWorn:HDArmourWorn {
     }
 
     // Handle damage
+    override int,name,int,int,int,int,int HandleDamage(
+        int damage,
+        name mod,
+        int flags,
+        actor inflictor,
+        actor source,
+        int towound,
+        int toburn,
+        int tostun,
+        int tobreak
+    ) {
+        // "I don't really know how to get this working with the damage system here,
+        //  so I'll just do it the really dumb and simple way."
+        bool damagetaken;
+        let dmgdiff = durability;
+
+        float h_defense = 1.3;
+        float durability_dmg = max(0, damage>>random(3,5));
+
+        // I don't think I need this for now.
+        /*if(
+            mod=="teeth"||
+            mod=="claws"||
+            mod=="bite"||
+            mod=="scratch"||
+            mod=="nails"||
+            mod=="natural"
+        ){
+            damage/=h_defense;
+            helmet.durability -= durability_dmg;
+            damagetaken = true;
+        }else*/ if (
+            mod == "thermal" ||
+            mod == "fire"    ||
+            mod == "ice"     ||
+            mod == "heat"    ||
+            mod == "cold"    ||
+            mod == "plasma"  ||
+            mod == "burning"
+        ) {
+            // ngl, i don't actually know how this works.
+            // but i'm including it anyways, just in case
+            if(random(0,5)){
+                damage-=10;
+                durability -= durability_dmg;
+                damagetaken = true;
+            }
+        }else if(
+            mod == "cutting"  ||
+            mod == "slashing" ||
+            mod == "piercing"
+        ){
+            // Stuff that armour shouldn't block, but also take damage from
+            durability -= durability_dmg;
+            damagetaken = true;
+        }else if(
+            mod != "bleedout"          &&
+            mod != "internal"          &&
+            mod != "invisiblebleedout" &&
+            mod != "maxhpdrain"        &&
+            mod != "electro"           &&
+            mod != "electrical"        &&
+            mod != "lightning"         &&
+            mod != "bolt"              &&
+            mod != "balefire"          &&
+            mod != "hellfire"          &&
+            mod != "unholy"            &&
+            mod != "staples"           &&
+            mod != "falling"           &&
+            mod != "drowning"          &&
+            mod != "slime"             &&
+            mod != "bashing"           &&
+            mod != "Melee"
+        ){
+            // Basically any other damage type that armour should block
+            //damage/=h_defense;
+            durability -= durability_dmg;
+            damagetaken = true;
+        }
+        //if (damagetaken && hd_debug) { DoHelmetDebug(dmgdiff-durability, mod); }
+        if (durability < 1) {
+            HDArmour.ArmourChangeEffect(self);
+            Destroy();
+        }
+        return damage, mod, flags, towound, toburn, tostun, tobreak;
+    }
+
     override double, double OnBulletImpact(
         HDBulletActor bullet,
         double pen,
@@ -262,6 +349,7 @@ class HHelmetWorn:HDArmourWorn {
         }
 
         // i mean, do you really expect a damaged helmet to block damage as well as it should?
+        // Note: Helmet can still fail even at max durability, though you'd have to be REALLY unlucky for that to happen.
         float sucks = durability * FRandom(0.4, 1.8);
         if (hd_debug) {
             Console.PrintF(hitactor.GetClassName().."  helmet sucks:  "..sucks);
@@ -339,6 +427,15 @@ class HHelmetWorn:HDArmourWorn {
         }
 
         return pen, penshell;
+    }
+
+    void DoHelmetDebug(
+        int actualdamage,
+        name mod
+    ) {
+        A_Log("damage before: "..damage);
+        A_Log("helmet took "..actualdamage.." "..mod.." damage");
+        A_Log(string.format("damage %d", damage));
     }
 }
 
