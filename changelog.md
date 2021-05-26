@@ -1,6 +1,21 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 --
+**PENDING**
+> Hopefully nothing's horribly broken
+
+Compat:
+* Updated to latest main of Hideous Destructor.
+
+Tweaks:
+* Bullets now bypass helmet if enemy is standing right over you while incap'd.
+* Helmet can now turn into dust, when attempting to take off with lower than 5 durability. *(originally was 3)*
+* Helmet now makes a sound when breaking.
+
+Misc:
+* Less code overwriting.
+* Sorted some code.
+--
 **21/05/2021**
 > Thanks to [Ace](https://gitlab.com/Accensus) for the fix.
 

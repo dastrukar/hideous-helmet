@@ -193,13 +193,13 @@ class HHelmetWorn:HDArmourWorn {
     }
 
     override inventory CreateTossable(int amt) {
-        let hdp = HDPlayerPawn(owner);
+        let hdp = HDPlayerPawn(Owner);
         if (hdp.striptime > 0) {
             return null;
         }
 
         //armour sometimes crumbles into dust
-        if (durability < random(1,3)) {
+        if (durability < random(1,5)) {
             for (int i = 0; i < 10; i++) {
                 Actor aaa = Spawn("WallChunk", Owner.pos + (0, 0, Owner.height - 24), ALLOW_REPLACE);
                 Vector3 offspos = (FRandom(-12, 12), FRandom(-12, 12), FRandom(-16, 4));
@@ -207,13 +207,14 @@ class HHelmetWorn:HDArmourWorn {
                 aaa.vel = Owner.vel + offspos * FRandom(0.3, 0.6);
                 aaa.scale *= FRandom(0.8 ,2.);
             }
+            Owner.A_StartSound("helmet/break", CHAN_BODY);
             Destroy();
             return null;
         }
 
         //finally actually take off the armour
-        HDArmour.ArmourChangeEffect(owner);
-        HDPlayerPawn(owner).striptime = 25;
+        HDArmour.ArmourChangeEffect(Owner);
+        HDPlayerPawn(Owner).striptime = 25;
         let tossed = HHelmet(Owner.Spawn("HHelmet",
             (Owner.pos.x, Owner.pos.y, Owner.pos.z + Owner.height - 20),
             ALLOW_REPLACE
@@ -308,6 +309,7 @@ class HHelmetWorn:HDArmourWorn {
         }
         //if (damagetaken && hd_debug) { DoHelmetDebug(dmgdiff-durability, mod); }
         if (durability < 1) {
+            Owner.A_StartSound("helmet/break", CHAN_BODY);
             HDArmour.ArmourChangeEffect(self);
             Destroy();
         }
@@ -405,6 +407,7 @@ class HHelmetWorn:HDArmourWorn {
 
         // Helmet can't take it anymore :[
         if (durability < 1) {
+            Owner.A_StartSound("helmet/break", CHAN_BODY);
             HDArmour.ArmourChangeEffect(self);
             Destroy();
         }
