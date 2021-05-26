@@ -1,6 +1,6 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
---
+---
 **27/05/2021**
 > Hopefully nothing's horribly broken
 
@@ -15,7 +15,7 @@ Tweaks:
 Misc:
 * Less code overwriting.
 * Sorted some code.
---
+---
 **21/05/2021**
 > Thanks to [Ace](https://gitlab.com/Accensus) for the fix.
 
