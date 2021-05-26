@@ -61,8 +61,12 @@ enum StripArmourLevels{
 //-------------------------------------------------
 // Environment/Radiation Suit
 //-------------------------------------------------
-class WornRadsuit:InventoryFlag{
-	default{-inventory.untossable}
+class WornRadsuit:HDDamageHandler{
+	default{
+		+nointeraction;+noblockmap;
+		inventory.maxamount 1;inventory.amount 1;
+		HDDamageHandler.priority 1000;
+	}
 	states{spawn:TNT1 A 0;stop;}
 	override inventory createtossable(int amt){
 		let rrr=owner.findinventory("PortableRadsuit");
@@ -84,6 +88,106 @@ class WornRadsuit:InventoryFlag{
 	override void DoEffect(){
 		if(stamina>0)stamina--;
 	}
+
+
+	//called from HDPlayerPawn and HDMobBase's DamageMobj
+	override int,name,int,int,int,int,int HandleDamage(
+		int damage,
+		name mod,
+		int flags,
+		actor inflictor,
+		actor source,
+		int towound,
+		int toburn,
+		int tostun,
+		int tobreak
+	){
+		let victim=owner;
+		if(
+			(flags&DMG_NO_ARMOR)
+			||mod=="maxhpdrain"
+			||mod=="internal"
+			||mod=="jointlock"
+			||mod=="bleedout"
+			||mod=="invisiblebleedout"
+			||!victim
+		)return damage,mod,flags,towound,toburn,tostun,tobreak;
+
+		stamina+=random(1,damage);
+		bool breached=false;
+
+		if(mod=="slime"){
+			victim.A_GiveInventory("Heat",int(damage*frandom(2.3,2.7)));
+			if(
+				damage>10
+				&&stamina>2100
+			){
+				breached=true;
+			}else if(damage>random(10,50)){
+				damage=1;
+			}else damage=0;
+		}else if(mod=="thermal"){
+			stamina+=random(1,damage);
+			if(damage<random(0,6))damage=0;
+			else{
+				damage=int(damage*0.4);
+				if(stamina>2100)breached=true;
+				else if(damage<4)mod="slime";
+			}
+		}else if(mod=="electro"){
+			if(damage>100)damage=0;
+			else{
+				breached=true;
+				damage=int(damage*0.8);
+			}
+		}else if(mod=="slashing"){
+			if(damage>random(5,30)){
+				A_StartSound("radsuit/rip",CHAN_BODY,CHANF_OVERLAP);
+				breached=true;
+			}
+		}else if(
+			mod=="teeth"
+			||mod=="claws"
+			||mod=="natural"
+		){
+			if(random(1,damage)>10){
+				A_StartSound("radsuit/rip",CHAN_BODY,CHANF_OVERLAP);
+				breached=true;
+				damage-=5;
+			}
+		}else{
+			//any other damage not taken care of above
+			if(towound>random(4,20))breached=true;
+		}
+
+		if(breached)destroyradsuit();
+
+		return damage,mod,flags,towound,toburn,tostun,tobreak;
+	}
+	void DestroyRadsuit(){	
+		destroy();
+		if(owner){
+			owner.A_TakeInventory("PowerIronFeet");
+			owner.A_StartSound("radsuit/burst",CHAN_BODY,CHANF_OVERLAP);
+		}
+	}
+
+	//called from HDBulletActor's OnHitActor
+	override double,double OnBulletImpact(
+		HDBulletActor bullet,
+		double pen,
+		double penshell,
+		double hitangle,
+		double deemedwidth,
+		vector3 hitpos,
+		vector3 vu,
+		bool hitactoristall
+	){
+		if(pen>frandom(1,4))destroyradsuit();
+		penshell+=1;
+		return pen,penshell;
+	}
+
 }
 class PortableRadsuit:HDPickup replaces RadSuit{
 	default{
