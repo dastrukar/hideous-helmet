@@ -14,7 +14,7 @@ Some of the HUD is hidden without the helmet.\
 
 ### Info about the helmet
 * Shows all of the HUD when you wear it, with some extra stuff. *(extra stuff is toggleable)*
-* Provides a bit of defense, mostly for the head.
+* Provides some defense, mostly for the head.
 * Can be worn without removing armour first.
 * *Should be noted that you can use medikit with the helmet on.*
 * Can be removed with `hh_strip`.
