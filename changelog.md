@@ -1,7 +1,14 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
-**27/05/2021**
+**27/05/2021 [2]**
+Compat:
+* Exclude helmet from the new CheckStrip() system.
+
+Misc:
+* No longer overwriting gadgets.zs
+---
+**27/05/2021 [1]**
 > Hopefully nothing's horribly broken
 
 Compat:

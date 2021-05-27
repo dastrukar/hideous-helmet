@@ -65,7 +65,7 @@ class HHelmet : HDMagAmmo{
         if (
             invoker.cooldown < 1 &&
             self.FindInventory("HHelmetWorn")
-        ){
+        ) {
             self.DropInventory(self.FindInventory("HHelmetWorn"));
             self.A_Log("Removing helmet first.", true);
             invoker.cooldown = 10;
@@ -116,7 +116,7 @@ class HHelmet : HDMagAmmo{
         int durability = mags[mags.Size() - 1];
         //put on the armour right away
         if (
-            other.player && other.player.cmd.buttons&BT_USE &&
+            other.player && other.player.cmd.buttons & BT_USE &&
             !other.FindInventory("HHelmetWorn") &&
             HDPlayerPawn(other).striptime == 0
         ) {
@@ -176,6 +176,7 @@ class HHelmet : HDMagAmmo{
 class HHelmetWorn:HDArmourWorn {
     Default {
         HDPickup.refid "hhw";
+        HDPickup.wornlayer 0;
         Tag "hud helmet";
     }
 
