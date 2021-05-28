@@ -67,7 +67,6 @@ class HHelmet : HDMagAmmo{
             self.FindInventory("HHelmetWorn")
         ) {
             self.DropInventory(self.FindInventory("HHelmetWorn"));
-            self.A_Log("Removing helmet first.", true);
             return;
         }
         if (HDPlayerPawn(self).striptime > 0) {
@@ -80,7 +79,7 @@ class HHelmet : HDMagAmmo{
 
         //and finally put on the actual armour
         HDArmour.ArmourChangeEffect(self);
-        let worn=HHelmetWorn(GiveInventoryType("HHelmetWorn"));
+        let worn = HHelmetWorn(GiveInventoryType("HHelmetWorn"));
         worn.durability = dbl;
         invoker.amount--;
         invoker.mags.Pop();
@@ -310,7 +309,7 @@ class HHelmetWorn:HDArmourWorn {
         //if (damagetaken && hd_debug) { DoHelmetDebug(dmgdiff-durability, mod); }
         if (durability < 1) {
             Owner.A_StartSound("helmet/break", CHAN_BODY);
-            HDArmour.ArmourChangeEffect(self);
+            HDArmour.ArmourChangeEffect(Owner);
             Destroy();
         }
         return damage, mod, flags, towound, toburn, tostun, tobreak;
@@ -408,7 +407,7 @@ class HHelmetWorn:HDArmourWorn {
         // Helmet can't take it anymore :[
         if (durability < 1) {
             Owner.A_StartSound("helmet/break", CHAN_BODY);
-            HDArmour.ArmourChangeEffect(self);
+            HDArmour.ArmourChangeEffect(Owner);
             Destroy();
         }
 
