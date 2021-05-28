@@ -15,7 +15,7 @@ class HHelmet : HDMagAmmo{
         Inventory.amount 1;
         HDMagammo.maxperunit HHCONST_HUDHELMET;
         HDMagammo.magbulk ENC_HUDHELMET;
-        Tag "helmet";
+        Tag "hud helmet";
         Inventory.icon "HELMA0";
         Inventory.pickupmessage "Picked up the HUD helmet.";
     }
@@ -61,20 +61,20 @@ class HHelmet : HDMagAmmo{
             return;
         }
 
-        //strip intervening items on doubleclick
+        // Strip worn helmet on double click
         if (
-            invoker.cooldown < 1 &&
+            invoker.cooldown > 0 &&
             self.FindInventory("HHelmetWorn")
         ) {
             self.DropInventory(self.FindInventory("HHelmetWorn"));
             self.A_Log("Removing helmet first.", true);
-            invoker.cooldown = 10;
             return;
         }
-        if (
-            self.FindInventory("HHelmetWorn") ||
-            HDPlayerPawn(self).striptime > 0
-        ) {
+        if (HDPlayerPawn(self).striptime > 0) {
+            return;
+        }
+        if (self.FindInventory("HHelmetWorn")) {
+            invoker.cooldown = 10;
             return;
         }
 
