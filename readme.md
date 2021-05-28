@@ -28,9 +28,12 @@ Some of the HUD is hidden without the helmet.\
 * `hhw` hud helmet
 
 ### Spawn info:
-Spawns at any armour and marine corpse. *(at least it should)*\
-Jackboots with helmets should also drop them on death.\
+Has a chance to spawn at any armour.\
+Marines or jackboots with helmets should also drop them on death.\
 *(You can tweak the spawn rate)*
+
+Note:\
+Enemies don't actually wear the helmets, they just drop them. *(though, i could change that)*
 
 ## Are there any releases?
 Just download the latest [`master`](https://github.com/dastrukar/hideous-helmet/archive/refs/heads/master.zip) repo and pray that it works.
