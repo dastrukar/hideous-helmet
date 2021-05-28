@@ -215,7 +215,6 @@ class HHelmetWorn:HDArmourWorn {
 
         //finally actually take off the armour
         HDArmour.ArmourChangeEffect(Owner);
-        HDPlayerPawn(Owner).striptime = 25;
         let tossed = HHelmet(Owner.Spawn("HHelmet",
             (Owner.pos.x, Owner.pos.y, Owner.pos.z + Owner.height - 20),
             ALLOW_REPLACE
