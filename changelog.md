@@ -1,7 +1,8 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
-**29/05/2021**\
+**29/05/2021**
+
 Compat:
 * Adapt to the new ArmourChangeEffect().
 
@@ -13,7 +14,8 @@ Tweaks:
 * As a result of the ArmourChangeEffect() fix, you now get staggered when the helmet breaks while worn.
 * The helmet is now actually called "HUD Helmet" in the backpack.
 ---
-**27/05/2021 [2]**\
+**27/05/2021 [2]**
+
 Compat:
 * Exclude helmet from the new CheckStrip() system.
 
