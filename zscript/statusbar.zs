@@ -442,55 +442,66 @@ class HDStatusBar:DoomStatusBar{
 			cvar.findcvar("hd_loadout1").setstring(lomt.species);
 		}
 
-		if(blurred){
-			let bls=HDBlurSphere(hpl.findinventory("HDBlurSphere"));
-			if(!bls)blurred=false;else{
+		let blursphere=HDBlurSphere(hpl.findinventory("HDBlurSphere"));
+		if(
+			blurred
+			||(
+				blursphere
+				&&blursphere.level>3
+			)
+		){
+			if(!blursphere)blurred=false;else{
 				SetSize(0,320,200);
 				BeginHUD(forcescaled:true);
-				texman.setcameratotexture(hpl.scopecamera,"HDXHCAM4",97);
-				double lv=bls.stamina+frandom[blurhud](-2,2);
-				double camalpha=bls.intensity*0.0002*clamp(lv,0,9);
+				texman.setcameratotexture(hpl.scopecamera,"HDXHCAM4",frandom[blurhud](97,102));
+				double lv=blursphere.stamina+frandom[blurhud](-2,2);
+				double camalpha;
+				if(blurred)camalpha=blursphere.intensity*0.0006*clamp(lv,0,18);
+				else camalpha=0.0003*clamp(lv,0,18);
+				int ilv=int(lv);
 				drawimage(
-					"HDXHCAM4",(-random[blurhud](30,32)-lv,0),DI_SCREEN_CENTER|DI_ITEM_CENTER,
-					alpha:camalpha,scale:(2.0,2.0)*frandom[blurhud](0.99,1.01)
+					"HDXHCAM4",(-random[blurhud](6,12)-ilv,random[blurhud](-ilv,ilv)),
+					DI_SCREEN_CENTER|DI_ITEM_CENTER,
+					alpha:camalpha,scale:(1.0,1.0)*frandom[blurhud](0.99,1.01)
 				);
-				texman.setcameratotexture(hpl.scopecamera,"HDXHCAM4",110);
 				drawimage(
-					"HDXHCAM4",(random[blurhud](30,32)+lv,0),DI_SCREEN_CENTER|DI_ITEM_CENTER,
-					alpha:camalpha*0.6,scale:(2.0,2.0)*frandom[blurhud](0.99,1.01)
+					"HDXHCAM4",(random[blurhud](6,12)+ilv,random[blurhud](-ilv,ilv)),
+					DI_SCREEN_CENTER|DI_ITEM_CENTER,
+					alpha:camalpha*frandom[blurhud](0.59,0.61),
+					scale:(1.0,1.0)*frandom[blurhud](0.99,1.01)
 				);
 				drawimage(
 					"DUSTA0",(0,0),DI_SCREEN_CENTER|DI_ITEM_CENTER,
 					alpha:0.01*lv,scale:(1000,600)
 				);
+				if(blurred)return;
 			}
-		}else{
+		}
 
-			//draw the crosshair
-			if(hpl.health>0)DrawHDXHair(hpl);
+		//draw the crosshair
+		if(hpl.health>0)DrawHDXHair(hpl);
 
-			SetSize(0,320,200);
-			BeginHUD(forcescaled:true);
+		SetSize(0,320,200);
+		BeginHUD(forcescaled:true);
 
 
-			//draw the goggles when they do something.
-			let hdla=portableliteamp(hpl.findinventory("PortableLiteAmp"));
-			if(hdla && hdla.worn){
-				//can we do these calculations once somewhere else?
-				int gogheight=int(screen.getheight()*(1.6*90.)/cplayer.fov);
-				int gogwidth=screen.getwidth()*gogheight/screen.getheight();
-				int gogoffsx=-((gogwidth-screen.getwidth())>>1);
-				int gogoffsy=-((gogheight-screen.getheight())>>1);
+		//draw the goggles when they do something.
+		let hdla=portableliteamp(hpl.findinventory("PortableLiteAmp"));
+		if(hdla && hdla.worn){
+			//can we do these calculations once somewhere else?
+			int gogheight=int(screen.getheight()*(1.6*90.)/cplayer.fov);
+			int gogwidth=screen.getwidth()*gogheight/screen.getheight();
+			int gogoffsx=-((gogwidth-screen.getwidth())>>1);
+			int gogoffsy=-((gogheight-screen.getheight())>>1);
 
-				screen.drawtexture(
-					texman.checkfortexture("gogmask",texman.type_any),
-					true,
-					gogoffsx-(int(hpl.hudbob.x)),
-					gogoffsy-(int(hpl.hudbob.y)),
-					DTA_DestWidth,gogwidth,DTA_DestHeight,gogheight,
-					true
-				);
-			}
+			screen.drawtexture(
+				texman.checkfortexture("gogmask",texman.type_any),
+				true,
+				gogoffsx-(int(hpl.hudbob.x)),
+				gogoffsy-(int(hpl.hudbob.y)),
+				DTA_DestWidth,gogwidth,DTA_DestHeight,gogheight,
+				true
+			);
 		}
 
 		//draw information text for selected weapon
