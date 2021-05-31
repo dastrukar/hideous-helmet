@@ -227,39 +227,48 @@ class HDStatusBar:DoomStatusBar{
 		)return;
 		cplayer.inventorytics=0;
 
+
 		if(automapactive){
 			DrawAutomapHUD(ticfrac);
 			DrawAutomapStuff();
 		}else if(cplayer.mo==cplayer.camera){
 			DrawAlwaysStuff();
-			if(hpl.health<1){
-				drawtip();
-				return;
-			}
-			BeginHUD(forcescaled:false);
+			if(hpl.health>0){
+				BeginHUD(forcescaled:false);
 
-			bool usemughud=(
-				hd_hudstyle.getint()==1
-				||(
-					state==HUD_Fullscreen
-					&&!hd_hudstyle.getint()
-				)
-			);
+				bool usemughud=(
+					hd_hudstyle.getint()==1
+					||(
+						state==HUD_Fullscreen
+						&&!hd_hudstyle.getint()
+					)
+				);
 
-			if(state<=HUD_Fullscreen){
-				if(hudlevel>0){
-					DrawCommonStuff(usemughud);
-					if(usemughud)DrawFullScreenStuff();
+				if(state<=HUD_Fullscreen){
+					if(hudlevel>0){
+						DrawCommonStuff(usemughud);
+						if(usemughud)DrawFullScreenStuff();
+					}
 				}
-			}
-			else{
-				let www=hdweapon(cplayer.readyweapon);
-				if(www&&www.balwaysshowstatus)drawweaponstatus(www);
+				else{
+					let www=hdweapon(cplayer.readyweapon);
+					if(www&&www.balwaysshowstatus)drawweaponstatus(www);
+				}
 			}
 		}
 
-		if(hpl.countinv("WornRadsuit"))fill(color(160,10,40,14),0,0,screen.getwidth(),screen.getheight());
+		//radsuit visor overlay
+		if(hpl.countinv("WornRadsuit"))fill(
+			color(160,10,40,14),0,0,screen.getwidth(),screen.getheight()
+		);
 
+		//blacking out
+		if(hpl.blackout>0)fill(
+			color(hpl.blackout,6,2,0),0,0,screen.getwidth(),screen.getheight()
+		);
+
+
+		if(hpl.health<1)drawtip();
 		if(idmypos)drawmypos();
 	}
 	void DrawAutomapStuff(){
@@ -1180,3 +1189,66 @@ class HDStatusBar:DoomStatusBar{
 		}
 	}
 }
+
+
+//all for the blackout effect
+//because A_SetBlend keeps getting overridden by other crap
+extend class HDPlayerPawn{
+	int blackout;
+	int blackoutfull;
+	int blackoutrateup;
+	int blackoutratedown;
+	int blackoutfulltime;
+	void UpdateBlackout(){
+		if(health<1){
+			if(blackout<256)blackout+=blackoutrateup;
+			return;
+		}
+		if(blackoutfull<1)return;
+		if(blackout>blackoutfulltime){
+			blackoutfulltime=0;
+			blackoutrateup=blackoutratedown;
+		}
+		blackout+=blackoutrateup;
+		if(blackoutrateup<0&&blackout<1){
+			blackoutfull=0;
+			blackoutfulltime=0;
+			blackoutrateup=1;
+		}
+	}
+	void AddBlackout(
+		int bof,
+		int bor,
+		int bord=0,
+		int boft=0
+	){
+		blackoutfull=clamp(abs(bof),0,256);
+		blackoutrateup=max(blackoutrateup,abs(bor));
+		if(!bord)bord=bor;
+		blackoutratedown=-abs(bord);
+		blackoutfulltime=max(blackoutfulltime,bof+boft*bor);
+	}
+}
+mixin class HDInventoryBlackoutWrapper{
+	void AddBlackout(
+		int bof,
+		int bor,
+		int bord=0,
+		int boft=0
+	){
+		if(!owner)return;
+		if(hdplayerpawn(owner))hdplayerpawn(owner).AddBlackout(bof,bor,bord,boft);
+		else owner.A_SetBlend("01 00 00",0.9,256/bor);
+	}
+	action void A_AddBlackout(int bof,int bor,int bord=0,int boft=0){
+		invoker.AddBlackout(bof,bor,bord,boft);
+	}
+}
+extend class HDPickup{
+	mixin HDInventoryBlackoutWrapper;
+}
+extend class HDWeapon{
+	mixin HDInventoryBlackoutWrapper;
+}
+
+
