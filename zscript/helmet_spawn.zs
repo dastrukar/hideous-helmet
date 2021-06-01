@@ -9,7 +9,7 @@ class DummyHelmet:IdleDummy {
 		let helm = HHelmet(spawn("HHelmet", pos, ALLOW_REPLACE));
 		helm.vel = vel;
 		helm.mags.clear();
-		helm.mags.push(50);
+		helm.mags.push(HHCONST_HUDHELMET);
 		helm.syncamount();
 	}
 }
