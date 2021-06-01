@@ -360,9 +360,9 @@ class HHelmetWorn:HDArmourWorn {
         if (hitheight > 0.8) { 
             // headshot
             helmetshell = (sucks > 25)? FRandom(15, 20) : FRandom(5, 10);
-        } else if (hitheight < 0.4) {
-            // magical helmet leg defense
-            helmetshell = (sucks > 25)? FRandom(2, 3) : FRandom(0, 1);
+        } else if (hitheight < 0.5) {
+            // don't protect the legs
+            helmetshell = 0;
         } else {
             // imagine that the helmet has a magical net
             helmetshell = (sucks > 25)? FRandom(4, 8) : FRandom(1, 3);
@@ -371,14 +371,14 @@ class HHelmetWorn:HDArmourWorn {
         string debug_text;
         if (hd_debug && hitheight > 0.8) {
             debug_text = "HEADSHOT.";
-        } else if (hd_debug && hitheight < 0.4) {
+        } else if (hd_debug && hitheight < 0.5) {
             debug_text = "leg shot.";
         } else if (hd_debug) {
             debug_text = "body shot.";
         }
 
         if (debug_text) {
-            Console.PrintF(debug_text);
+            Console.PrintF("helmet debug: "..debug_text);
         }
 
         // durability stuff
@@ -389,12 +389,10 @@ class HHelmetWorn:HDArmourWorn {
             if (ddd < 1 && pen > helmetshell) {
                 ddd = 1;
             }
-            if (ddd>0) {
+            if (ddd > 0) {
+                Console.PrintF(""..ddd);
                 durability -= ddd;
             }
-        } else if (helmetshell > -0.5) {
-            //bullet leaves a hole in the webbing
-            durability -= Max(random(0, 1), (stamina >> 7));
         } else if (hd_debug) {
             Console.PrintF("missed the helmet!");
         }
