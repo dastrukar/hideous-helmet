@@ -203,10 +203,7 @@ class HHelmetWorn : HDArmourWorn {
             return null;
         }
 
-        // Sometimes, reading through the debug log is not worth it
-        if (hd_debug) {
-            Console.PrintF("Helmet stats:\n Headshots: "..headshots.."("..headdamage..")\n Bodyshots: "..bodyshots.."("..bodydamage..")");
-        }
+        PrintHelmetDebug();
 
         //armour sometimes crumbles into dust
         if (durability < random(1,5)) {
@@ -237,6 +234,7 @@ class HHelmetWorn : HDArmourWorn {
 
     // For convenience
     void BreakSelf() {
+        PrintHelmetDebug();
         Owner.A_StartSound("helmet/break", CHAN_BODY);
         HDArmour.ArmourChangeEffect(Owner);
         Destroy();
@@ -375,7 +373,7 @@ class HHelmetWorn : HDArmourWorn {
         if (hitheight < 0.5) {
             // don't protect the legs
             helmetshell = 0;
-        } else {
+        } else if (hitheight < 0.8) {
             // imagine that the helmet has a magical net
             // also, enemies don't always aim for your "head" anyways, so it's kind of pointless for it to just protect the "head"
             helmetshell *= 0.7;
@@ -459,6 +457,13 @@ class HHelmetWorn : HDArmourWorn {
         }
 
         return pen, penshell;
+    }
+
+    // Sometimes, reading through the debug log is not worth it
+    void PrintHelmetDebug() {
+        if (hd_debug) {
+            Console.PrintF("Helmet stats:\n Headshots: "..headshots.."("..headdamage..")\n Bodyshots: "..bodyshots.."("..bodydamage..")");
+        }
     }
 
     void DoHelmetDebug(
