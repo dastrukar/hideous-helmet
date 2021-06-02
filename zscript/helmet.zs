@@ -382,12 +382,10 @@ class HHelmetWorn : HDArmourWorn {
         string debug_text;
         if (hd_debug && hitheight > 0.8) {
             debug_text = "HEADSHOT.";
-            headshots++;
         } else if (hd_debug && hitheight < 0.5) {
             debug_text = "leg shot.";
         } else if (hd_debug) {
             debug_text = "body shot.";
-            bodyshots++;
         }
 
         if (debug_text) {
@@ -414,16 +412,18 @@ class HHelmetWorn : HDArmourWorn {
             }
             if (ddd > 0) {
                 durability -= ddd;
-
-                // For debugging
-                if (hitheight > 0.8) {
-                    headdamage += ddd;
-                } else {
-                    bodydamage += ddd;
-                }
                 if (hd_debug) {
                     Console.PrintF("helmet took "..ddd.." damage");
                 }
+            }
+
+            // For debugging
+            if (hitheight > 0.8) {
+                headdamage += ddd;
+                headshots++;
+            } else {
+                bodydamage += ddd;
+                bodyshots++;
             }
         } else if (hd_debug) {
             Console.PrintF("missed the helmet!");
