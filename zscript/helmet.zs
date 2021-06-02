@@ -369,20 +369,21 @@ class HHelmetWorn : HDArmourWorn {
         }
 
         float helmetshell = (sucks > 25)? FRandom(15, 20) : FRandom(5, 10);
-        int hithelmet;
-        if (hitheight < 0.5) {
+        bool headshot = (hitheight > 0.8);
+        bool legshot  = (hitheight < 0.5);
+        if (legshot) {
             // don't protect the legs
             helmetshell = 0;
-        } else if (hitheight < 0.8) {
+        } else if (!headshot) {
             // imagine that the helmet has a magical net
             // also, enemies don't always aim for your "head" anyways, so it's kind of pointless for it to just protect the "head"
             helmetshell *= 0.7;
         }
 
         string debug_text;
-        if (hd_debug && hitheight > 0.8) {
+        if (hd_debug && headshot) {
             debug_text = "HEADSHOT.";
-        } else if (hd_debug && hitheight < 0.5) {
+        } else if (hd_debug && legshot) {
             debug_text = "leg shot.";
         } else if (hd_debug) {
             debug_text = "body shot.";
@@ -404,7 +405,7 @@ class HHelmetWorn : HDArmourWorn {
             if (ddd < 1 && pen > helmetshell) {
                 // 50% chance to not deal damage if you got hit in the chest
                 if (
-                    hitheight > 0.8 ||
+                    headshot ||
                     (FRandom(0, 1) <= 0.50)
                 ) {
                     ddd = 1;
@@ -415,14 +416,18 @@ class HHelmetWorn : HDArmourWorn {
                 if (hd_debug) {
                     Console.PrintF("helmet took "..ddd.." damage");
                 }
+
+                if (headshot) {
+                    headdamage += ddd;
+                } else {
+                    bodydamage += ddd;
+                }
             }
 
             // For debugging
-            if (hitheight > 0.8) {
-                headdamage += ddd;
+            if (headshot) {
                 headshots++;
             } else {
-                bodydamage += ddd;
                 bodyshots++;
             }
         } else if (hd_debug) {
