@@ -207,8 +207,7 @@ class HHelmetWorn:HDArmourWorn {
                 aaa.vel = Owner.vel + offspos * FRandom(0.3, 0.6);
                 aaa.scale *= FRandom(0.8 ,2.);
             }
-            Owner.A_StartSound("helmet/break", CHAN_BODY);
-            Destroy();
+            BreakSelf();
             return null;
         }
 
@@ -224,6 +223,13 @@ class HHelmetWorn:HDArmourWorn {
         Owner.A_Log("Removing helmet first.", true);
         Destroy();
         return tossed;
+    }
+
+    // For convenience
+    void BreakSelf() {
+        Owner.A_StartSound("helmet/break", CHAN_BODY);
+        HDArmour.ArmourChangeEffect(Owner);
+        Destroy();
     }
 
     // Handle damage
@@ -308,9 +314,7 @@ class HHelmetWorn:HDArmourWorn {
         }
         //if (damagetaken && hd_debug) { DoHelmetDebug(dmgdiff-durability, mod); }
         if (durability < 1) {
-            Owner.A_StartSound("helmet/break", CHAN_BODY);
-            HDArmour.ArmourChangeEffect(Owner);
-            Destroy();
+            BreakSelf();
         }
         return damage, mod, flags, towound, toburn, tostun, tobreak;
     }
@@ -365,6 +369,7 @@ class HHelmetWorn:HDArmourWorn {
             helmetshell = 0;
         } else {
             // imagine that the helmet has a magical net
+            // also, enemies don't always aim for your "head" anyways, so it's kind of pointless for it to just protect the "head"
             helmetshell = (sucks > 25)? FRandom(4, 8) : FRandom(1, 3);
         }
 
@@ -378,7 +383,7 @@ class HHelmetWorn:HDArmourWorn {
         }
 
         if (debug_text) {
-            Console.PrintF("helmet debug: "..debug_text);
+            Console.PrintF(""..debug_text);
         }
 
         // durability stuff
@@ -407,9 +412,7 @@ class HHelmetWorn:HDArmourWorn {
 
         // Helmet can't take it anymore :[
         if (durability < 1) {
-            Owner.A_StartSound("helmet/break", CHAN_BODY);
-            HDArmour.ArmourChangeEffect(Owner);
-            Destroy();
+            BreakSelf();
         }
 
         if (
