@@ -361,6 +361,7 @@ class HHelmetWorn:HDArmourWorn {
         }
 
         float helmetshell;
+        int hithelmet;
         if (hitheight > 0.8) { 
             // headshot
             helmetshell = (sucks > 25)? FRandom(15, 20) : FRandom(5, 10);
@@ -389,10 +390,13 @@ class HHelmetWorn:HDArmourWorn {
         // durability stuff
         if (helmetshell > 0) {
             // helmet takes some damage
-            int ddd = Random(-1, (int(Min(pen, helmetshell) * stamina) >> 12));
+            int ddd = Random(-1, (int(Min(pen, helmetshell) * bullet.stamina) >> 12));
+
+            Console.PrintF("pen: "..pen.."   helmetshell: "..helmetshell.."   stamina: "..bullet.stamina);
 
             if (ddd < 1 && pen > helmetshell) {
                 ddd = 1;
+                Console.PrintF("pen!!");
             }
             if (ddd > 0) {
                 durability -= ddd;
