@@ -172,7 +172,12 @@ class HHelmet : HDMagAmmo{
     }
 }
 
-class HHelmetWorn:HDArmourWorn {
+class HHelmetWorn : HDArmourWorn {
+    int headshots;
+    int bodyshots;
+    int headdamage;
+    int bodydamage;
+
     Default {
         HDPickup.refid "hhw";
         HDPickup.wornlayer 0;
@@ -196,6 +201,11 @@ class HHelmetWorn:HDArmourWorn {
         let hdp = HDPlayerPawn(Owner);
         if (hdp.striptime > 0) {
             return null;
+        }
+
+        // Sometimes, reading through the debug log is not worth it
+        if (hd_debug) {
+            Console.PrintF("Helmet stats:\n Headshots: "..headshots.."("..headdamage..")\n Bodyshots: "..bodyshots.."("..bodydamage..")");
         }
 
         //armour sometimes crumbles into dust
@@ -360,27 +370,26 @@ class HHelmetWorn:HDArmourWorn {
             Console.PrintF(hitactor.GetClassName().."  helmet sucks:  "..sucks);
         }
 
-        float helmetshell;
+        float helmetshell = (sucks > 25)? FRandom(15, 20) : FRandom(5, 10);
         int hithelmet;
-        if (hitheight > 0.8) { 
-            // headshot
-            helmetshell = (sucks > 25)? FRandom(15, 20) : FRandom(5, 10);
-        } else if (hitheight < 0.5) {
+        if (hitheight < 0.5) {
             // don't protect the legs
             helmetshell = 0;
         } else {
             // imagine that the helmet has a magical net
             // also, enemies don't always aim for your "head" anyways, so it's kind of pointless for it to just protect the "head"
-            helmetshell = (sucks > 25)? FRandom(4, 8) : FRandom(1, 3);
+            helmetshell *= 0.7;
         }
 
         string debug_text;
         if (hd_debug && hitheight > 0.8) {
             debug_text = "HEADSHOT.";
+            headshots++;
         } else if (hd_debug && hitheight < 0.5) {
             debug_text = "leg shot.";
         } else if (hd_debug) {
             debug_text = "body shot.";
+            bodyshots++;
         }
 
         if (debug_text) {
@@ -392,15 +401,28 @@ class HHelmetWorn:HDArmourWorn {
             // helmet takes some damage
             int ddd = Random(-1, (int(Min(pen, helmetshell) * bullet.stamina) >> 12));
 
-            Console.PrintF("pen: "..pen.."   helmetshell: "..helmetshell.."   stamina: "..bullet.stamina);
+            if (hd_debug) {
+                Console.PrintF("Random(Min("..pen..", "..helmetshell..") * "..bullet.stamina.." >> 12) = "..ddd);
+            }
 
             if (ddd < 1 && pen > helmetshell) {
-                ddd = 1;
-                Console.PrintF("pen!!");
+                // 50% chance to not deal damage if you got hit in the chest
+                if (
+                    hitheight > 0.8 ||
+                    (FRandom(0, 1) <= 0.50)
+                ) {
+                    ddd = 1;
+                }
             }
             if (ddd > 0) {
                 durability -= ddd;
 
+                // For debugging
+                if (hitheight > 0.8) {
+                    headdamage += ddd;
+                } else {
+                    bodydamage += ddd;
+                }
                 if (hd_debug) {
                     Console.PrintF("helmet took "..ddd.." damage");
                 }
@@ -410,7 +432,7 @@ class HHelmetWorn:HDArmourWorn {
         }
 
         if (hd_debug) {
-            console.printf(hitactor.getclassname().."  armour(helmet) resistance:  "..helmetshell);
+            Console.PrintF(hitactor.getclassname().."  helmet resistance:  "..helmetshell);
         }
         penshell += helmetshell;
 
