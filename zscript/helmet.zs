@@ -390,8 +390,11 @@ class HHelmetWorn:HDArmourWorn {
                 ddd = 1;
             }
             if (ddd > 0) {
-                Console.PrintF(""..ddd);
                 durability -= ddd;
+
+                if (hd_debug) {
+                    Console.PrintF("helmet took "..ddd.." damage");
+                }
             }
         } else if (hd_debug) {
             Console.PrintF("missed the helmet!");
