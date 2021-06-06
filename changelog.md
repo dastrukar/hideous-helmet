@@ -8,7 +8,7 @@ Compat:
 * Updated to latest main of Hideous Destructor.
 
 Tweaks:
-* Helmet no longer blocks leg damage.
+* Helmet no longer protects your legs.
 
 ---
 **31/05/2021**
