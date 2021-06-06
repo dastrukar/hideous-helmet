@@ -1200,17 +1200,22 @@ extend class HDPlayerPawn{
 	int blackoutratedown;
 	int blackoutfulltime;
 	void UpdateBlackout(){
-		if(health<1){
-			if(blackout<256)blackout+=blackoutrateup;
-			return;
-		}
 		if(blackoutfull<1)return;
-		if(blackout>blackoutfulltime){
-			blackoutfulltime=0;
+
+		if(blackout>=blackoutfull){
+			if(blackoutfulltime>0){
+				blackoutfulltime--;
+				return;
+			}
 			blackoutrateup=blackoutratedown;
 		}
+
 		blackout+=blackoutrateup;
-		if(blackoutrateup<0&&blackout<1){
+
+		if(
+			blackoutrateup<0
+			&&blackout<1
+		){
 			blackoutfull=0;
 			blackoutfulltime=0;
 			blackoutrateup=1;
@@ -1226,7 +1231,7 @@ extend class HDPlayerPawn{
 		blackoutrateup=max(blackoutrateup,abs(bor));
 		if(!bord)bord=bor;
 		blackoutratedown=-abs(bord);
-		blackoutfulltime=max(blackoutfulltime,bof+boft*bor);
+		blackoutfulltime=boft;
 	}
 }
 mixin class HDInventoryBlackoutWrapper{

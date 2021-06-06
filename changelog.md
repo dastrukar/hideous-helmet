@@ -1,7 +1,14 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
-**PENDING**
+**6/06/2021**
+> Helmet protection rework coming soon?
+
+Compat:
+* Updated to latest main of Hideous Destructor.
+
+Tweaks:
+* Helmet no longer blocks leg damage.
 
 ---
 **31/05/2021**
