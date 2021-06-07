@@ -4,6 +4,7 @@ Date format: DD/MM/YYYY
 **7/06/2021**
 
 Compat:
+* Updated to latest main of Hideous Destructor.
 * HUD Compass should now match the latest main's.
 ---
 **6/06/2021**
