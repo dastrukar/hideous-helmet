@@ -727,11 +727,19 @@ class HDStatusBar:DoomStatusBar{
 					DTA_VirtualWidth,640,DTA_VirtualHeight,480
 				);
 
+				let whh=wephelpheight+NewSmallFont.GetHeight();
+				screen.DrawText(NewSmallFont,
+					font.CR_OLIVE,
+					600,
+					whh,
+					"^",
+					DTA_VirtualWidth,640,DTA_VirtualHeight,480
+				);
 				string postxt=string.format("%i,%i,%i",hpl.pos.x,hpl.pos.y,hpl.pos.z);
 				screen.DrawText(NewSmallFont,
 					font.CR_OLIVE,
 					600-(NewSmallFont.StringWidth(postxt)>>1),
-					wephelpheight+6,
+					whh+6,
 					postxt,
 					DTA_VirtualWidth,640,DTA_VirtualHeight,480
 				);
