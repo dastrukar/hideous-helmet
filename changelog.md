@@ -1,6 +1,12 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**8/06/2021**
+
+Fixes:
+* "Hide Weapon Status" should now actually unhide weapon status when disabled.
+* Whitelist editor should now properly save.
+---
 **7/06/2021**
 
 Compat:

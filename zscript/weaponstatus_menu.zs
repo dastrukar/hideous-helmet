@@ -284,7 +284,7 @@ class HHWhitelistMenu : GenericMenu {
     }
 
     void SaveChanges() {
-        CVar.GetCVar("hh_weaponwhitelist", cplayer).SetString(new_wl);
+        CVar.FindCVar("hh_weaponwhitelist").SetString(new_wl);
         undo      = whitelist;
         whitelist = new_wl;
     }
