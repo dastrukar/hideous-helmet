@@ -257,11 +257,6 @@ class HDStatusBar:DoomStatusBar{
 			}
 		}
 
-		//radsuit visor overlay
-		if(hpl.countinv("WornRadsuit"))fill(
-			color(160,10,40,14),0,0,screen.getwidth(),screen.getheight()
-		);
-
 		//blacking out
 		if(hpl.blackout>0)fill(
 			color(hpl.blackout,6,2,0),0,0,screen.getwidth(),screen.getheight()
