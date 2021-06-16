@@ -6,6 +6,9 @@ Date format: DD/MM/YYYY
 Tweaks:
 * Tweaked how the helmet takes damage. *(should last a bit longer now)*
 * Adjusted helmet max durability to be half of Garrison Armour, 72.
+
+Added:
+* Added `hh_debug` for.. well, debugging helmet stuff. *(also because hd_debug displays a lot of stuff)*
 ---
 **16/06/2021**
 

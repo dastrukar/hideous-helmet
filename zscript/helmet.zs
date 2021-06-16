@@ -320,7 +320,7 @@ class HHelmetWorn : HDArmourWorn {
 			durability -= durability_dmg;
 			damagetaken = true;
 		}
-		//if (damagetaken && hd_debug) { DoHelmetDebug(dmgdiff-durability, mod); }
+		//if (damagetaken && hh_debug) { DoHelmetDebug(dmgdiff-durability, mod); }
 		if (durability < 1) {
 			BreakSelf();
 		}
@@ -363,7 +363,7 @@ class HHelmetWorn : HDArmourWorn {
 
 		// i mean, do you really expect a damaged helmet to block damage as well as it should?
 		float sucks = durability * FRandom(0.4, 1.8);
-		if (hd_debug) {
+		if (hh_debug) {
 			Console.PrintF(hitactor.GetClassName().."  helmet sucks:  "..sucks);
 		}
 
@@ -380,11 +380,11 @@ class HHelmetWorn : HDArmourWorn {
 		}
 
 		string debug_text;
-		if (hd_debug && headshot) {
+		if (hh_debug && headshot) {
 			debug_text = "HEADSHOT.";
-		} else if (hd_debug && legshot) {
+		} else if (hh_debug && legshot) {
 			debug_text = "leg shot.";
-		} else if (hd_debug) {
+		} else if (hh_debug) {
 			debug_text = "body shot.";
 		}
 
@@ -397,7 +397,7 @@ class HHelmetWorn : HDArmourWorn {
 			// helmet takes some damage
 			int ddd = Random(-1, (int(Min(pen, helmetshell) * bullet.stamina) >> 12));
 
-			if (hd_debug) {
+			if (hh_debug) {
 				Console.PrintF("Random(Min("..pen..", "..helmetshell..") * "..bullet.stamina.." >> 12) = "..ddd);
 			}
 
@@ -421,7 +421,7 @@ class HHelmetWorn : HDArmourWorn {
 			}
 			if (ddd > 0) {
 				durability -= ddd;
-				if (hd_debug) {
+				if (hh_debug) {
 					Console.PrintF("helmet took "..ddd.." damage");
 				}
 
@@ -438,11 +438,11 @@ class HHelmetWorn : HDArmourWorn {
 			} else {
 				bodyshots++;
 			}
-		} else if (hd_debug) {
+		} else if (hh_debug) {
 			Console.PrintF("missed the helmet!");
 		}
 
-		if (hd_debug) {
+		if (hh_debug) {
 			Console.PrintF(hitactor.getclassname().."  helmet resistance:  "..helmetshell);
 		}
 		penshell += helmetshell;
@@ -474,7 +474,7 @@ class HHelmetWorn : HDArmourWorn {
 
 	// Sometimes, reading through the debug log is not worth it
 	void PrintHelmetDebug() {
-		if (hd_debug) {
+		if (hh_debug) {
 			Console.PrintF("Helmet stats:\n Headshots: "..headshots.."("..headdamage..")\n Bodyshots: "..bodyshots.."("..bodydamage..")");
 		}
 	}
