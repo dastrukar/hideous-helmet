@@ -1,20 +1,20 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
-**PENDING**
-> Been working on this for awhile now, just didn't have the time to finish it :[
+**16/06/2021 [2]**
+> Hopefully the tweaks don't make the helmet too good
 
 Compat:
-* Weapons from Peppergrinder should now display its firemode when not wearing a helmet.
+* Weapons from Peppergrinder should now display its firemode when not wearing a helmet. *(only applies if Hide Weapon Status is enabled)*
 
 Tweaks:
 * Tweaked how the helmet takes damage. *(should last a bit longer now)*
-* Adjusted helmet max durability to be half of Garrison Armour, 72.
+* Adjusted helmet max durability to 72. *(which is half of the Garrison armour's max durability)*
 
 Added:
 * Added `hh_debug` for.. well, debugging helmet stuff. *(also because hd_debug displays a lot of stuff)*
 ---
-**16/06/2021**
+**16/06/2021 [1]**
 
 Compat:
 * Updated to latest main of Hideous Destructor.
