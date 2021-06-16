@@ -402,12 +402,21 @@ class HHelmetWorn : HDArmourWorn {
                 Console.PrintF("Random(Min("..pen..", "..helmetshell..") * "..bullet.stamina.." >> 12) = "..ddd);
             }
 
-            if (ddd < 1 && pen > helmetshell) {
-                // 50% chance to not deal damage if you got hit in the chest
-                if (
-                    headshot ||
-                    (FRandom(0, 1) <= 0.50)
+            if (ddd < 1) {
+                bool penetrated = (pen > helmetshell);
+                if (headshot) {
+                    if (
+                        penetrated ||
+                        FRandom(0, 1) <= 0.25
+                    ) {
+                        // 25% chance to damage the helmet if shot in the face
+                        ddd = 1;
+                    }
+                } else if (
+                    penetrated &&
+                    FRandom(0, 1) <= 0.50
                 ) {
+                    // 50% chance to not damage the helmet if you got hit in the chest
                     ddd = 1;
                 }
             }
