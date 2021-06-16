@@ -2,6 +2,10 @@ All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
 **PENDING**
+> Been working on this for awhile now, just didn't have the time to finish it :[
+
+Compat:
+* Weapons from Peppergrinder should now display its firemode when not wearing a helmet.
 
 Tweaks:
 * Tweaked how the helmet takes damage. *(should last a bit longer now)*
