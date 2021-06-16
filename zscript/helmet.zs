@@ -362,7 +362,6 @@ class HHelmetWorn : HDArmourWorn {
 		}
 
 		// i mean, do you really expect a damaged helmet to block damage as well as it should?
-		// Note: Helmet can still fail even at max durability, though you'd have to be REALLY unlucky for that to happen.
 		float sucks = durability * FRandom(0.4, 1.8);
 		if (hd_debug) {
 			Console.PrintF(hitactor.GetClassName().."  helmet sucks:  "..sucks);
@@ -377,7 +376,7 @@ class HHelmetWorn : HDArmourWorn {
 		} else if (!headshot) {
 			// imagine that the helmet has a magical net
 			// also, enemies don't always aim for your "head" anyways, so it's kind of pointless for it to just protect the "head"
-			helmetshell *= 0.7;
+			helmetshell *= 0.5;
 		}
 
 		string debug_text;
