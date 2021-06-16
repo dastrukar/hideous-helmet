@@ -3,7 +3,7 @@
 
 // HDMagAmmo is used, due to how backpacks handle icons for HDArmour
 
-const HHCONST_HUDHELMET = 50;
+const HHCONST_HUDHELMET = 72; // Half of Garrison armour's durability
 const ENC_HUDHELMET = 200;
 
 class HHelmet : HDMagAmmo{
@@ -416,7 +416,7 @@ class HHelmetWorn : HDArmourWorn {
 					penetrated &&
 					FRandom(0, 1) <= 0.50
 				) {
-					// 50% chance to not damage the helmet if you got hit in the chest
+					// 50% chance to not damage the helmet if you got penetrated in the chest
 					ddd = 1;
 				}
 			}

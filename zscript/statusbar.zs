@@ -1104,7 +1104,7 @@ class HDStatusBar:DoomStatusBar{
 			let coords=(helmetcoords.x,helmetcoords.y+hh_helmetoffsety.getint());
 			drawbar(
 				helmetsprite,helmetback,
-				helmet.durability,50,
+				helmet.durability,72,
 				coords,-1,SHADER_VERT,
 				flags
 			);

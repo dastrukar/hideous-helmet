@@ -1,6 +1,12 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**PENDING**
+
+Tweaks:
+* Tweaked how the helmet takes damage. *(should last a bit longer now)*
+* Adjusted helmet max durability to be half of Garrison Armour, 72.
+---
 **16/06/2021**
 
 Compat:
