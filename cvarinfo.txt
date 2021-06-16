@@ -1,5 +1,5 @@
 user bool hh_overwritewhitelist=false;
-user string hh_weaponwhitelist="z66 vul 9";
+user string hh_weaponwhitelist="9 z66 vul m64 smr";
 
 user bool hh_changeskin=false;
 user string hh_nohelmskin="";
@@ -24,8 +24,8 @@ user bool hh_showbleedwhenbleeding=false;
 user int hh_helmetoffsety=0;
 user bool hh_durabilitytop=false;
 
-server int hh_mindurability=5;
-server int hh_maxdurability=35;
+server int hh_mindurability=6;
+server int hh_maxdurability=48;
 
 server float hh_armourspawn=0.50;
 server float hh_marinespawn=0.35;
