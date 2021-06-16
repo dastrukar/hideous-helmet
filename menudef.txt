@@ -45,8 +45,8 @@ OptionMenu "HHRNG"{
 	StaticText " "
 
 	StaticText "Helmet spawned from enemies", "white"
-	Slider "Min. Durability", "hh_mindurability", 0, 50, 1
-	Slider "Max Durability", "hh_maxdurability", 0, 50, 1
+	Slider "Min. Durability", "hh_mindurability", 0, 72, 1
+	Slider "Max Durability", "hh_maxdurability", 0, 72, 1
 }
 
 OptionMenu "HHWPN"{
