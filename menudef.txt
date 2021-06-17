@@ -33,6 +33,12 @@ OptionMenu "HHOptions"{
 	Option "Show bleed indicator", "hh_showbleed", "YN"
 	Option "Show wound count", "hh_woundcounter", "YN", "hh_showbleed"
 	Option "Hide indicator when not bleeding", "hh_showbleedwhenbleeding", "YN", "hh_showbleed"
+	StaticText " "
+
+	StaticText "DANGER ZONE", "red"
+	SafeCommand "Reset general options", "hh_options_reset_general"
+	StaticText " "
+	SafeCommand "Reset all options", "hh_options_reset_all"
 }
 
 OptionMenu "HHRNG"{
@@ -47,6 +53,10 @@ OptionMenu "HHRNG"{
 	StaticText "Helmet spawned from enemies", "white"
 	Slider "Min. Durability", "hh_mindurability", 0, 72, 1
 	Slider "Max Durability", "hh_maxdurability", 0, 72, 1
+	StaticText " "
+
+	StaticText "DANGER ZONE", "red"
+	SafeCommand "Reset spawn options", "hh_options_reset_spawn"
 }
 
 OptionMenu "HHWPN"{
@@ -61,6 +71,10 @@ OptionMenu "HHWPN"{
 	StaticText "Due to how the HUD works,", "white"
 	StaticText "weapon firemode indicators are defined in hh_firemodecodes.txt", "white"
 	Option "Hide firemode", "hh_hidefiremode", "YN"
+	StaticText " "
+
+	StaticText "DANGER ZONE", "red"
+	SafeCommand "Reset weapon status options", "hh_options_reset_wpnstat"
 }
 
 OptionMenu "HHSKIN"{
@@ -74,6 +88,10 @@ OptionMenu "HHSKIN"{
 	StaticText "CVars:", "yellow"
 	StaticText "hh_nohelmskin : Skin to use when you don't have a helmet.", "white"
 	StaticText "hh_helmetskin : Skin to use when you have a helmet.", "white"
+	StaticText " "
+
+	StaticText "DANGER ZONE", "red"
+	SafeCommand "Reset skin options", "hh_options_reset_skin"
 }
 
 OptionMenu "HHPOS"{
@@ -81,6 +99,10 @@ OptionMenu "HHPOS"{
 
 	Slider "Sprite Y offset", "hh_helmetoffsety", -100, 100, 1
 	Option "Durability text placement", "hh_durabilitytop", "TB"
+	StaticText " "
+
+	StaticText "DANGER ZONE", "red"
+	SafeCommand "Reset position options", "hh_options_reset_pos"
 }
 
 AddOptionMenu "OptionsMenu"{
