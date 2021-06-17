@@ -1,6 +1,18 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**17/06/2021**
+
+Compat:
+* Updated to latest main of Hideous Destructor
+
+Tweaks:
+* Changed the default min and max durability of helmets from foes
+
+Additions:
+* Added a way to reset options back to default
+* Added some weapons from addons to the "whitelist"
+---
 **16/06/2021 [2]**
 > Hopefully the tweaks don't make the helmet too good
 

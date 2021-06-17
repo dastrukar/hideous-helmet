@@ -455,10 +455,6 @@ class HDStatusBar:DoomStatusBar{
 		)DrawHDXHair(hpl);
 
 
-		SetSize(0,320,200);
-		BeginHUD(forcescaled:true);
-
-
 
 		//draw item overlays
 		for(int i=0;i<hpl.OverlayGivers.size();i++){
@@ -471,6 +467,8 @@ class HDStatusBar:DoomStatusBar{
 
 
 		//draw information text for selected weapon
+		SetSize(0,320,200);
+		BeginHUD(forcescaled:true);
 		hudfont pSmallFont=HUDFont.Create("SmallFont");
 		let hdw=HDWeapon(cplayer.readyweapon);
 		if(hdw&&hdw.msgtimer>0)drawstrings(psmallfont,hdw.wepmsg,
