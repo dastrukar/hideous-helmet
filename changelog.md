@@ -1,6 +1,15 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**19/06/2021**
+> Note to self: Add a new operator for "hh_firemodecodes"'s parser thing
+
+Compat:
+* ZM69 should now display its firemode when not wearing a helmet.
+
+Misc:
+* Sorted `hh_firemodecodes` into different files
+---
 **17/06/2021**
 
 Compat:
