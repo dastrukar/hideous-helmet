@@ -1,0 +1,2 @@
+s45:0:RBRSA3A7,STFULAUT:blank,2
+cpt:0:blank,STBURAUT:blank,1
