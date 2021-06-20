@@ -1,6 +1,12 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**PENDING**
+> True immersion
+
+Additions:
+* Added an option to nerf vanilla HDest armour's head protection. *(enabled by default)*
+---
 **19/06/2021**
 > Note to self: Add a new operator for "hh_firemodecodes"'s parser thing
 
