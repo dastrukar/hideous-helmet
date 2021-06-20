@@ -48,9 +48,14 @@ class HHArmourNerf : HDDamageHandler {
 		double hitheight = hitactoristall? ((hitpos.z - hitactor.pos.z) / hitactor.height) : 0.5;
 
 		// Don't exist if there's no armour left
+		// Or you just disabled nerfing the armour
 		if (
-			!(hdp && hdp.FindInventory("HDArmourWorn")) &&
-			!(hdmb && hdmb.FindInventory("HDArmourWorn"))
+			(
+				!(hdp && hdp.FindInventory("HDArmourWorn")) &&
+				!(hdmb && hdmb.FindInventory("HDArmourWorn"))
+			) || (
+				!hh_nerfarmour
+			)
 		) {
 			Destroy();
 			return pen, penshell;
