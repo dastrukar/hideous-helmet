@@ -19,6 +19,15 @@ class HHArmourNerfHandler : EventHandler {
 			}
 		}
 	}
+
+	// Enemies must suffer as much as you
+	override void WorldThingSpawned(WorldEvent e) {
+		let T = e.Thing;
+
+		if (hh_nerfarmour && T is "HDActor") {
+			T.GiveInventory("HHArmourNerf", 1);
+		}
+	}
 }
 
 class HHArmourNerf : HDDamageHandler {
@@ -81,22 +90,9 @@ class HHArmourNerf : HDDamageHandler {
 		if (hitheight > 0.8) {
 			HDArmourWorn arm = HDArmourWorn((hdp)? hdp.FindInventory("HDArmourWorn") : hdmb.FindInventory("HDArmourWorn"));
 			double addpenshell = (arm.mega)? 30 : (10 + Max(0, (arm.durability - 120) >> 3));
-			int crackseed = int(level.time + angle) & (1 | 2 | 4 | 8 | 16 | 32);
 
-			if (hdmb && !hdmb.bhashelmet) {
-				addpenshell=-1;
-			} else {
-				if (
-					crackseed > Clamp(arm.durability, 1, 3) &&
-					AbsAngle(bullet.angle, hitactor.angle) > (180. - 5.) &&
-					bullet.pitch > -20 &&
-					bullet.pitch < 7
-				) {
-					double dec = (arm.mega)? FRandom(5, 10) : addpenshell * 0.6;
-					penshell -= dec;
-				} else {
-					penshell -= Min(addpenshell * 0.4, 15);
-				}
+			if (!(hdmb && !hdmb.bhashelmet)) {
+				penshell -= addpenshell * ((arm.mega)? 0.4 : 0.2);
 			}
 		}
 
