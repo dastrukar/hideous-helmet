@@ -2,7 +2,7 @@ All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
 **PENDING**
-> True immersion
+> i spent an hour trying to update hideous helmet to the latest hdest, only to realise that the change i was looking at got removed by another commit
 
 Additions:
 * Added an option to nerf vanilla HDest armour's head protection. *(enabled by default)*
