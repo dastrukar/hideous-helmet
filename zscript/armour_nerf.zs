@@ -24,7 +24,10 @@ class HHArmourNerfHandler : EventHandler {
 	override void WorldThingSpawned(WorldEvent e) {
 		let T = e.Thing;
 
-		if (hh_nerfarmour && T is "HDActor") {
+		if (hh_nerfarmour && T is "HDMobBase") {
+			if (hh_debug) {
+				Console.PrintF("Gave Nerf to "..T.GetClassName());
+			}
 			T.GiveInventory("HHArmourNerf", 1);
 		}
 	}
@@ -66,6 +69,9 @@ class HHArmourNerf : HDDamageHandler {
 				!hh_nerfarmour
 			)
 		) {
+			if (hh_debug) {
+				Console.PrintF("Removing Nerf from "..hitactor.GetClassName());
+			}
 			Destroy();
 			return pen, penshell;
 		}
