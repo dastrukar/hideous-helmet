@@ -79,7 +79,6 @@ class HHArmourNerf : HDDamageHandler {
 
 		// Nerf head defense
 		if (hitheight > 0.8) {
-			Console.PrintF("HEADSHOT");
 			HDArmourWorn arm = HDArmourWorn((hdp)? hdp.FindInventory("HDArmourWorn") : hdmb.FindInventory("HDArmourWorn"));
 			double addpenshell = (arm.mega)? 30 : (10 + Max(0, (arm.durability - 120) >> 3));
 			int crackseed = int(level.time + angle) & (1 | 2 | 4 | 8 | 16 | 32);
