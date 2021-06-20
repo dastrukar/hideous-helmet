@@ -31,4 +31,6 @@ server float hh_armourspawn=0.50;
 server float hh_marinespawn=0.35;
 server float hh_jackbootspawn=0.35;
 
+server bool hh_nerfarmour=true;
+
 server bool hh_debug=false;
