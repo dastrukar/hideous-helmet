@@ -92,10 +92,10 @@ class HHArmourNerf : HDDamageHandler {
 					bullet.pitch > -20 &&
 					bullet.pitch < 7
 				) {
-					double dec = (arm.mega)? FRandom(5, 10) : addpenshell * 0.5;
+					double dec = (arm.mega)? FRandom(5, 10) : addpenshell * 0.6;
 					penshell -= dec;
 				} else {
-					penshell -= Min(addpenshell * 0.5, 10);
+					penshell -= Min(addpenshell * 0.4, 15);
 				}
 			}
 		}
