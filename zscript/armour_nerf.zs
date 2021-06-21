@@ -99,6 +99,10 @@ class HHArmourNerf : HDDamageHandler {
 
 			if (!(hdmb && !hdmb.bhashelmet)) {
 				penshell -= addpenshell * ((arm.mega)? 0.4 : 0.2);
+
+				if (hh_debug) {
+					Console.PrintF(hitactor.GetClassName().." got their armour nerfed by "..addpenshell * ((arm.mega)? 0.4 : 0.2));
+				}
 			}
 		}
 
