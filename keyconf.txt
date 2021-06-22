@@ -6,6 +6,6 @@ alias hh_strip "netevent hh_strip";
 alias hh_options_reset_all "hh_options_reset_general; hh_options_reset_wpnstat; hh_options_reset_spawn; hh_options_reset_pos;"
 alias hh_options_reset_general "resetcvar hh_hideammo; resetcvar hh_hidearmour; resetcvar hh_hidestatus; resetcvar hh_hidecompass; resetcvar hh_bigbrotheriswatchingyou; resetcvar hh_showbleed; resetcvar hh_woundcounter; resetcvar hh_showbleedwhenbleeding;"
 alias hh_options_reset_wpnstat "resetcvar hh_hidefiremode;"
-alias hh_options_reset_spawn "resetcvar hh_armourspawn; resetcvar hh_marinespawn; resetcvar hh_jackbootspawn; resetcvar hh_mindurability; resetcvar hh_maxdurability;"
+alias hh_options_reset_spawn "resetcvar hh_armourspawn; resetcvar hh_marinespawn; resetcvar hh_jackbootspawn; resetcvar hh_enemywearshelmet; resetcvar hh_d_wear_min; resetcvar hh_d_wear_max; resetcvar hh_d_random_min; resetcvar hh_d_random_max;"
 alias hh_options_reset_pos "resetcvar hh_durabilitytop; resetcvar hh_helmetoffsety;"
 alias hh_options_reset_skin "resetcvar hh_changeskin; resetcvar hh_nohelmskin; resetcvar hh_helmetskin;"

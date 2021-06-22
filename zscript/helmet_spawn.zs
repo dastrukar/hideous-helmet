@@ -4,26 +4,25 @@ class HasHelmet : InventoryFlag{
 	int durability;
 
 	override void Tick() {
-		// Check if the thing holding this is still alive
+		// Drop helmet if dead
 		if (Owner && Owner.health < 1) {
-			Vector3 t_pos = (Owner.pos.x, Owner.pos.y, Owner.pos.z + 5);
-			HHelmetSpawner.SummonHelmet(durability, t_pos);
+			// If has helmet, use that for durability
+			Inventory helm = Owner.FindInventory("HHelmetWorn");
+			if (helm) {
+				durability = HHelmetWorn(helm).durability;
+			}
+
+			if (durability > 0) {
+				Vector3 t_pos = (Owner.pos.x, Owner.pos.y, Owner.pos.z + 5);
+				HHelmetSpawner.SummonHelmet(durability, t_pos);
+			}
+
 			Destroy();
 		}
 	}
 }
 
 class HHelmetSpawner : EventHandler {
-	float hh_jackbootspawn;
-	float hh_armourspawn;
-	float hh_marinespawn;
-
-	override void WorldLoaded(WorldEvent e) {
-		hh_jackbootspawn = CVar.GetCVar("hh_jackbootspawn").GetFloat();
-		hh_armourspawn = CVar.GetCVar("hh_armourspawn").GetFloat();
-		hh_marinespawn = CVar.GetCVar("hh_marinespawn").GetFloat();
-	}
-
 	// Armour should come with helmets
 	override void WorldThingSpawned(WorldEvent e) {
 		if(!e.Thing) return;
@@ -51,12 +50,22 @@ class HHelmetSpawner : EventHandler {
 		) {
 			// Jackboots and marines
 			// Now determined on spawn instead of on death!
-			int hh_mindurability = CVar.GetCVar("hh_mindurability").GetInt();
-			int hh_maxdurability = CVar.GetCVar("hh_maxdurability").GetInt();
+			bool hh_enemywearshelmet = CVar.GetCVar("hh_enemywearshelmet").GetBool();
 
 			T.GiveInventory("HasHelmet", 1);
-			HasHelmet helm = HasHelmet(T.FindInventory("HasHelmet"));
-			helm.durability = Random(hh_mindurability, hh_maxdurability);
+			// Wear helmet?
+			if (hh_enemywearshelmet) {
+				T.GiveInventory("HHelmetWorn", 1);
+				HHelmetWorn wrn = HHelmetWorn(T.FindInventory("HHelmetWorn"));
+				wrn.durability = Random(hh_d_random_min, hh_d_random_max);
+
+				if (hh_debug) {
+					Console.PrintF("Gave helmet to "..T.GetClassName().." with durability "..wrn.durability);
+				}
+			} else {
+				HasHelmet helm = HasHelmet(T.FindInventory("HasHelmet"));
+				helm.durability = Random(hh_d_random_min, hh_d_random_max);
+			}
 		}
 	}
 

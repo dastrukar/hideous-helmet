@@ -54,9 +54,14 @@ OptionMenu "HHRNG"{
 	Slider "Spawn from helmet jackboots", "hh_jackbootspawn", 0.00, 1.00, 0.05, 2
 	StaticText " "
 
-	StaticText "Helmet spawned from enemies", "white"
-	Slider "Min. Durability", "hh_mindurability", 0, 72, 1
-	Slider "Max Durability", "hh_maxdurability", 0, 72, 1
+	StaticText "Helmet randomly dropped from enemies", "white"
+	Slider "Min. Durability", "hh_d_random_min", 0, 72, 1
+	Slider "Max Durability", "hh_d_random_max", 0, 72, 1
+	StaticText " "
+
+	StaticText "Helmet dropped from enemies wearing it", "white"
+	Slider "Min. Durability", "hh_d_wear_min", 0, 72, 1
+	Slider "Max Durability", "hh_d_wear_max", 0, 72, 1
 	StaticText " "
 
 	StaticText "DANGER ZONE", "red"

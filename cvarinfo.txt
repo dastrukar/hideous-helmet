@@ -24,13 +24,14 @@ user bool hh_showbleedwhenbleeding=false;
 user int hh_helmetoffsety=0;
 user bool hh_durabilitytop=false;
 
-server int hh_mindurability=6;
-server int hh_maxdurability=48;
+server int hh_d_random_min=8;
+server int hh_d_random_max=62;
 
 server float hh_armourspawn=0.50;
 server float hh_marinespawn=0.35;
 server float hh_jackbootspawn=0.35;
 
 server bool hh_nerfarmour=true;
+server bool hh_enemywearshelmet=true;
 
 server bool hh_debug=false;
