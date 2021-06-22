@@ -2,10 +2,10 @@ All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
 **PENDING**
-> i spent an hour trying to update hideous helmet to the latest hdest, only to realise that the change i was looking at got removed by another commit
+> Probably the first update that I'm actually scared of making. Regardless, the new additions still need tweaking.
 
 Additions:
-* Added an option to nerf vanilla HDest armour's head protection. *(enabled by default)*
+* Added an option to nerf vanilla HDest armour's head protection, this affects enemies too. *(enabled by default)*
 ---
 **19/06/2021**
 > Note to self: Add a new operator for "hh_firemodecodes"'s parser thing

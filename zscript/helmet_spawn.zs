@@ -71,7 +71,7 @@ class HHelmetSpawner : EventHandler {
 			int hh_maxdurability = cvar.getcvar("hh_maxdurability").getint();
 
 			T.GiveInventory("HasHelmet", 1);
-			HasHelmet helm = HasHelmet(T.CheckInventory("HasHelmet"));
+			HasHelmet helm = HasHelmet(T.FindInventory("HasHelmet"));
 			helm.durability = Random(hh_mindurability, hh_maxdurability);
 		}
 	}
@@ -83,16 +83,16 @@ class HHelmetSpawner : EventHandler {
 
 		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z+5);
 
-		if (T.CheckInventory("HasHelmet")) {
+		if (T.CheckInventory("HasHelmet", false)) {
 			DummyHelmet helm = DummyHelmet(Actor.Spawn("DummyHelmet", t_pos));
 
-			helm.durability = HasHelmet(T.CheckInventory("HasHelmet")).durability;
+			helm.durability = HasHelmet(T.FindInventory("HasHelmet")).durability;
 			helm.vel.x += frandom(-2,2);
 			helm.vel.y += frandom(-2,2);
 			helm.vel.z += frandom(1,3);
 
 			// Make sure the enemy can't try to drop another helmet again
-			T.TakeInventory("HasHelmet");
+			T.TakeInventory("HasHelmet", 1);
 		}
 	}
 }
