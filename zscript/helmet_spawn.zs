@@ -17,10 +17,11 @@ class HHelmetSpawner : EventHandler {
 	float hh_jackbootspawn;
 	float hh_armourspawn;
 	float hh_marinespawn;
+
 	override void WorldLoaded(WorldEvent e) {
-		hh_jackbootspawn = 1 - cvar.getcvar("hh_jackbootspawn").getfloat();
-		hh_armourspawn = 1 - cvar.getcvar("hh_armourspawn").getfloat();
-		hh_marinespawn = 1 - cvar.getcvar("hh_marinespawn").getfloat();
+		hh_jackbootspawn = CVar.GetCVar("hh_jackbootspawn").GetFloat();
+		hh_armourspawn = CVar.GetCVar("hh_armourspawn").GetFloat();
+		hh_marinespawn = CVar.GetCVar("hh_marinespawn").GetFloat();
 	}
 
 	// Armour should come with helmets
@@ -35,23 +36,23 @@ class HHelmetSpawner : EventHandler {
 
 		bool is_marine = (T is "HDMarine");
 
-		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z+5);
+		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z + 5);
 		if (
-			level.maptime < 2 &&
+			Level.maptime < 2 &&
 			T is "HDArmour" &&
-			frandom(0,1) >= hh_armourspawn
+			FRandom(0,1) <= hh_armourspawn
 		) {
 			// Armour
 			// Just has a chance to spawn with a helmet
 			SummonHelmet(HHCONST_HUDHELMET, t_pos);
 		} else if (
-			(is_jackboot && FRandom(0,1) >= hh_jackbootspawn) ||
-			(is_marine && FRandom(0,1) >= hh_marinespawn)
+			(is_jackboot && FRandom(0,1) <= hh_jackbootspawn) ||
+			(is_marine && FRandom(0,1) <= hh_marinespawn)
 		) {
 			// Jackboots and marines
 			// Now determined on spawn instead of on death!
-			int hh_mindurability = cvar.getcvar("hh_mindurability").getint();
-			int hh_maxdurability = cvar.getcvar("hh_maxdurability").getint();
+			int hh_mindurability = CVar.GetCVar("hh_mindurability").GetInt();
+			int hh_maxdurability = CVar.GetCVar("hh_maxdurability").GetInt();
 
 			T.GiveInventory("HasHelmet", 1);
 			HasHelmet helm = HasHelmet(T.FindInventory("HasHelmet"));
