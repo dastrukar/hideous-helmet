@@ -50,9 +50,8 @@ class HHelmetSpawner : EventHandler {
 		) {
 			// Jackboots and marines
 			// Now determined on spawn instead of on death!
-			bool hh_enemywearshelmet = CVar.GetCVar("hh_enemywearshelmet").GetBool();
-
 			T.GiveInventory("HasHelmet", 1);
+
 			// Wear helmet?
 			if (hh_enemywearshelmet) {
 				T.GiveInventory("HHelmetWorn", 1);
