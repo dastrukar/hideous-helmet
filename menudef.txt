@@ -59,11 +59,6 @@ OptionMenu "HHRNG"{
 	Slider "Max Durability", "hh_d_random_max", 0, 72, 1
 	StaticText " "
 
-	StaticText "Helmet dropped from enemies wearing it", "white"
-	Slider "Min. Durability", "hh_d_wear_min", 0, 72, 1
-	Slider "Max Durability", "hh_d_wear_max", 0, 72, 1
-	StaticText " "
-
 	StaticText "DANGER ZONE", "red"
 	SafeCommand "Reset spawn options", "hh_options_reset_spawn"
 }

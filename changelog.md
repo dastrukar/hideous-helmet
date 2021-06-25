@@ -4,8 +4,12 @@ Date format: DD/MM/YYYY
 **PENDING**
 > Probably the first update that I'm actually scared of making. Regardless, the new additions still need tweaking.
 
+Tweaks:
+* Marines/Jackboots now get determined whether they have a helmet on spawning, instead of on death.
+
 Additions:
 * Added an option to nerf vanilla HDest armour's head protection, this affects enemies too. *(enabled by default)*
+* Added an option to allow enemies to wear helmets, this will affect their head protection. *(enabled by default)*
 ---
 **19/06/2021**
 > Note to self: Add a new operator for "hh_firemodecodes"'s parser thing
