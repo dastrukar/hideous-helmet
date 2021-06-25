@@ -1,8 +1,8 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
-**PENDING**
-> Probably the first update that I'm actually scared of making. Regardless, the new additions still need tweaking.
+**25/06/2021**
+> Armour nerf might need to be tweaked a lot. Hope it doesn't make armour too shit (p.s: i haven't tested battle armour yet)
 
 Tweaks:
 * Marines/Jackboots now get determined whether they have a helmet on spawning, instead of on death.
