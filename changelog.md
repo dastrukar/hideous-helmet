@@ -1,6 +1,11 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**28/06/2021**
+
+Compat:
+* Icarus' Nyx should now display its firemode when not wearing a helmet.
+---
 **25/06/2021**
 > Armour nerf might need to be tweaked a lot. Hope it doesn't make armour too shit (p.s: i haven't tested battle armour yet)
 
