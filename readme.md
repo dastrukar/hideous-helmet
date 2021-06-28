@@ -23,6 +23,10 @@ Some of the HUD is hidden without the helmet.\
 ### The extra stuff
 * Shows a *"bleed indicator"*, with a *"wound counter"*. *(both are toggleable)*
 
+### Armour Nerf
+Due to the introduction of helmets, both the Garrison and Battle armour's head protection has been reduced.\
+It should be noted that this is toggle-able.
+
 ### Loadout codes:
 * `hdh` hud helmet (spare)
 * `hhw` hud helmet
