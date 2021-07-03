@@ -59,8 +59,8 @@ class HDStatusBar:DoomStatusBar{
 		let ang = 0.;
 
 		for(int i = 0; i < circleVertCount; i++){
-			let vx = sin(ang) / 2;
-			let vy = cos(ang) / 2;
+			let vx = sin(ang)*0.5;
+			let vy = cos(ang)*0.5;
 
 			let vert = (vx, vy);
 
@@ -75,6 +75,7 @@ class HDStatusBar:DoomStatusBar{
 	}
 
 	const circleVertCount = 24;
+	const PXLSTRETCH_DOOM = 1.2;
 
 	Shape2D circleShape;
 	vector2 circleVerts[circleVertCount];
@@ -1035,7 +1036,7 @@ class HDStatusBar:DoomStatusBar{
 		drawimage(cellsprite,(posx,posy),flags:flags,alpha:bttc?1.:0.3);
 	}
 
-	void DrawCircle(TextureID tex, vector2 pos, double scale = 1, vector2 uvOffset = (0, 0), double uvScale = 1, bool center = true){
+	void DrawCircle(TextureID tex, vector2 pos, double scale = 1, vector2 uvOffset = (0, 0), double uvScale = 1, bool center = true, bool squash=false){
 		let hudScale = GetHUDScale();
 
 		//convert sbar coords to screen coords
@@ -1058,19 +1059,19 @@ class HDStatusBar:DoomStatusBar{
 			uvOffset.y /= sy;
 
 			circleShape.Clear(Shape2D.C_Coords);
-			for(int i = 0; i < circleVertCount; i++)
+			for(int i = 0; i < circleVertCount; i++){
 				circleShape.PushCoord(circleVerts[i] / uvScale + uvOffset + (.5, .5));
+			}
 
 			uvDirty = true;
 		}
 
 		let trans = new('Shape2DTransform');
 
-		trans.Scale((sx * hudScale.x, sy * hudScale.y) * scale);
+		trans.Scale((sx * (squash?(hudScale.x*(1./PXLSTRETCH_DOOM)):hudScale.x), sy * hudScale.y) * scale);
 		trans.Translate(pos);
 
 		circleShape.SetTransform(trans);
-
 		screen.DrawShape(tex, false, circleShape);
 
 		trans.Destroy();
@@ -1078,8 +1079,9 @@ class HDStatusBar:DoomStatusBar{
 		//reset to original UV coords
 		if(uvDirty){
 			circleShape.Clear(Shape2D.C_Coords);
-			for(int i = 0; i < circleVertCount; i++)
+			for(int i = 0; i < circleVertCount; i++){
 				circleShape.PushCoord(circleVerts[i] + (.5, .5));
+			}
 		}
 	}
 
