@@ -54,6 +54,7 @@ class HDStatusBar:DoomStatusBar{
 
 		//build circle mask
 		circleShape = new('Shape2D');
+		scopeCircleShape = new('Shape2D');
 
 		let angStep = 360. / circleVertCount;
 		let ang = 0.;
@@ -65,20 +66,35 @@ class HDStatusBar:DoomStatusBar{
 			let vert = (vx, vy);
 
 			circleVerts[i] = vert;
+
 			circleShape.PushCoord(vert + (.5, .5));
 			circleShape.PushVertex((vx, vy));
 
-			if(i + 2 < circleVertCount) circleShape.PushTriangle(0, i + 1, i + 2);
+			scopeCircleShape.PushCoord(vert + (.5, .5));
+			scopeCircleShape.PushVertex((vx, vy));
+
+			if(i + 2 < circleVertCount){
+				circleShape.PushTriangle(0, i + 1, i + 2);
+				scopeCircleShape.PushTriangle(0, i + 1, i + 2);
+			}
 
 			ang += angStep;
 		}
 	}
 
 	const circleVertCount = 24;
-	const PXLSTRETCH_DOOM = 1.2;
 
 	Shape2D circleShape;
 	vector2 circleVerts[circleVertCount];
+
+	Shape2D scopeCircleShape; // circle with UVs scaled to match pixel ratio
+	vector2 scopeCircleScale;
+	bool didInitScopeShape;
+
+	override void AttachToPlayer(PlayerInfo player){
+		super.AttachToPlayer(player);
+		didInitScopeShape = false;
+	}
 
 	enum HDStatBar{
 		STB_COMPRAD=12,
@@ -96,7 +112,7 @@ class HDStatusBar:DoomStatusBar{
 	transient cvar hd_noscope;
 	transient cvar hd_sightbob;
 	transient cvar hd_crosshair;
-	transient cvar hd_xhscale;
+	transient cvar hd_crosshairscale;
 	transient cvar hd_weapondefaults; //TEMPORARY - TO DELETE LATER
 	transient cvar hd_setweapondefault;
 	transient cvar hud_aspectscale;
@@ -128,7 +144,28 @@ class HDStatusBar:DoomStatusBar{
 	transient cvar hh_helmetoffsety;
 	transient cvar hh_durabilitytop;
 
+	void PushCircleUVCoords(Shape2D circle, vector2 scale = (1, 1)){
+		circle.Clear(Shape2D.C_Coords);
+		for(int i = 0; i < circleVertCount; i++){
+			let vert = circleVerts[i];
+			let newVert = (vert.x * scale.x, vert.y * scale.y);
+			circle.PushCoord(newVert + (.5, .5));
+		}
+	}
+
 	override void Tick(){
+		if(!didInitScopeShape){
+			scopeCircleScale = (1, 1);
+
+			let aspect = level.pixelStretch;
+			if(aspect >= 1)scopeCircleScale.y /= aspect;
+			else scopeCircleScale.x = aspect;
+
+			PushCircleUVCoords(scopeCircleShape, scopeCircleScale);
+
+			didInitScopeShape = true;
+		}
+
 		if(!hd_mugshot){
 			hd_mugshot=cvar.getcvar("hd_mugshot",cplayer);
 			hd_hudstyle=cvar.getcvar("hd_hudstyle",cplayer);
@@ -136,7 +173,7 @@ class HDStatusBar:DoomStatusBar{
 			hd_noscope=cvar.getcvar("hd_noscope",cplayer);
 			hd_sightbob=cvar.getcvar("hd_sightbob",cplayer);
 			hd_crosshair=cvar.getcvar("hd_crosshair",cplayer);
-			hd_xhscale=cvar.getcvar("hd_xhscale",cplayer);
+			hd_crosshairscale=cvar.getcvar("hd_crosshairscale",cplayer);
 			hd_weapondefaults=cvar.getcvar("hd_weapondefaults",cplayer); //TEMPORARY - TO DELETE LATER
 			hd_setweapondefault=cvar.getcvar("hd_setweapondefault",cplayer);
 			hud_aspectscale=cvar.getcvar("hud_aspectscale",cplayer);
@@ -209,7 +246,7 @@ class HDStatusBar:DoomStatusBar{
 			}
 		}
 
-		blurred=hpl.bshadow&&hpl.countinv("HDBlurSphere");
+		blurred=hpl.bshadow||hpl.binvisible;
 
 		//all the hud use timer determinations go here
 		if(cplayer.buttons&BT_USE)hudusetimer++;
@@ -1036,7 +1073,9 @@ class HDStatusBar:DoomStatusBar{
 		drawimage(cellsprite,(posx,posy),flags:flags,alpha:bttc?1.:0.3);
 	}
 
-	void DrawCircle(TextureID tex, vector2 pos, double scale = 1, vector2 uvOffset = (0, 0), double uvScale = 1, bool center = true, bool squash=false){
+	void DrawCircle(TextureID tex, vector2 pos, double scale = 1, vector2 uvOffset = (0, 0), double uvScale = 1, bool center = true, bool usePixelRatio = false){
+		let shape = usePixelRatio? scopeCircleShape : circleShape;
+
 		let hudScale = GetHUDScale();
 
 		//convert sbar coords to screen coords
@@ -1058,31 +1097,23 @@ class HDStatusBar:DoomStatusBar{
 			uvOffset.x /= sx;
 			uvOffset.y /= sy;
 
-			circleShape.Clear(Shape2D.C_Coords);
-			for(int i = 0; i < circleVertCount; i++){
-				circleShape.PushCoord(circleVerts[i] / uvScale + uvOffset + (.5, .5));
-			}
+			PushCircleUVCoords(shape, (usePixelRatio? scopeCircleScale : (1, 1)) / uvScale);
 
 			uvDirty = true;
 		}
 
 		let trans = new('Shape2DTransform');
 
-		trans.Scale((sx * (squash?(hudScale.x*(1./PXLSTRETCH_DOOM)):hudScale.x), sy * hudScale.y) * scale);
+		trans.Scale((sx * hudScale.x, sy * hudScale.y) * scale);
 		trans.Translate(pos);
 
-		circleShape.SetTransform(trans);
-		screen.DrawShape(tex, false, circleShape);
+		shape.SetTransform(trans);
+		screen.DrawShape(tex, false, shape);
 
 		trans.Destroy();
 
 		//reset to original UV coords
-		if(uvDirty){
-			circleShape.Clear(Shape2D.C_Coords);
-			for(int i = 0; i < circleVertCount; i++){
-				circleShape.PushCoord(circleVerts[i] + (.5, .5));
-			}
-		}
+		if(uvDirty)PushCircleUVCoords(shape, usePixelRatio? scopeCircleScale : (1, 1));
 	}
 
 	enum HDSBarNums{
