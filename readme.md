@@ -6,6 +6,8 @@
 > This addon is meant to work with the [latest(unstable) version of Hideous Destructor.](https://codeberg.org/mc776/hideousdestructor/archive/main.zip)\
 > *(unless i forgot to update it to work with latest)*
 
+![](https://i.imgur.com/DBRthvZ.png)
+
 ## What?
 Hideous Helmet adds a new "armour" piece called `HUD Helmet`.
 
