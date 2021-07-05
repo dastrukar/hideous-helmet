@@ -3,7 +3,7 @@
 >
 > Alternatively known as "HUD Helmet"
 >
-> This addon is meant to work with the [latest(unstable) version of Hideous Destructor.](https://codeberg.org/mc776/hideousdestructor/archive/main.zip)\
+> This addon is meant to work with the [latest main(unstable) of Hideous Destructor.](https://codeberg.org/mc776/hideousdestructor/archive/main.zip)\
 > *(unless i forgot to update it to work with latest)*
 
 ![](https://i.imgur.com/DBRthvZ.png)
@@ -41,8 +41,9 @@ Marines or jackboots with helmets should also drop them on death.\
 Note:\
 Enemies don't actually wear the helmets, they just drop them. *(though, i could change that)*
 
-## Are there any releases?
-Just download the latest [`master`](https://github.com/dastrukar/hideous-helmet/archive/refs/heads/master.zip) repo and pray that it works.
+## Releases?
+You should only use the release versions if you're using a [release version of Hideous Destructor](https://codeberg.org/mc776/hideousdestructor/releases).\
+Otherwise, just [clone the latest master](https://github.com/dastrukar/hideous-helmet/archive/refs/heads/master.zip) repo and pray that it works.
 
 ## Is this compatible with other addons?
 It should work fine with other addons. *(if none of the overwriting stuff breaks anything)*\
