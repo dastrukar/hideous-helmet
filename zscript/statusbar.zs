@@ -417,7 +417,6 @@ class HDStatusBar:DoomStatusBar{
 			)
 		)return;
 
-
 		//reads hd_setweapondefault and updates accordingly
 		if(hd_setweapondefault.getstring()!=""){
 			string wpdefs=cvar.getcvar("hd_weapondefaults",cplayer).getstring().makelower();
@@ -484,6 +483,21 @@ class HDStatusBar:DoomStatusBar{
 			cvar.findcvar("hd_loadout1").setstring(lomt.species);
 		}
 
+
+		//force upside down view
+		if(
+			abs(hpl.realpitch)>90
+			&&abs(hpl.roll)<170
+		){
+			double cpf=cplayer.fov*((24./9.)/(screen.getwidth()/screen.getheight()));
+			texman.setcameratotexture(hpl,"HDXCAM_ROLL",cpf);
+			drawimage(
+				"HDXCAM_ROLL",(160,100),
+				DI_SCREEN_CENTER|DI_ITEM_CENTER|DI_ITEM_HCENTER
+				//|DI_MIRROR|DI_MIRRORY //I don't understand why I don't need these here
+				,scale:((1,1.2)*0.6)
+			);
+		}
 
 
 		//draw the crosshair
@@ -563,7 +577,10 @@ class HDStatusBar:DoomStatusBar{
 		);
 
 		//backpack
-		if(hpl.countinv("Backpack"))drawimage("BPAKA0",(-55,-4),DI_SCREEN_CENTER_BOTTOM|DI_ITEM_CENTER_BOTTOM);
+		if(hpl.countinv("Backpack"))drawimage(
+			"BPAKA0",(-55,-4),
+			DI_SCREEN_CENTER_BOTTOM|DI_ITEM_CENTER_BOTTOM
+		);
 
 		//radsuit
 		if(hpl.countinv("WornRadsuit"))drawimage(
@@ -750,6 +767,15 @@ class HDStatusBar:DoomStatusBar{
 			);
 
 		}
+
+
+		//object description
+		drawstring(
+			pnewsmallfont,hpl.viewstring,
+			(0,20),DI_SCREEN_CENTER|DI_TEXT_ALIGN_CENTER,
+			Font.CR_GREY,0.4,scale:(1,1)
+		);
+
 
 		drawtip();
 
