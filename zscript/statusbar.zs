@@ -484,21 +484,6 @@ class HDStatusBar:DoomStatusBar{
 		}
 
 
-		//force upside down view
-		if(
-			abs(hpl.realpitch)>90
-			&&abs(hpl.roll)<170
-		){
-			double cpf=cplayer.fov*((24./9.)/(screen.getwidth()/screen.getheight()));
-			texman.setcameratotexture(hpl,"HDXCAM_ROLL",cpf);
-			drawimage(
-				"HDXCAM_ROLL",(160,100),
-				DI_SCREEN_CENTER|DI_ITEM_CENTER|DI_ITEM_HCENTER
-				//|DI_MIRROR|DI_MIRRORY //I don't understand why I don't need these here
-				,scale:((1,1.2)*0.6)
-			);
-		}
-
 
 		//draw the crosshair
 		if(

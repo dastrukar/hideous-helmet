@@ -33,7 +33,7 @@ class HHelmetSpawner : EventHandler {
 			HideousShotgunGuy(T).wep == -1
 		);
 
-		bool is_marine = (T is "HDMarine");
+		bool is_marine = (T is "HDOperator");
 
 		Vector3 t_pos = (T.pos.x, T.pos.y, T.pos.z + 5);
 		if (
