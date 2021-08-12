@@ -350,22 +350,12 @@ class HDStatusBar:DoomStatusBar{
 			cplayer.mo.health>70?Font.CR_OLIVE:(cplayer.mo.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
 		);else if(helmet||!hh_hidestatus.getbool()) DrawHealthTicker((40,-24),DI_BOTTOMLEFT);
 
-		//armour
-		DrawArmour((4,86),DI_TOPLEFT);
+		//items
+		DrawItemHUDAdditions(HDSB_AUTOMAP,DI_TOPLEFT);
 		DrawHelmet((24,86),DI_TOPLEFT);
 
-		//inventory
+		//inventory selector
 		DrawInvSel(6,100,10,109,DI_TOPLEFT);
-		if(hpl.countinv("WornRadsuit"))drawimage("SUITC0",(11,137),DI_TOPLEFT);
-		if(hpl.countinv("BloodBagWorn")){
-			drawimage("PBLDA0",(8,134),DI_TOPLEFT,scale:(0.6,0.6));
-			if(helmet)
-			drawstring(
-				pnewsmallfont,FormatNumber(BloodBagWorn(hpl.findinventory("BloodBagWorn")).bloodleft),
-				(14,136),DI_TOPLEFT|DI_TEXT_ALIGN_RIGHT,
-				Font.CR_RED,scale:(0.5,0.5)
-			);
-		}
 
 		//guns
 		if(helmet||!hh_hideammo.getbool()) drawselectedweapon(-80,-60,DI_BOTTOMRIGHT);
@@ -561,32 +551,6 @@ class HDStatusBar:DoomStatusBar{
 			DI_SCREEN_CENTER_BOTTOM
 		);
 
-		//backpack
-		if(hpl.countinv("Backpack"))drawimage(
-			"BPAKA0",(-55,-4),
-			DI_SCREEN_CENTER_BOTTOM|DI_ITEM_CENTER_BOTTOM
-		);
-
-		//radsuit
-		if(hpl.countinv("WornRadsuit"))drawimage(
-			"SUITC0",(64,-4),DI_SCREEN_CENTER_BOTTOM|DI_ITEM_CENTER_BOTTOM
-		);
-
-		//bloodpack
-		if(hpl.countinv("BloodBagWorn")){
-			drawimage(
-				"PBLDA0",(68,-10),DI_SCREEN_CENTER_BOTTOM|DI_ITEM_CENTER_BOTTOM,scale:(0.6,0.6)
-			);
-			if(
-				hudlevel==2&&
-				(helmet)
-			)drawstring(
-				pnewsmallfont,FormatNumber(BloodBagWorn(hpl.findinventory("BloodBagWorn")).bloodleft),
-				(72,-10),DI_SCREEN_CENTER_BOTTOM|DI_TEXT_ALIGN_RIGHT,Font.CR_RED,scale:(0.5,0.5)
-			);
-		}
-
-
 		//health
 		if(hd_debug)drawstring(
 			pnewsmallfont,FormatNumber(hpl.health),
@@ -615,10 +579,10 @@ class HDStatusBar:DoomStatusBar{
 			);
 		}
 
-		//armour
-		DrawArmour(
-			usemughud?((hudlevel==1?-85:-55),-4):(0,-mIndexFont.mFont.GetHeight()*2),
-			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM
+		//items
+		DrawItemHUDAdditions(
+			usemughud?HDSB_MUGSHOT:0
+			,DI_SCREEN_CENTER_BOTTOM
 		);
 
 		//helmet
@@ -629,7 +593,8 @@ class HDStatusBar:DoomStatusBar{
 		if(helmet)DrawWoundCount((46,-30));
 
 		//weapon readouts!
-		if(cplayer.readyweapon&&cplayer.readyweapon!=WP_NOCHANGE)drawweaponstatus(cplayer.readyweapon);
+		if(cplayer.readyweapon&&cplayer.readyweapon!=WP_NOCHANGE)
+			drawweaponstatus(cplayer.readyweapon);
 
 		//weapon sprite
 		if(
@@ -879,29 +844,12 @@ class HDStatusBar:DoomStatusBar{
 			);
 		}
 	}
-	void DrawArmour(vector2 armourcoords,int flags){
-		let armour=HDArmourWorn(cplayer.mo.findinventory("HDArmourWorn"));
-		let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
-		if(armour){
-			string armoursprite="ARMSA0";
-			string armourback="ARMER0";
-			if(armour.mega){
-				armoursprite="ARMCA0";
-				armourback="ARMER1";
-			}
-			if(helmet || !hh_hidearmour.getbool())
-			drawbar(
-				armoursprite,armourback,
-				armour.durability,armour.mega?HDCONST_BATTLEARMOUR:HDCONST_GARRISONARMOUR,
-				armourcoords,-1,SHADER_VERT,
-				flags
-			);
-			if(helmet)
-			drawstring(
-				pnewsmallfont,FormatNumber(armour.durability),
-				armourcoords+(10,-7),flags|DI_ITEM_CENTER|DI_TEXT_ALIGN_RIGHT,
-				Font.CR_DARKGRAY,scale:(0.5,0.5)
-			);
+	void DrawItemHUDAdditions(int hdflags,int gzflags){
+		let hpl=HDPlayerPawn(cplayer.mo);
+		if(!hpl)return;
+		for(let item=hpl.inv;item!=NULL;item=item.inv){
+			let hp=HDPickup(item);
+			if(hp)hp.DrawHudStuff(self,hpl,hdflags,gzflags);
 		}
 	}
 	color savedcolour;
@@ -1195,6 +1143,11 @@ class HDStatusBar:DoomStatusBar{
 			}
 		}
 	}
+}
+
+enum HDSBarItemFlags{
+	HDSB_AUTOMAP=1,
+	HDSB_MUGSHOT=2,
 }
 
 
