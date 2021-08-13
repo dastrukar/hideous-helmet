@@ -84,8 +84,8 @@ class HHArmourNerf : HDDamageHandler {
 		// Or you just disabled nerfing the armour
 		if (
 			(
-				!(hdp && hdp.FindInventory("HDArmourWorn")) &&
-				!(hdmb && hdmb.FindInventory("HDArmourWorn"))
+				!(hdp && CheckForArmour(hdp)) &&
+				!(hdmb && CheckForArmour(hdmb))
 			) || (
 				!hh_nerfarmour
 			)
@@ -101,29 +101,25 @@ class HHArmourNerf : HDDamageHandler {
 		if (
 			bullet.pitch > 80 &&
 			(
-	    		(hdp && hdp.incapacitated) ||
-	    		(
-		    		hdmb &&
-		    		hdmb.frame >= hdmb.downedframe &&
-		    		hdmb.InStateSequence(hdmb.curstate, hdmb.ResolveState("falldown"))
-	    		)
+				(hdp && hdp.incapacitated) ||
+				(
+					hdmb &&
+					hdmb.frame >= hdmb.downedframe &&
+					hdmb.InStateSequence(hdmb.curstate, hdmb.ResolveState("falldown"))
+				)
 			)
 		) {
 			return pen, penshell;
 		}
 
-
 		// Nerf head defense
 		if (hitheight > 0.8) {
-			HDArmourWorn arm = HDArmourWorn((hdp)? hdp.FindInventory("HDArmourWorn") : hdmb.FindInventory("HDArmourWorn"));
-			double addpenshell = (arm.mega)? 30 : (10 + Max(0, (arm.durability - 120) >> 3));
+			// might redo this some day, but for the time being, this makes stuff more compatible with other armour related stuff
+			double addpenshell = frandom(5, 15);
+			penshell -= addpenshell;
 
-			if (!(hdmb && !hdmb.bhashelmet)) {
-				penshell -= addpenshell * ((arm.mega)? 0.4 : 0.2);
-
-				if (hh_debug) {
-					Console.PrintF(hitactor.GetClassName().." got their armour nerfed by "..addpenshell * ((arm.mega)? 0.4 : 0.2));
-				}
+			if (hh_debug) {
+				Console.PrintF(hitactor.GetClassName().." got their armour nerfed by "..addpenshell * ((arm.mega)? 0.4 : 0.2));
 			}
 		}
 
