@@ -5,6 +5,7 @@ Date format: DD/MM/YYYY
 
 Compat:
 * Updated to latest main of Hideous Destructor.
+* Armour nerf should now work with the Corporate Armour addon by TwelveEyes/HalfBakedCake.
 ---
 **11/08/2021**
 
