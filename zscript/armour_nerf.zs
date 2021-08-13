@@ -1,7 +1,7 @@
 // Helmet + Armour is kind of busted, let's fix that :]
 
 class HHArmourNerfHandler : EventHandler {
-	bool CheckForArmour(Actor actor) {
+	static bool CheckForArmour(Actor actor) {
 		for (Inventory i = actor.Inv; i; i = i.Inv) {
 			HDDamageHandler hdh = HDDamageHandler(i);
 			if (hdh) {
@@ -84,8 +84,8 @@ class HHArmourNerf : HDDamageHandler {
 		// Or you just disabled nerfing the armour
 		if (
 			(
-				!(hdp && CheckForArmour(hdp)) &&
-				!(hdmb && CheckForArmour(hdmb))
+				!(hdp && HHArmourNerfHandler.CheckForArmour(hdp)) &&
+				!(hdmb && HHArmourNerfHandler.CheckForArmour(hdmb))
 			) || (
 				!hh_nerfarmour
 			)
@@ -119,7 +119,7 @@ class HHArmourNerf : HDDamageHandler {
 			penshell -= addpenshell;
 
 			if (hh_debug) {
-				Console.PrintF(hitactor.GetClassName().." got their armour nerfed by "..addpenshell * ((arm.mega)? 0.4 : 0.2));
+				Console.PrintF(hitactor.GetClassName().." got their armour nerfed by "..addpenshell);
 			}
 		}
 
