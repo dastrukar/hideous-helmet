@@ -1,22 +1,6 @@
 // Helmet + Armour is kind of busted, let's fix that :]
 
 class HHArmourNerfHandler : EventHandler {
-	static bool CheckForArmour(Actor actor) {
-		for (Inventory i = actor.Inv; i; i = i.Inv) {
-			HDDamageHandler hdh = HDDamageHandler(i);
-			if (hdh) {
-				string arm = hdh.GetClassName();
-				if (
-					arm == "HDArmourWorn" ||
-					arm == "HDCorporateArmourWorn"
-				) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
 	override void WorldTick() {
 		if (!hh_nerfarmour) {
 			return;
@@ -29,7 +13,7 @@ class HHArmourNerfHandler : EventHandler {
 			if (!(
 				hdp &&
 				!hdp.FindInventory("HHArmourNerf") &&
-				CheckForArmour(hdp)
+				HHMath.CheckForArmour(hdp)
 			)) {
 				continue;
 			}
@@ -84,8 +68,8 @@ class HHArmourNerf : HDDamageHandler {
 		// Or you just disabled nerfing the armour
 		if (
 			(
-				!(hdp && HHArmourNerfHandler.CheckForArmour(hdp)) &&
-				!(hdmb && HHArmourNerfHandler.CheckForArmour(hdmb))
+				!(hdp && HHMath.CheckForArmour(hdp)) &&
+				!(hdmb && HHMath.CheckForArmour(hdmb))
 			) || (
 				!hh_nerfarmour
 			)
