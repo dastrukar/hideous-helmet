@@ -3,8 +3,10 @@
 
 ## Defining armours
 Hideous Destructor draws the armour HUD stuff from the armour itself, due to this, Hideous Helmet is unable to hide the armour's current durability.\
-To overcome this problem, Hideous Helmet uses a lump called `hh_armourlist` to check if the armour is actually an armour. (there's actual coding reasons as to why this is done, but i'm lazy to explain it)\
-If you wish to add your own armour into the list, create a new lump/file named `hh_armourlist`, and make sure you put your own suffix, else you'll end up overwriting the base definitions. (unless you intended to do that)
+To overcome this problem, Hideous Helmet uses `HHArmourType`.\
+If you want your armour to be recognized by Hideous Helmet, then you'll have to create a class inheriting from `HHArmourType`, and then create the class with the Thinker new function.
+
+Oh yeah, make sure to override `DrawArmour()` and also set `armour_name` when creating it.
 
 ### Syntax
 Syntax is simple, each name is split per line. That's it.
