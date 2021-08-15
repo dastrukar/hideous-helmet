@@ -197,6 +197,15 @@ class HHelmetWorn : HDArmourWorn {
 		return ENC_HUDHELMET * 0.1;
 	}
 
+	override void DrawHudStuff(
+		hdstatusbar sb,
+		hdplayerpawn hpl,
+		int hdflags,
+		int gzflags
+	) {
+		// Drawing helmet on the HUD is handled in statusbar.zs for layering reasons.
+	}
+
 	override inventory CreateTossable(int amt) {
 		let hdp = HDPlayerPawn(Owner);
 		if (hdp.striptime > 0) {

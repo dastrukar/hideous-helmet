@@ -851,6 +851,8 @@ class HDStatusBar:DoomStatusBar{
 			let hp=HDPickup(item);
 			if(hp)hp.DrawHudStuff(self,hpl,hdflags,gzflags);
 		}
+		//helmet stuff
+		Vector2 helmpos = (hdflags&HDSB_AUTOMAP)? (24, 86) : 
 	}
 	color savedcolour;
 	void DrawInvSel(int posx,int posy,int numposx,int numposy,int flags){
