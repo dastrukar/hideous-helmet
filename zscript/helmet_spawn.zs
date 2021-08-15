@@ -81,3 +81,6 @@ class HHelmetSpawner : EventHandler {
 		helm.syncamount();
 	}
 }
+
+class HHelmetSpawn : Actor {
+}

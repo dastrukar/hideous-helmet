@@ -1,5 +1,5 @@
 GameInfo {
-	AddEventHandlers = "HHelmetSpawner", "HHelmetSkins", "HHHandlers", "HHArmourNerfHandler"
+	AddEventHandlers = "HHelmetSpawner", "HHelmetSkins", "HHHandlers", "HHArmourNerfHandler", "HHCompatHandler"
 }
 
 map armor "Armor Test"{

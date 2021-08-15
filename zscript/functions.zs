@@ -16,20 +16,28 @@ struct HHFunc {
 	static bool IsArmour(string name) {
 		array<string> armour_names;
 
-		// Get the lumps that start with "hh_armourlist"
-		int lump = -1;
-		while ((lump = Wads.FindLump("hh_armourlist", lump + 1)) != -1) {
-			string s = Wads.ReadLump(lump);
-			s.split(armour_names, "\n");
-		}
+		ThinkerIterator ti = ThinkerIterator.Create("HHArmourType");
 
 		// Is this a valid armour name?
-		for (int i = 0; i < armour_names.Size(); i++) {
-			if (name == armour_names[i]) {
+		HHArmourType hhat;
+		while (hhat = HHArmourType(ti.next())) {
+			if (name == hhat.armour_name) {
 				return true;
 			}
 		}
 
 		return false;
 	}
+}
+
+// This is a class intended for defining armour types :]
+class HHArmourType : Thinker abstract {
+	string armour_name;
+
+	virtual ui void DrawArmour(
+		HDStatusBar sb,
+		HDPickup hp,
+		int hdflags,
+		int gzflags
+	) {} // This should be overridden to draw the armour stuff
 }

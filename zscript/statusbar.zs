@@ -845,7 +845,10 @@ class HDStatusBar:DoomStatusBar{
 		if(!hpl)return;
 		for(let item=hpl.inv;item!=NULL;item=item.inv){
 			let hp=HDPickup(item);
-			if(hp)hp.DrawHudStuff(self,hpl,hdflags,gzflags);
+			if(hp){
+				if (HHFunc.IsArmour(hp.GetClassName())) HandleDrawArmour(hp,hpl,hdflags,gzflags);
+				else hp.DrawHudStuff(self,hpl,hdflags,gzflags);
+			}
 		}
 		//helmet stuff
 		Vector2 helmpos =
@@ -1143,6 +1146,23 @@ class HDStatusBar:DoomStatusBar{
 					DI_SCREEN_CENTER_BOTTOM|DI_TEXT_ALIGN_LEFT,
 					wcol
 				);
+			}
+		}
+	}
+
+	void HandleDrawArmour(
+		hdpickup hp,
+		hdplayerpawn hpl,
+		int hdflags,
+		int gzflags
+	){
+		ThinkerIterator ti = ThinkerIterator.Create("HHArmourType");
+
+		Thinker T;
+		while (T=ti.next()) {
+			HHArmourType hhat = HHArmourType(T);
+			if (hhat.armour_name == hp.GetClassName()) {
+				hhat.DrawArmour(self, hp, hdflags, gzflags);
 			}
 		}
 	}
