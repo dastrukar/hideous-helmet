@@ -352,7 +352,6 @@ class HDStatusBar:DoomStatusBar{
 
 		//items
 		DrawItemHUDAdditions(HDSB_AUTOMAP,DI_TOPLEFT);
-		DrawHelmet((24,86),DI_TOPLEFT);
 
 		//inventory selector
 		DrawInvSel(6,100,10,109,DI_TOPLEFT);
@@ -585,11 +584,6 @@ class HDStatusBar:DoomStatusBar{
 			,DI_SCREEN_CENTER_BOTTOM
 		);
 
-		//helmet
-		DrawHelmet(
-			usemughud?((hudlevel==1?-85:-55),-18):(0,-mIndexFont.mFont.GetHeight()*2-14),
-			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM
-		);
 		if(helmet)DrawWoundCount((46,-30));
 
 		//weapon readouts!
@@ -852,7 +846,11 @@ class HDStatusBar:DoomStatusBar{
 			if(hp)hp.DrawHudStuff(self,hpl,hdflags,gzflags);
 		}
 		//helmet stuff
-		Vector2 helmpos = (hdflags&HDSB_AUTOMAP)? (24, 86) : 
+		Vector2 helmpos =
+			(hdflags&HDSB_AUTOMAP)? (24, 86) :
+			(hdflags&HDSB_MUGSHOT)? ((hudlevel==1?-85:-55),-18) :
+			(0,-mIndexFont.mFont.GetHeight()*2-14);
+		DrawHelmet(helmpos, gzflags);
 	}
 	color savedcolour;
 	void DrawInvSel(int posx,int posy,int numposx,int numposy,int flags){
@@ -1104,6 +1102,7 @@ class HDStatusBar:DoomStatusBar{
 		}
 	}
 
+	// NOTE(dastrukar): please finish this :]
 	void DrawHelmetOverlay(Vector2 overlaycoords){
 		let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
 		if(helmet){
