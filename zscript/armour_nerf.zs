@@ -13,7 +13,7 @@ class HHArmourNerfHandler : EventHandler {
 			if (!(
 				hdp &&
 				!hdp.FindInventory("HHArmourNerf") &&
-				HHMath.CheckForArmour(hdp)
+				HHFunc.CheckForArmour(hdp)
 			)) {
 				continue;
 			}
@@ -68,8 +68,8 @@ class HHArmourNerf : HDDamageHandler {
 		// Or you just disabled nerfing the armour
 		if (
 			(
-				!(hdp && HHMath.CheckForArmour(hdp)) &&
-				!(hdmb && HHMath.CheckForArmour(hdmb))
+				!(hdp && HHFunc.CheckForArmour(hdp)) &&
+				!(hdmb && HHFunc.CheckForArmour(hdmb))
 			) || (
 				!hh_nerfarmour
 			)

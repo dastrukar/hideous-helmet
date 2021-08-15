@@ -1,5 +1,5 @@
 // general functions that are nice to have
-struct HHMath {
+struct HHFunc {
 	static bool CheckForArmour(Actor actor) {
 		for (Inventory i = actor.Inv; i; i = i.Inv) {
 			HDDamageHandler hdh = HDDamageHandler(i);
