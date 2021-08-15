@@ -1,6 +1,14 @@
 # The Hideous Helmet customization manual
 > note to self: maybe document better
 
+## Defining armours
+Hideous Destructor draws the armour HUD stuff from the armour itself, due to this, Hideous Helmet is unable to hide the armour's current durability.\
+To overcome this problem, Hideous Helmet uses a lump called `hh_armourlist` to check if the armour is actually an armour. (there's actual coding reasons as to why this is done, but i'm lazy to explain it)\
+If you wish to add your own armour into the list, create a new lump/file named `hh_armourlist`, and make sure you put your own suffix, else you'll end up overwriting the base definitions. (unless you intended to do that)
+
+### Syntax
+Syntax is simple, each name is split per line. That's it.
+
 ## Firemode/Fire indicator customization
 > Note: This only applies if you use "Hide Weapon status"
 
