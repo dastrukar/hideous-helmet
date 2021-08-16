@@ -1,5 +1,3 @@
-// Some code borrowed from Ugly as Sin by Caligari87.
-
 class HasHelmet : InventoryFlag{
 	int durability;
 
