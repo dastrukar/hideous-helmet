@@ -846,7 +846,7 @@ class HDStatusBar:DoomStatusBar{
 		for(let item=hpl.inv;item!=NULL;item=item.inv){
 			let hp=HDPickup(item);
 			if(hp){
-				if (HHFunc.IsArmour(hp.GetClassName())) HandleDrawArmour(hp,hpl,hdflags,gzflags);
+				if (HHFunc.IsWornArmour(hp.GetClassName())) HandleDrawArmour(hp,hpl,hdflags,gzflags);
 				else hp.DrawHudStuff(self,hpl,hdflags,gzflags);
 			}
 		}

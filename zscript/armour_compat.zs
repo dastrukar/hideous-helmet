@@ -1,7 +1,9 @@
 // this event handler only exists to create some thinkers
 class HHCompatHandler : EventHandler {
 	override void WorldLoaded(WorldEvent e) {
-		New("HHCompat_HDArmourWorn").armour_name = "HDArmourWorn";
+		let C = HHArmourType(New("HHCompat_HDArmourWorn"));
+		C.armour_name = "HDArmour";
+		C.armour_wornname = "HDArmourWorn";
 		Destroy(); // don't waste memory on this single use eventhandler
 	}
 }

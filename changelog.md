@@ -2,11 +2,13 @@ All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
 **PENDING**
+> This took way longer than it should've
 
 Compat:
 * Updated to latest main of Hideous Destructor.
 * Armour nerf should now work with the Corporate Armour addon by TwelveEyes/HalfBakedCake.
 * Added class `HHArmourType` for adding custom armour types into Hideous Helmet. (read hh_manual.md for more info)
+* Added class `HHSpawnType` for allowing custom spawning stuff.
 ---
 **11/08/2021**
 

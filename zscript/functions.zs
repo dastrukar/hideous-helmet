@@ -5,7 +5,7 @@ struct HHFunc {
 			HDDamageHandler hdh = HDDamageHandler(i);
 			if (hdh) {
 				string arm = hdh.GetClassName();
-				if (IsArmour(arm)) {
+				if (IsWornArmour(arm)) {
 					return true;
 				}
 			}
@@ -13,9 +13,21 @@ struct HHFunc {
 		return false;
 	}
 
-	static bool IsArmour(string name) {
-		array<string> armour_names;
+	static bool IsWornArmour(string name) {
+		ThinkerIterator ti = ThinkerIterator.Create("HHArmourType");
 
+		// Is this a valid armour name?
+		HHArmourType hhat;
+		while (hhat = HHArmourType(ti.next())) {
+			if (name == hhat.armour_wornname) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	static bool IsArmour(string name) {
 		ThinkerIterator ti = ThinkerIterator.Create("HHArmourType");
 
 		// Is this a valid armour name?
@@ -33,6 +45,7 @@ struct HHFunc {
 // This is a class intended for defining armour types :]
 class HHArmourType : Thinker abstract {
 	string armour_name;
+	string armour_wornname;
 
 	virtual ui void DrawArmour(
 		HDStatusBar sb,

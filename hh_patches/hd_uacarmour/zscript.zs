@@ -2,7 +2,9 @@ version "4.5"
 
 class HHCompatHandler_HDCorporateArmour : EventHandler {
 	override void WorldLoaded(WorldEvent e) {
-		New("HHCompat_HDCorporateArmourWorn").armour_name = "HDCorporateArmourWorn";
+		let C = HHArmourType(New("HHCompat_HDCorporateArmourWorn"));
+		C.armour_name = "HDCorporateArmour";
+		C.armour_wornname = "HDCorporateArmourWorn";
 		Destroy();
 	}
 }
