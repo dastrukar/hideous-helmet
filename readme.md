@@ -1,8 +1,5 @@
 # Hideous Helmet
 > An addon for [Hideous Destructor](https://codeberg.org/mc776/hideousdestructor) [*(Forum link)*](https://forum.zdoom.org/viewtopic.php?f=43&t=12973). Adds a helmet that shows the HUD, with some additional stuff.
->
-> Alternatively known as "HUD Helmet"
->
 > This addon is meant to work with the [latest main(unstable) of Hideous Destructor.](https://codeberg.org/mc776/hideousdestructor/archive/main.zip)\
 > *(unless i forgot to update it to work with latest)*
 
@@ -21,8 +18,6 @@ Some of the HUD is hidden without the helmet.\
 * *Should be noted that you can use medikit with the helmet on.*
 * Can be removed with `hh_strip`.
 * Will take damage and break like any armour.
-
-### The extra stuff
 * Shows a *"bleed indicator"*, with a *"wound counter"*. *(both are toggleable)*
 
 ### Armour Nerf
@@ -48,6 +43,10 @@ Otherwise, just [clone the latest master](https://github.com/dastrukar/hideous-h
 ## Is this compatible with other addons?
 It should work fine with other addons. *(if none of the overwriting stuff breaks anything)*\
 Though, it's up to you to try and see.
+
+## Patches, because not everything works
+All patches made by me are located in the `hh_patches` folder. Just load them and it should work with the mod :].
+(and if they don't, just let me know and i'll consider fixing them)
 
 ## Why a helmet?
 Well, I always wondered what if you could wear a helmet item in Hideous Destructor, then I thought about combining the HUD and helmet together.\
