@@ -68,20 +68,18 @@ class HHSpawnType_Default : HHSpawnType {
 	override bool CheckConditions(Actor T, int time) {
 		bool is_helmetman = (
 			(
-				(
-					ZombieShotgunner(T) &&
-					ZombieShotgunner(T).accuracy == 3
-				) || (
-					HDOperator(T)
-				)
-			) && (
-				FRandom(0, 1) <= 0.25
+				ZombieShotgunner(T) &&
+				ZombieShotgunner(T).wep == -1 &&
+				FRandom(0, 1) <= hh_jackbootspawn
+			) || (
+				HDOperator(T) &&
+				FRandom(0, 1) <= hh_marinespawn
 			)
 		);
 		bool is_armour = (
 			time < 2 &&
 			HHFunc.IsArmour(T.GetClassName()) &&
-			FRandom(0, 1) <= 0.5
+			FRandom(0, 1) <= hh_armourspawn
 		);
 
 		return (is_helmetman || is_armour);
