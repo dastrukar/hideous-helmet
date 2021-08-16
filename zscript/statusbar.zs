@@ -851,11 +851,11 @@ class HDStatusBar:DoomStatusBar{
 			}
 		}
 		//helmet stuff
-		Vector2 helmpos =
-			(hdflags&HDSB_AUTOMAP)? (24, 86) :
-			(hdflags&HDSB_MUGSHOT)? ((hudlevel==1?-85:-55),-18) :
-			(0,-mIndexFont.mFont.GetHeight()*2-14);
-		DrawHelmet(helmpos, gzflags);
+		let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn", true));
+		if(helmet){
+			helmet.DrawHudStuff(self,hpl,hdflags,gzflags);
+		}
+		//DrawHelmet(gzflags);
 	}
 	color savedcolour;
 	void DrawInvSel(int posx,int posy,int numposx,int numposy,int flags){
@@ -1083,28 +1083,6 @@ class HDStatusBar:DoomStatusBar{
 	enum HDSBarNums{
 		SBAR_MAXAMMOCOLS=7,
 		SBAR_AMMOROW=14,
-	}
-
-	void DrawHelmet(vector2 helmetcoords,int flags){
-		let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
-		if(helmet){
-			string helmetsprite="HELMA0";
-			string helmetback="HELMB0";
-			let d=hh_durabilitytop.getbool();
-			let coords=(helmetcoords.x,helmetcoords.y+hh_helmetoffsety.getint());
-			drawbar(
-				helmetsprite,helmetback,
-				helmet.durability,72,
-				coords,-1,SHADER_VERT,
-				flags
-			);
-			drawstring(
-				pnewsmallfont,FormatNumber(helmet.durability),
-				coords+(10,d?-14:-7),
-				flags|DI_ITEM_CENTER|DI_TEXT_ALIGN_RIGHT,
-				Font.CR_DARKGRAY,scale:(0.5,0.5)
-			);
-		}
 	}
 
 	// NOTE(dastrukar): please finish this :]

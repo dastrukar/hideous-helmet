@@ -204,6 +204,26 @@ class HHelmetWorn : HDArmourWorn {
 		int gzflags
 	) {
 		// Drawing helmet on the HUD is handled in statusbar.zs for layering reasons.
+		string helmetsprite = "HELMA0";
+		string helmetback = "HELMB0";
+		let d = sb.hh_durabilitytop.getbool();
+		Vector2 helmpos =
+			(hdflags & HDSB_AUTOMAP)? (24, 86) :
+			(hdflags & HDSB_MUGSHOT)? (((sb.hudlevel == 1) ? -85 : -55), -18) :
+			(0, -sb.mIndexFont.mFont.GetHeight() * 2 - 14);
+		Vector2 coords = (helmpos.x, helmpos.y + sb.hh_helmetoffsety.GetInt());
+		sb.DrawBar(
+			helmetsprite, helmetback,
+			durability, 72,
+			coords, -1, sb.SHADER_VERT,
+			gzflags
+		);
+		sb.DrawString(
+			sb.pNewSmallFont, sb.FormatNumber(durability),
+			coords + (10, (d)? -14 : -7),
+			gzflags | sb.DI_ITEM_CENTER | sb.DI_TEXT_ALIGN_RIGHT,
+			Font.CR_DARKGRAY, scale:(0.5,0.5)
+		);
 	}
 
 	override inventory CreateTossable(int amt) {
