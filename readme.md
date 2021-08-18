@@ -45,7 +45,7 @@ It should work fine with other addons. *(if none of the overwriting stuff breaks
 Though, it's up to you to try and see.
 
 ## Patches, because not everything works
-All patches made by me are located in the `hh_patches` folder. Just load them and it should work with the mod :].
+All patches made by me are located in the `hh_patches` folder. They should be named after the mod it's meant to patch (if the mod uses a git repository, then it'll be named after that), so just load them and it should work with the mod :].
 (and if they don't, just let me know and i'll consider fixing them)
 
 ## Why a helmet?
