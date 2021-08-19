@@ -51,7 +51,7 @@ You should only use the release versions if you're using a [release version of H
 Otherwise, just [clone the latest master](https://github.com/dastrukar/hideous-helmet/archive/refs/heads/master.zip) repo and pray that it works.
 
 
-## Is this compatible with other addons?
+## Compatibility
 It should work fine with other addons. *(if none of the overwriting stuff breaks anything)*
 
 If some stuff don't work, located in `hh_patches` are patches made by me. They should be named after the mod it's meant to patch (if the mod uses a git repository, then it'll be named after that), so just load them and it should work with the mod :].
