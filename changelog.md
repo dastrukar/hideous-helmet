@@ -1,6 +1,11 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**19/08/2021**
+
+Additions:
+* Added a menu option to toggle whether enemies can wear helmets. Also yes, I forgot to add it lol.
+---
 **16/08/2021**
 > This took way longer than it should've
 
