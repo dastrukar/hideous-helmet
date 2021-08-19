@@ -23,6 +23,7 @@ OptionMenu "HHOptions"{
 
 	StaticText "= Balancing =", "cyan"
 	Option "Nerf vanilla HDest armour head protection", "hh_nerfarmour", "YN"
+	Option "Allow enemies to wear helmets", "hh_enemywearshelmet", "YN"
 	StaticText " "
 
 	StaticText "When the helmet is off...", "cyan"
