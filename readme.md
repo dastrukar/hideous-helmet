@@ -17,11 +17,11 @@ Some of the HUD is hidden without the helmet.\
 * `hhw` hud helmet
 
 
-## Balancing
+## Balancing features
 > All the features listed below are toggleable
 
 ### Armour Nerf
-Due to the introduction of helmets, any armour's head protection has been reduced. This affects enemies too.\
+Due to the introduction of helmets, any armour's head protection has been reduced. This affects enemies too.
 
 ### Enemies wear helmets
 Enemies that spawn/drop helmets can also wear them, allowing them to benefit from it. (only applies if they actually have one)\
