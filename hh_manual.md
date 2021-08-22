@@ -1,12 +1,17 @@
 # The Hideous Helmet customization manual
 > note to self: maybe document better
 
+## Custom spawning for helmets
+When an actor spawns, Hideous Helmet looks for any class inheriting from `HHSpawnType`. After that, the spawner will then call `CheckConditions()` and if it returns true, `SpawnHelmet()` will be called.
+
+Note: If you want to override the default helmet's spawn, then you can just look for `HHSpawnType_Default` and destroy it.
+
 ## Defining armours
 Hideous Destructor draws the armour HUD stuff from the armour itself, due to this, Hideous Helmet is unable to hide the armour's current durability.\
 To overcome this problem, Hideous Helmet uses `HHArmourType`.\
-If you want your armour to be recognized by Hideous Helmet, then you'll have to create a class inheriting from `HHArmourType`, and then create the class with the Thinker new function.
+If you want your armour to be recognized by Hideous Helmet, then you'll have to create a class inheriting from `HHArmourType`, and then create the class with the `new()` function.
 
-Oh yeah, make sure to override `DrawArmour()` and also set `armour_name` when creating it.
+Oh yeah, make sure to override `DrawArmour()`, and also set `armour_name` and `armour_wornname` when creating it.
 
 ### Syntax
 Syntax is simple, each name is split per line. That's it.
