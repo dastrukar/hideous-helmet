@@ -1,6 +1,11 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**23/08/2021**
+
+Compat:
+* HUD should now check for other classes inheriting from `HHelmetWorn`. Should help with custom helmets.
+---
 **19/08/2021**
 
 Additions:

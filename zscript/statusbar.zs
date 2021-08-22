@@ -14,6 +14,7 @@ class HDStatusBar:DoomStatusBar{
 	string mug;
 	int bigitemyofs;
 	color sbcolour;
+	hdarmourworn helmet;
 	override void Init(){
 		BaseStatusBar.Init();
 		SetSize(0,320,200);
@@ -266,6 +267,7 @@ class HDStatusBar:DoomStatusBar{
 			||!hpl
 		)return;
 		cplayer.inventorytics=0;
+		helmet=HDArmourWorn(hpl.findinventory("HHelmetWorn", true));
 
 
 		if(automapactive){
@@ -309,9 +311,6 @@ class HDStatusBar:DoomStatusBar{
 	void DrawAutomapStuff(){
 		SetSize(0,480,300);
 		BeginHUD();
-
-		HDArmourWorn helmet;
-		if(hpl) helmet = HDArmourWorn(hpl.findinventory("HHelmetWorn"));
 
 		//KEYS!
 		if(hpl.countinv("BlueCard"))drawimage("BKEYB0",(10,24),DI_TOPLEFT);
@@ -507,7 +506,6 @@ class HDStatusBar:DoomStatusBar{
 	void DrawCommonStuff(bool usemughud){
 		let cp=HDPlayerPawn(CPlayer.mo);
 		if(!cp)return;
-		let helmet = HDArmourWorn(cp.findinventory("HHelmetWorn"));
 		//DrawHelmetOverlay((0,0));
 
 		int mxht=-4-mIndexFont.mFont.GetHeight();
@@ -851,11 +849,9 @@ class HDStatusBar:DoomStatusBar{
 			}
 		}
 		//helmet stuff
-		let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn", true));
 		if(helmet){
 			helmet.DrawHudStuff(self,hpl,hdflags,gzflags);
 		}
-		//DrawHelmet(gzflags);
 	}
 	color savedcolour;
 	void DrawInvSel(int posx,int posy,int numposx,int numposy,int flags){
