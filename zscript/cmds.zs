@@ -5,10 +5,13 @@ class HHHandlers:EventHandler {
 
 		bool alive = player.health > 0;
 
-		if (alive&&e.name~=="hh_strip") {
-			if (player.FindInventory("HHelmetWorn", true)) {
-				player.DropInventory(HHelmetWorn(player.findinventory("HHelmetWorn", true)));
-			} else if (player.FindInventory("HHelmet", true)) player.UseInventory(player.FindInventory("HHelmet", true));
+		if (alive && e.name ~== "hh_strip") {
+			HHelmetWorn helmet = HHelmetWorn(HHFunc.FindHelmet(player));
+			if (helmet) {
+				player.DropInventory(helmet);
+			} else if (player.FindInventory("HHelmet", true)) {
+				player.UseInventory(player.FindInventory("HHelmet", true));
+			}
 		}
 	}
 }

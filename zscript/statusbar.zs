@@ -267,7 +267,7 @@ class HDStatusBar:DoomStatusBar{
 			||!hpl
 		)return;
 		cplayer.inventorytics=0;
-		helmet=HDArmourWorn(hpl.findinventory("HHelmetWorn", true));
+		helmet=HHFunc.FindHelmet(hpl);
 
 
 		if(automapactive){

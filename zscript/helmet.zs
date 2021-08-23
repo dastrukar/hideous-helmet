@@ -156,7 +156,6 @@ class HHelmet : HDMagAmmo{
 			return;
 		}
 		Super.SyncAmount();
-		icon = TexMan.CheckForTexture("HELMA0", TexMan.Type_MiscPatch);
 		for (int i = 0; i < amount; i++) {
 			mags[i] = Min(mags[i], HHCONST_HUDHELMET);
 		}

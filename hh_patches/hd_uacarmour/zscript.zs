@@ -29,7 +29,7 @@ class HHCompat_HDCorporateArmourWorn : HHArmourType {
 			gzflags
 		);
 
-		if (hdp.FindInventory("HHelmetWorn", true)) {
+		if (HHFunc.FindHelmet(hdp)) {
 			sb.DrawString(
 				sb.pNewSmallFont, sb.FormatNumber(arm.durability),
 				coords + (10, -7),

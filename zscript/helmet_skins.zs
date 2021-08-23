@@ -15,8 +15,7 @@ class HHelmetSkins:EventHandler {
 				string skin   = CVar.GetCVar("hh_helmetskin", p.player).GetString();
 				CVar hd_skin  = CVar.GetCVar("hd_skin", p.player);
 
-				HHelmetWorn helmet = HHelmetWorn(p.findinventory("HHelmetWorn"));
-				if (helmet) {
+				if (HHFunc.FindHelmet(p)) {
 					hd_skin.SetString(skin);
 				} else {
 					hd_skin.SetString(noskin);
