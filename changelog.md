@@ -1,7 +1,13 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
-**23/08/2021**
+**23/08/2021 [2]**
+> probably should've done this in the last commit
+
+Compat:
+* Everything should now check for other classes inheriting from `HHelmetWorn`.
+---
+**23/08/2021 [1]**
 
 Compat:
 * HUD should now check for other classes inheriting from `HHelmetWorn`. Should help with custom helmets.
