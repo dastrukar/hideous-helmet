@@ -346,9 +346,9 @@ class HDStatusBar:DoomStatusBar{
 		}
 		//health
 		if(hd_debug)drawstring(
-			pnewsmallfont,FormatNumber(CPlayer.mo.health),
+			pnewsmallfont,formatnumber(hpl.health),
 			(34,-24),DI_BOTTOMLEFT|DI_TEXT_ALIGN_CENTER,
-			cplayer.mo.health>70?Font.CR_OLIVE:(cplayer.mo.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
+			hpl.health>70?Font.CR_OLIVE:(hpl.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
 		);else if(helmet||!hh_hidestatus.getbool()) DrawHealthTicker((40,-24),DI_BOTTOMLEFT);
 
 		//items
@@ -385,7 +385,7 @@ class HDStatusBar:DoomStatusBar{
 		);
 	}
 	void DrawFullScreenStuff(){
-		if (hpl.findinventory("HHelmetWorn") || !hh_facecam.getbool())
+		if (helmet || !hh_facecam.getbool())
 		DrawTexture(
 			GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(0,-14),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM,
