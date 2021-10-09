@@ -468,10 +468,8 @@ class HDStatusBar:DoomStatusBar{
 
 		//update loadout1 based on old custom
 		//delete once old custom is gone!
-		let lomt=cplayer.mo.findinventory("LoadoutMenuHackToken");
-		if(lomt){
-			cvar.findcvar("hd_loadout1").setstring(lomt.species);
-		}
+		let lomt=LoadoutMenuHackToken(ThinkerFlag.Find(cplayer.mo,"LoadoutMenuHackToken"));
+		if(lomt)cvar.findcvar("hd_loadout1").setstring(lomt.loadout);
 
 
 
@@ -709,9 +707,19 @@ class HDStatusBar:DoomStatusBar{
 				DTA_VirtualHeight,480,
 				DTA_Alpha,0.8
 			);
-
 		}
 
+		if(hd_debug>=3){
+			double velspd=hpl.vel.length();
+			string velspdout=velspd.."   "..(velspd*HDCONST_MPSTODUPT).."mps   "..(velspd*HDCONST_MPSTODUPT*HDCONST_MPSTOKPH).."km/h";
+			screen.DrawText(NewSmallFont,
+				font.CR_GRAY,
+				600-(NewSmallFont.StringWidth(velspdout)>>1),
+				NewSmallFont.GetHeight(),
+				velspdout,
+				DTA_VirtualWidth,640,DTA_VirtualHeight,480
+			);
+		}
 
 		//object description
 		drawstring(

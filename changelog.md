@@ -1,6 +1,11 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**9/10/2021**
+
+Compat:
+* Updated to latest main of Hideous Destructor.
+---
 **8/09/2021**
 
 Compat:
