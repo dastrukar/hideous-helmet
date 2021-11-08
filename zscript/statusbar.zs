@@ -119,6 +119,7 @@ class HDStatusBar:DoomStatusBar{
 	transient cvar hd_weapondefaults; //TEMPORARY - TO DELETE LATER
 	transient cvar hd_setweapondefault;
 	transient cvar hud_aspectscale;
+	transient cvar crosshaircolor;
 
 	transient cvar hh_facecam;
 	transient cvar hh_hideammo;
@@ -180,6 +181,7 @@ class HDStatusBar:DoomStatusBar{
 			hd_weapondefaults=cvar.getcvar("hd_weapondefaults",cplayer); //TEMPORARY - TO DELETE LATER
 			hd_setweapondefault=cvar.getcvar("hd_setweapondefault",cplayer);
 			hud_aspectscale=cvar.getcvar("hud_aspectscale",cplayer);
+			crosshaircolor=cvar.getcvar("crosshaircolor",cplayer);
 
 			hh_facecam=cvar.getcvar("hh_bigbrotheriswatchingyou", cplayer);
 			hh_hideammo=cvar.getcvar("hh_hideammo", cplayer);
@@ -286,12 +288,10 @@ class HDStatusBar:DoomStatusBar{
 					)
 				);
 
-				if(state<=HUD_Fullscreen){
-					if(hudlevel>0){
-						DrawCommonStuff(usemughud);
-						if(usemughud)DrawFullScreenStuff();
-					}
-				}
+				if(
+					state<=HUD_Fullscreen
+					&&hudlevel>0
+				)DrawCommonStuff(usemughud);
 				else{
 					let www=hdweapon(cplayer.readyweapon);
 					if(www&&www.balwaysshowstatus)drawweaponstatus(www);
@@ -382,14 +382,6 @@ class HDStatusBar:DoomStatusBar{
 			psmallfont,string.format("%i  z",hpl.pos.z),
 			(-4,downpos+26),DI_TEXT_ALIGN_RIGHT|DI_SCREEN_RIGHT_TOP,
 			Font.CR_OLIVE
-		);
-	}
-	void DrawFullScreenStuff(){
-		if (helmet || !hh_facecam.getbool())
-		DrawTexture(
-			GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(0,-14),
-			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM,
-			alpha:blurred?0.2:1.
 		);
 	}
 	string getmug(string mugshot){
@@ -720,6 +712,14 @@ class HDStatusBar:DoomStatusBar{
 				DTA_VirtualWidth,640,DTA_VirtualHeight,480
 			);
 		}
+
+
+		if(usemughud)DrawTexture(
+			GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(0,-14),
+			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM,
+			alpha:blurred?0.2:1.
+		);
+
 
 		//object description
 		drawstring(
