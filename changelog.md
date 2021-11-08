@@ -1,6 +1,15 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**8/11/2021**
+
+Compat:
+* Updated to latest main of Hideous Destructor.
+
+Misc:
+* Removed unused CVars.
+* "Hide Mugshot" is now enabled by default, *because i enjoy pain.*
+---
 **9/10/2021**
 
 Compat:
