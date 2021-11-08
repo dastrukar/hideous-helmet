@@ -5,12 +5,8 @@ user bool hh_changeskin=false;
 user string hh_nohelmskin="";
 user string hh_helmetskin="";
 
-user bool hh_bigbrotheriswatchingyou=false;
+user bool hh_bigbrotheriswatchingyou=true;
 user bool hh_hideammo=true;
-user bool hh_hidearmour=false;
-user bool hh_hideinv=false;
-user bool hh_hideweapons=false;
-
 user bool hh_hidestatus=true;
 user bool hh_hidecompass=true;
 

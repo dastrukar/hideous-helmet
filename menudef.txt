@@ -29,7 +29,6 @@ OptionMenu "HHOptions"{
 	StaticText "When the helmet is off...", "cyan"
 	Option "Hide mugshot", "hh_bigbrotheriswatchingyou", "YN"
 	Option "Hide Weapon status", "hh_hideammo", "YN"
-	Option "Hide armour", "hh_hidearmour", "YN"
 	Option "Hide status", "hh_hidestatus", "YN"
 	Option "Hide compass", "hh_hidecompass", "YN"
 	StaticText " "
