@@ -123,9 +123,6 @@ class HDStatusBar:DoomStatusBar{
 
 	transient cvar hh_facecam;
 	transient cvar hh_hideammo;
-	transient cvar hh_hidearmour;
-	transient cvar hh_hideinv;
-	transient cvar hh_hideweapons;
 	transient cvar hh_hidestatus;
 	transient cvar hh_hidecompass;
 
@@ -185,9 +182,6 @@ class HDStatusBar:DoomStatusBar{
 
 			hh_facecam=cvar.getcvar("hh_bigbrotheriswatchingyou", cplayer);
 			hh_hideammo=cvar.getcvar("hh_hideammo", cplayer);
-			hh_hidearmour=cvar.getcvar("hh_hidearmour", cplayer);
-			hh_hideinv=cvar.getcvar("hh_hideinv", cplayer);
-			hh_hideweapons=cvar.getcvar("hh_hideweapons", cplayer);
 			hh_hidestatus=cvar.getcvar("hh_hidestatus", cplayer);
 			hh_hidecompass=cvar.getcvar("hh_hidecompass", cplayer);
 
@@ -590,8 +584,8 @@ class HDStatusBar:DoomStatusBar{
 
 		//full hud consequences
 		if(hudlevel==2){
-			if(helmet||!hh_hideweapons.getbool()) drawweaponstash();
-			if(helmet||!hh_hideinv.getbool()) drawammocounters(mxht);
+			drawweaponstash();
+			drawammocounters(mxht);
 
 			//encumbrance
 			if(hpl.enc){
