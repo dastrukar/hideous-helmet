@@ -708,7 +708,11 @@ class HDStatusBar:DoomStatusBar{
 		}
 
 
-		if(usemughud)DrawTexture(
+		bool showmug = (
+			helmet ||
+			!hh_facecam
+		);
+		if(usemughud&&showmug)DrawTexture(
 			GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(0,-14),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM,
 			alpha:blurred?0.2:1.
