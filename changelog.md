@@ -1,6 +1,15 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**29/11/2021**
+
+Tweaks:
+* Pistol will no longer show firemode status when unable to change firemodes. *(only applies if you have "Hide Weapon Status" enabled)*
+
+Compat:
+* Fenris should now properly display firemodes again.
+* Added support for Icarus's "The Bitch" and "HEV Armor".
+---
 **8/11/2021**
 
 Compat:
