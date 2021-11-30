@@ -718,7 +718,7 @@ class HDStatusBar:DoomStatusBar{
 
 		bool showmug = (
 			helmet ||
-			!hh_facecam
+			!hh_facecam.getbool()
 		);
 		if(usemughud&&showmug)DrawTexture(
 			GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(0,-14),
