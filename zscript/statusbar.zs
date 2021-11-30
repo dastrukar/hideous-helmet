@@ -593,7 +593,7 @@ class HDStatusBar:DoomStatusBar{
 				drawstring(
 					pnewsmallfont,formatnumber(int(hpl.enc)),
 					(8,mxht),DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM,
-					hpl.overloaded<1.2?Font.CR_OLIVE:hpl.overloaded>2.?Font.CR_RED:Font.CR_GOLD,scale:(0.5,0.5)
+					hpl.overloaded<0.8?Font.CR_OLIVE:hpl.overloaded>1.6?Font.CR_RED:Font.CR_GOLD,scale:(0.5,0.5)
 				);
 				int encbarheight=mxht+5;
 				fill(
