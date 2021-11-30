@@ -1,6 +1,22 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**1/12/2021**
+
+Compat:
+* Updated to latest main of Hideous Destructor.
+
+Fixes:
+* "Hide mugshot" should now actually unhide your mugshot when disabled.
+
+Misc:
+* "Hide weapon status" should now only scan for hh_firemodecodes once.
+---
+**30/11/2021**
+
+Compat:
+* "Hide weapon status" now properly splits Windows's line endings.
+---
 **29/11/2021**
 
 Tweaks:
