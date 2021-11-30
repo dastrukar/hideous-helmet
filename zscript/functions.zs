@@ -59,3 +59,10 @@ class HHArmourType : Thinker abstract {
 		int gzflags
 	) {} // This should be overridden to draw the armour stuff
 }
+
+// this is cursed, but gzdoom doesn't let me store structs in dynamic arrays :[
+class FiremodeInfo {
+	int id;
+	array<string> img;
+	array<string> bitwise;
+}

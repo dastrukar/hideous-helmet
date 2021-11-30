@@ -129,34 +129,53 @@ extend class HDStatusBar{
 	// so it's better to just let the user handle it.
 	//
 	// If you wish to add your own stuff, please refer to hh_manual.md
+	transient array<string> fmrefids;
+	transient array<FiremodeInfo> finfo;
 	void GetWeaponFiremode(hdweapon hdw) {
-		array<string> text;   text.clear();
-		array<string> img;    img.clear();
-		array<string> bitwise;bitwise.clear();
-		int id;
 		int check;
 
-		// Get all the text files that match
-		int lump = -1;
-		while (-1 != (lump=Wads.FindLump("hh_firemodecodes",lump + 1))) {
-			string s = Wads.ReadLump(lump);
-			s.split(text, "\r\n");
-			s.split(text, "\n");
+		// Already been initialised?
+		if (!fmrefids.Size()) {
+			array<string> text; text.Clear();
+
+			// Get all the text files that match
+			int lump = -1;
+			while (-1 != (lump=Wads.FindLump("hh_firemodecodes",lump + 1))) {
+				string s = Wads.ReadLump(lump);
+				s.split(text, "\r\n");
+				s.split(text, "\n");
+			}
+
+			// Get the segments
+			for (int i = 0; i < text.size(); i++) {
+				array<string> temp; temp.clear();
+				text[i].split(temp, ":");
+
+				if (
+					temp.size() >= 3
+				) {
+					FiremodeInfo fc = new("FiremodeInfo");
+
+					fmrefids.Push(temp[0]);
+					fc.id = temp[1].toint(10);
+
+					temp[2].split(fc.img, ",");
+					if (temp.size() > 3) temp[3].split(fc.bitwise, ",");
+
+					finfo.Push(fc);
+				}
+			}
 		}
 
-		// Get the segments
-		for (int i = 0; i < text.size(); i++) {
-			array<string> temp; temp.clear();
-			text[i].split(temp, ":");
-
-			if (
-				temp.size() >= 3 &&
-				temp[0] == hdw.refid
-			) {
-				id = temp[1].toint(10);
-				temp[2].split(img, ",");
-				if (temp.size() > 3) temp[3].split(bitwise, ",");
-				break;
+		int id;
+		array<string> img; img.Clear();
+		array<string> bitwise; bitwise.Clear();
+		for (int i = 0; i < fmrefids.Size(); i++) {
+			if (fmrefids[i] == hdw.refid) {
+				FiremodeInfo fc = finfo[i];
+				id = fc.id;
+				img.Copy(fc.img);
+				bitwise.Copy(fc.bitwise);
 			}
 		}
 
