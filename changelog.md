@@ -1,6 +1,11 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**12/12/2021**
+
+Fixes:
+* Fixed some settings not getting reset correctly.
+---
 **1/12/2021**
 
 Compat:
