@@ -1,6 +1,12 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**13/12/2021**
+
+Compat:
+* Icarus' PD-42 should now display the correct firemode icons.
+* "Hide weapon status" should now properly splits Windows's line endings... again.
+---
 **12/12/2021**
 
 Fixes:
