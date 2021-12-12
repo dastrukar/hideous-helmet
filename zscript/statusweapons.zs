@@ -142,7 +142,7 @@ extend class HDStatusBar{
 			int lump = -1;
 			while (-1 != (lump=Wads.FindLump("hh_firemodecodes",lump + 1))) {
 				string s = Wads.ReadLump(lump);
-				s.split(text, "\r\n");
+				s.replace("\r\n", "\n");
 				s.split(text, "\n");
 			}
 
