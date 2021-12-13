@@ -6,6 +6,9 @@ Date format: DD/MM/YYYY
 Compat:
 * Icarus' PD-42 should now display the correct firemode icons.
 * "Hide weapon status" should now properly splits Windows's line endings... again.
+
+Fixes:
+* Fixed Slayer showing double shot when side saddles were empty.
 ---
 **12/12/2021**
 
