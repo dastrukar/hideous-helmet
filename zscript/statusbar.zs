@@ -480,11 +480,11 @@ class HDStatusBar:DoomStatusBar{
 		//draw information text for selected weapon
 		SetSize(0,320,200);
 		BeginHUD(forcescaled:true);
-		hudfont pSmallFont=HUDFont.Create("SmallFont");
 		let hdw=HDWeapon(cplayer.readyweapon);
-		if(hdw&&hdw.msgtimer>0)drawstrings(psmallfont,hdw.wepmsg,
-			(0,48),DI_SCREEN_HCENTER|DI_TEXT_ALIGN_CENTER,
-			wrapwidth:300
+		if(hdw&&hdw.msgtimer>0)DrawString(
+			psmallfont,hdw.wepmsg,(0,48),
+			DI_SCREEN_HCENTER|DI_TEXT_ALIGN_CENTER,
+			wrapwidth:smallfont.StringWidth("m")*80
 		);
 	}
 	void DrawCommonStuff(bool usemughud){
@@ -771,32 +771,7 @@ class HDStatusBar:DoomStatusBar{
 			fnt,alpha,scale:(0.5,0.5)
 		);
 	}
-	void DrawStrings(
-		HUDFont font,
-		String brokenstring,
-		Vector2 pos,
-		int flags=0,
-		int translation=Font.CR_DARKGRAY,
-		double Alpha=1.,
-		int wrapwidth=-1,
-		int linespacing=0
-	){
-		double breakspace=linespacing+smallfont.getheight();
-		string stringpiece="";
 
-		while(brokenstring.length()>0){
-			int nextbreakindex=brokenstring.indexof("\n");
-			if(nextbreakindex<0){
-				stringpiece=brokenstring;
-				brokenstring="";
-			}else{
-				stringpiece=brokenstring.left(nextbreakindex);
-				brokenstring=brokenstring.mid(nextbreakindex+1,brokenstring.length());
-			}
-			DrawString(font,stringpiece,pos,flags,translation,Alpha,wrapwidth,linespacing);
-			pos.y+=breakspace;
-		}
-	}
 	void DrawHealthTicker(
 		vector2 drawpos=(-3,-7),
 		int flags=DI_SCREEN_CENTER_BOTTOM
@@ -825,6 +800,7 @@ class HDStatusBar:DoomStatusBar{
 			);
 		}
 	}
+
 	void drawambar(
 		string ongfx,string offgfx,
 		class<inventory> type,
