@@ -221,7 +221,7 @@ class HDStatusBar:DoomStatusBar{
 				&&!witem.bwimpy_weapon
 			){
 				string wpsp;double wpscl;
-				[wpsp,wpscl]=witem.getpickupsprite();
+				[wpsp,wpscl]=witem.getpickupsprite(true);
 				if(wpsp!=""){
 					int sln=witem.slotnumber*24;
 					for(int i=0;i<wepspriteofs.size();i++){
@@ -484,6 +484,7 @@ class HDStatusBar:DoomStatusBar{
 		if(hdw&&hdw.msgtimer>0)DrawString(
 			psmallfont,hdw.wepmsg,(0,48),
 			DI_SCREEN_HCENTER|DI_TEXT_ALIGN_CENTER,
+			translation:Font.CR_DARKGRAY,
 			wrapwidth:smallfont.StringWidth("m")*80
 		);
 	}
