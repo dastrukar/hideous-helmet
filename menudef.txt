@@ -1,8 +1,3 @@
-OptionValue "YN"{
-	0, "No"
-	1, "Yes"
-}
-
 OptionValue "TB"{
 	0, "Bottom"
 	1, "Top"
@@ -17,29 +12,29 @@ OptionMenu "HHOptions"{
 	Submenu "Position options", "HHPOS"
 	StaticText " "
 
-	StaticText "= Controls =", "cyan"
+	StaticText "= Controls =", "Gold"
 	Control "Strip helmet", "hh_strip"
 	StaticText " "
 
-	StaticText "= Balancing =", "cyan"
-	Option "Nerf vanilla HDest armour head protection", "hh_nerfarmour", "YN"
-	Option "Allow enemies to wear helmets", "hh_enemywearshelmet", "YN"
+	StaticText "= Balancing =", "Gold"
+	Option "Nerf vanilla HDest armour head protection", "hh_nerfarmour", "YesNo"
+	Option "Allow enemies to wear helmets", "hh_enemywearshelmet", "YesNo"
 	StaticText " "
 
-	StaticText "When the helmet is off...", "cyan"
-	Option "Hide mugshot", "hh_bigbrotheriswatchingyou", "YN"
-	Option "Hide Weapon status", "hh_hideammo", "YN"
-	Option "Hide status", "hh_hidestatus", "YN"
-	Option "Hide compass", "hh_hidecompass", "YN"
+	StaticText "When the helmet is off...", "LightBlue"
+	Option "Hide mugshot", "hh_bigbrotheriswatchingyou", "YesNo"
+	Option "Hide Weapon status", "hh_hideammo", "YesNo"
+	Option "Hide status", "hh_hidestatus", "YesNo"
+	Option "Hide compass", "hh_hidecompass", "YesNo"
 	StaticText " "
-	StaticText "When the helmet is on...", "cyan"
-	StaticText "-Bleed Indicator-", "yellow"
-	Option "Show bleed indicator", "hh_showbleed", "YN"
-	Option "Show wound count", "hh_woundcounter", "YN", "hh_showbleed"
-	Option "Hide indicator when not bleeding", "hh_showbleedwhenbleeding", "YN", "hh_showbleed"
+	StaticText "When the helmet is on...", "LightBlue"
+	StaticText "- Bleed Indicator -", "Green"
+	Option "Show bleed indicator", "hh_showbleed", "YesNo"
+	Option "Show wound count", "hh_woundcounter", "YesNo", "hh_showbleed"
+	Option "Hide indicator when not bleeding", "hh_showbleedwhenbleeding", "YesNo", "hh_showbleed"
 	StaticText " "
 
-	StaticText "DANGER ZONE", "red"
+	StaticText "= DANGER ZONE =", "Red"
 	SafeCommand "Reset general options", "hh_options_reset_general"
 	StaticText " "
 	SafeCommand "Reset all options", "hh_options_reset_all"
@@ -48,53 +43,56 @@ OptionMenu "HHOptions"{
 OptionMenu "HHRNG"{
 	Title "Spawn options"
 
-	StaticText "Spawn rate", "white"
+	StaticText "= Spawn rate =", "Gold"
 	Slider "Spawn at armour", "hh_armourspawn", 0.00, 1.00, 0.05, 2
 	Slider "Spawn from marines", "hh_marinespawn", 0.00, 1.00, 0.05, 2
 	Slider "Spawn from helmet jackboots", "hh_jackbootspawn", 0.00, 1.00, 0.05, 2
 	StaticText " "
 
-	StaticText "Helmet randomly dropped from enemies", "white"
+	StaticText "= Helmets randomly dropped from enemies =", "Gold"
 	Slider "Min. Durability", "hh_d_random_min", 0, 72, 1
 	Slider "Max Durability", "hh_d_random_max", 0, 72, 1
 	StaticText " "
 
-	StaticText "DANGER ZONE", "red"
+	StaticText "= DANGER ZONE =", "Red"
 	SafeCommand "Reset spawn options", "hh_options_reset_spawn"
 }
 
 OptionMenu "HHWPN"{
 	Title "'Hide Weapon status' options"
 
-	StaticText "The following options only apply,", "yellow"
-	StaticText "if 'Hide Weapon status' is true.", "yellow"
+	StaticText "The following options only apply,", "Fire"
+	StaticText "if 'Hide Weapon status' is true.", "Fire"
 	StaticText " "
 
 	Submenu "Whitelist editor", "HHWhitelistMenu"
 	StaticText " "
-	StaticText "Due to how the HUD works,", "white"
-	StaticText "weapon firemode indicators are defined in hh_firemodecodes.txt", "white"
-	Option "Hide firemode", "hh_hidefiremode", "YN"
+	StaticText "Due to how the HUD works,", "White"
+	StaticText "weapon firemode indicators are defined in hh_firemodecodes.txt", "White"
+	Option "Hide firemode", "hh_hidefiremode", "YesNo"
 	StaticText " "
 
-	StaticText "DANGER ZONE", "red"
+	StaticText "= DANGER ZONE =", "Red"
 	SafeCommand "Reset weapon status options", "hh_options_reset_wpnstat"
 }
 
 OptionMenu "HHSKIN"{
 	Title "Skin Options"
 
-	StaticText "Change skin based on whether you have a helmet or not", "red"
-	Option "Value:", "hh_changeskin", "YN"
+	StaticText "Change skin based on whether you have a helmet or not", "Red"
+	Option "Value:", "hh_changeskin", "YesNo"
 
 	StaticText " "
 
-	StaticText "CVars:", "yellow"
-	StaticText "hh_nohelmskin : Skin to use when you don't have a helmet.", "white"
-	StaticText "hh_helmetskin : Skin to use when you have a helmet.", "white"
+	StaticText "= CVars =", "Yellow"
+	StaticText "hh_nohelmskin", "Green"
+	StaticText "Skin to use when you don't have a helmet.", "White"
+	StaticText " "
+	StaticText "hh_helmetskin, "Green"
+	StaticText "Skin to use when you have a helmet.", "White"
 	StaticText " "
 
-	StaticText "DANGER ZONE", "red"
+	StaticText "= DANGER ZONE =", "Red"
 	SafeCommand "Reset skin options", "hh_options_reset_skin"
 }
 
@@ -105,7 +103,7 @@ OptionMenu "HHPOS"{
 	Option "Durability text placement", "hh_durabilitytop", "TB"
 	StaticText " "
 
-	StaticText "DANGER ZONE", "red"
+	StaticText "= DANGER ZONE =", "Red"
 	SafeCommand "Reset position options", "hh_options_reset_pos"
 }
 
