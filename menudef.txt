@@ -88,7 +88,7 @@ OptionMenu "HHSKIN"{
 	StaticText "hh_nohelmskin", "Green"
 	StaticText "Skin to use when you don't have a helmet.", "White"
 	StaticText " "
-	StaticText "hh_helmetskin, "Green"
+	StaticText "hh_helmetskin", "Green"
 	StaticText "Skin to use when you have a helmet.", "White"
 	StaticText " "
 
