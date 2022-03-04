@@ -1,6 +1,16 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**15/02/2022**
+
+Misc:
+* Add MIT License
+---
+**28/02/2022**
+
+Misc:
+* Tidied the options menu.
+---
 **6/01/2022**
 
 Compat:
