@@ -6,7 +6,7 @@ Date format: DD/MM/YYYY
 Misc:
 * Add MIT License
 ---
-**28/02/2022**
+**28/01/2022**
 
 Misc:
 * Tidied the options menu.
