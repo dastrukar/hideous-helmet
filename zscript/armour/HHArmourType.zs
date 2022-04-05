@@ -2,12 +2,12 @@
 class HHArmourType : Thinker abstract
 {
 	// These two functions are used in HHFunc.IsWornArmour() and HHFunc.IsArmour()
-	virtual string GetName()
+	virtual clearscope string GetName()
 	{
 		return "";
 	}
 
-	virtual string GetWornName()
+	virtual clearscope string GetWornName()
 	{
 		return "";
 	}
