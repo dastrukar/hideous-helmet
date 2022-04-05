@@ -3,9 +3,7 @@ class HHArmourTypeHandler : EventHandler
 {
 	override void WorldLoaded(WorldEvent e)
 	{
-		let C = HHArmourType(New("HHArmourType_HDArmourWorn"));
-		C.ArmourName = "HDArmour";
-		C.ArmourWornName = "HDArmourWorn";
+		New("HHArmourType_HDArmourWorn");
 		Destroy(); // don't waste memory on this single use eventhandler
 	}
 }

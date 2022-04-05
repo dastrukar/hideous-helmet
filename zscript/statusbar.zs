@@ -1121,7 +1121,7 @@ class HDStatusBar:DoomStatusBar{
 		Thinker T;
 		while (T=ti.next()) {
 			HHArmourType hhat = HHArmourType(T);
-			if (hhat.ArmourWornName == hp.GetClassName()) {
+			if (hhat.GetWornName() == hp.GetClassName()) {
 				hhat.DrawArmour(self, hp, hdflags, gzflags);
 			}
 		}

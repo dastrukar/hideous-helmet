@@ -28,7 +28,7 @@ struct HHFunc
 		HHArmourType hhat;
 		while (hhat = HHArmourType(ti.next()))
 		{
-			if (name == hhat.ArmourWornName) return true;
+			if (name == hhat.GetWornName()) return true;
 		}
 
 		return false;
@@ -42,7 +42,7 @@ struct HHFunc
 		HHArmourType hhat;
 		while (hhat = HHArmourType(ti.next()))
 		{
-			if (name == hhat.ArmourName) return true;
+			if (name == hhat.GetName()) return true;
 		}
 
 		return false;

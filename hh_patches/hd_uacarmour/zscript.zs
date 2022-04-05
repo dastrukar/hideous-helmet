@@ -4,15 +4,23 @@ class HHArmourTypeHandler_HDCorporateArmour : EventHandler
 {
 	override void WorldLoaded(WorldEvent e)
 	{
-		let C = HHArmourType(New("HHArmourType_HDCorporateArmourWorn"));
-		C.ArmourName = "HDCorporateArmour";
-		C.ArmourWornName = "HDCorporateArmourWorn";
+		New("HHArmourType_HDCorporateArmourWorn");
 		Destroy();
 	}
 }
 
 class HHArmourType_HDCorporateArmourWorn : HHArmourType
 {
+	override string GetName()
+	{
+		return "HDCorporateArmour";
+	}
+
+	override string GetWornName()
+	{
+		return "HDCorporateArmourWorn";
+	}
+
 	override void DrawArmour(
 		HDStatusBar sb,
 		HDPickup hp,
