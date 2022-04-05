@@ -1,17 +1,17 @@
 version "4.7"
 
-class HHCompatHandler_HDCorporateArmour : EventHandler
+class HHArmourTypeHandler_HDCorporateArmour : EventHandler
 {
 	override void WorldLoaded(WorldEvent e)
 	{
-		let C = HHArmourType(New("HHCompat_HDCorporateArmourWorn"));
+		let C = HHArmourType(New("HHArmourType_HDCorporateArmourWorn"));
 		C.ArmourName = "HDCorporateArmour";
 		C.ArmourWornName = "HDCorporateArmourWorn";
 		Destroy();
 	}
 }
 
-class HHCompat_HDCorporateArmourWorn : HHArmourType
+class HHArmourType_HDCorporateArmourWorn : HHArmourType
 {
 	override void DrawArmour(
 		HDStatusBar sb,

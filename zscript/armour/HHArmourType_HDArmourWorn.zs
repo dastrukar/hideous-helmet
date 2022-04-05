@@ -1,16 +1,4 @@
-// this event handler only exists to create some thinkers
-class HHCompatHandler : EventHandler
-{
-	override void WorldLoaded(WorldEvent e)
-	{
-		let C = HHArmourType(New("HHCompat_HDArmourWorn"));
-		C.ArmourName = "HDArmour";
-		C.ArmourWornName = "HDArmourWorn";
-		Destroy(); // don't waste memory on this single use eventhandler
-	}
-}
-
-class HHCompat_HDArmourWorn : HHArmourType
+class HHArmourType_HDArmourWorn : HHArmourType
 {
 	override void DrawArmour(
 		HDStatusBar sb,

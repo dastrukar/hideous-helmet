@@ -1,4 +1,5 @@
-class HHHandlers : EventHandler
+// Handles the "hh_strip" command
+class HHHandler : EventHandler
 {
 	override void NetworkProcess(ConsoleEvent e)
 	{

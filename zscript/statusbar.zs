@@ -1,4 +1,7 @@
-#include "zscript/functions.zs"
+// might as well load some shit via this override for my sanity sake
+#include "zscript/HHFunc.zs"
+#include "zscript/FiremodeInfo.zs"
+#include "zscript/armour/HHArmourType.zs"
 
 // ------------------------------------------------------------
 // HD HUD. HUD for HD. Hdhdhdhdhhdhdhhdhd
