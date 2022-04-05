@@ -1,17 +1,15 @@
-class HHHandlers:EventHandler {
-	override void NetworkProcess(ConsoleEvent e) {
-		let player = HDPlayerPawn(players[e.player].mo);
+class HHHandlers : EventHandler
+{
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		let player = HDPlayerPawn(Players[e.Player].mo);
 		if (!player) return;
 
-		bool alive = player.health > 0;
-
-		if (alive && e.name ~== "hh_strip") {
+		if (player.Health > 0 && e.Name ~== "hh_strip")
+		{
 			HHelmetWorn helmet = HHelmetWorn(HHFunc.FindHelmet(player));
-			if (helmet) {
-				player.DropInventory(helmet);
-			} else if (player.FindInventory("HHelmet", true)) {
-				player.UseInventory(player.FindInventory("HHelmet", true));
-			}
+			if (helmet) player.DropInventory(helmet);
+			else if (player.FindInventory("HHelmet", true)) player.UseInventory(player.FindInventory("HHelmet", true));
 		}
 	}
 }

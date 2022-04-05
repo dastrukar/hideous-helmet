@@ -1,40 +1,45 @@
-class HasHelmet : InventoryFlag{
-	int durability;
-
-	override void Tick() {
+class HasHelmet : InventoryFlag
+{
+	override void Tick()
+	{
 		// Drop helmet if dead
-		if (Owner && Owner.health < 1) {
-			// If has helmet, use that for durability
-			Inventory helm = Owner.FindInventory("HHelmetWorn");
-			if (helm) {
-				durability = HHelmetWorn(helm).durability;
-			}
+		if (!Owner && Owner.health >= 1) return;
 
-			if (durability > 0) {
-				Vector3 t_pos = (Owner.pos.x, Owner.pos.y, Owner.pos.z + 5);
-				HHelmetSpawner.SummonHelmet(durability, t_pos);
-			}
+		// If has helmet, use that for durability
+		int durability;
+		Inventory helm = Owner.FindInventory("HHelmetWorn");
+		if (helm) durability = HHelmetWorn(helm).Durability;
 
-			Destroy();
+		if (durability > 0)
+		{
+			Vector3 tPos = (Owner.Pos.x, Owner.Pos.y, Owner.Pos.z + 5);
+			HHelmetSpawner.SummonHelmet(durability, tPos);
 		}
+
+		Destroy();
 	}
 }
 
-class HHelmetSpawner : EventHandler {
-	override void WorldLoaded(WorldEvent e) {
+class HHelmetSpawner : EventHandler
+{
+	override void WorldLoaded(WorldEvent e)
+	{
 		New("HHSpawnType_Default");
 	}
 
-	override void WorldThingSpawned(WorldEvent e) {
-		if(!e.Thing) return;
-		let T = e.Thing;
+	override void WorldThingSpawned(WorldEvent e)
+	{
+		if (!e.Thing) return;
+		Actor T = e.Thing;
 
 		// Find anything inheriting from HHSpawnType and use it :]
 		ThinkerIterator ti = ThinkerIterator.Create("HHSpawnType");
 
 		HHSpawnType hhst;
-		while (hhst = HHSpawnType(ti.next())) {
-			if (hhst.CheckConditions(T, level.time)) {
+		while (hhst = HHSpawnType(ti.next()))
+		{
+			if (hhst.CheckConditions(T, Level.Time))
+			{
 				hhst.SpawnHelmet(T);
 				return;
 			}
@@ -42,21 +47,25 @@ class HHelmetSpawner : EventHandler {
 	}
 
 	// Moved to a function for convenience
-	static void SummonHelmet(int durability, Vector3 pos) {
-		HHelmet helm = HHelmet(Actor.Spawn("HHelmet", pos, ALLOW_REPLACE));
+	static void SummonHelmet(int durability, Vector3 pos)
+	{
+		let helm = HHelmet(Actor.Spawn("HHelmet", pos, ALLOW_REPLACE));
 
-		helm.vel.x += frandom(-2,2);
-		helm.vel.y += frandom(-2,2);
-		helm.vel.z += frandom(1,3);
+		helm.Vel.x += FRandom(-2, 2);
+		helm.Vel.y += FRandom(-2, 2);
+		helm.Vel.z += FRandom(1, 3);
 
-		helm.mags.clear();
-		helm.mags.push(durability);
-		helm.syncamount();
+		helm.Mags.Clear();
+		helm.Mags.Push(durability);
+		helm.SyncAmount();
 	}
 }
 
-class HHSpawnType : Thinker abstract {
-	virtual bool CheckConditions(Actor T, int time) {
+class HHSpawnType : Thinker abstract
+{
+	// Used for checking if a helmet should spawn. If returns true, SpawnHelmet() will be called.
+	virtual bool CheckConditions(Actor T, int time)
+	{
 		return false;
 	}
 
@@ -64,45 +73,50 @@ class HHSpawnType : Thinker abstract {
 }
 
 // If you want to override the default spawn type, just use a ThinkerIterator and destroy this
-class HHSpawnType_Default : HHSpawnType {
-	override bool CheckConditions(Actor T, int time) {
-		bool is_helmetman = (
+class HHSpawnType_Default : HHSpawnType
+{
+	override bool CheckConditions(Actor T, int time)
+	{
+		bool isHelmetMan = (
 			(
 				ZombieShotgunner(T) &&
-				ZombieShotgunner(T).wep == -1 &&
+				ZombieShotgunner(T).Wep == -1 && // Are you a Helmeted Jackboot?
 				FRandom(0, 1) <= hh_jackbootspawn
 			) || (
 				HDOperator(T) &&
 				FRandom(0, 1) <= hh_marinespawn
 			)
 		);
-		bool is_armour = (
+		bool isArmour = (
 			time < 2 &&
 			HHFunc.IsArmour(T.GetClassName()) &&
 			FRandom(0, 1) <= hh_armourspawn
 		);
 
-		return (is_helmetman || is_armour);
+		return (isHelmetMan || isArmour);
 	}
 
-	override void SpawnHelmet(Actor T) {
+	override void SpawnHelmet(Actor T)
+	{
 		if (
 			ZombieShotgunner(T) ||
 			HDOperator(T)
-		) {
+		)
+		{
 			T.GiveInventory("HasHelmet", 1);
-			if (hh_enemywearshelmet) {
+			if (hh_enemywearshelmet)
+			{
 				T.GiveInventory("HHelmetWorn", 1);
 				HHelmetWorn wrn = HHelmetWorn(T.FindInventory("HHelmetWorn"));
 				wrn.durability = Random(hh_d_random_min, hh_d_random_max);
 
-				if (hh_debug) {
-					Console.PrintF("Gave helmet to "..T.GetClassName().." with durability "..wrn.durability);
-				}
+				if (hh_debug) Console.PrintF("Gave helmet to "..T.GetClassName().." with durability "..wrn.durability);
 			}
-		} else {
+		}
+		else
+		{
 			// Armoru
-			HHelmetSpawner.SummonHelmet(HHCONST_HUDHELMET, (T.pos.x, T.pos.y, T.pos.z));
+			HHelmetSpawner.SummonHelmet(HHCONST_HUDHELMET, T.Pos);
 		}
 	}
 }

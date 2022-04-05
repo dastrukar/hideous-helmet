@@ -1,4 +1,4 @@
-// Basically the loadout menu, but worse
+// Basically the loadout menu, but worse (i'm not cleaning this up)
 class HHWhitelistMenu : GenericMenu {
 	array<string> refids;
 	array<string> names;
