@@ -1,10 +1,19 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**5/04/2022**
+> This is all in preparation for the new upcoming modules feature that I've been planning for awhile now.
+
+Compat:
+* HHArmourType now uses functions to get armour names instead of variables.
+
+Misc:
+* Reorganised files and reformatted code.
+---
 **15/02/2022**
 
 Misc:
-* Add MIT License
+* Added MIT License.
 ---
 **28/01/2022**
 
