@@ -24,7 +24,10 @@ class HHelmet : HDMagAmmo
 		Inventory.PickupMessage "Picked up the HUD helmet.";
 	}
 
-	override bool IsUsed() return true;
+	override bool IsUsed()
+	{
+		return true;
+	}
 
 	override int GetSBarNum(int flags)
 	{

@@ -36,10 +36,12 @@ class HHCompat_HDHEVArmourWorn : HHArmourType
 		if (HHFunc.FindHelmet(hdp))
 		{
 			sb.DrawString(
-				sb.pNewSmallFont, sb.FormatNumber(arm.Durability),
+				sb.pNewSmallFont,
+				sb.FormatNumber(arm.Durability),
 				coords + (10, -7),
 				gzFlags | sb.DI_ITEM_CENTER | sb.DI_TEXT_ALIGN_RIGHT,
-				Font.CR_DARKGRAY, scale: (0.5, 0.5)
+				Font.CR_DARKGRAY,
+				scale: (0.5, 0.5)
 			);
 		}
 	}

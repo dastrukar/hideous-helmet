@@ -1,41 +1,49 @@
 // this event handler only exists to create some thinkers
-class HHCompatHandler : EventHandler {
-	override void WorldLoaded(WorldEvent e) {
+class HHCompatHandler : EventHandler
+{
+	override void WorldLoaded(WorldEvent e)
+	{
 		let C = HHArmourType(New("HHCompat_HDArmourWorn"));
-		C.armour_name = "HDArmour";
-		C.armour_wornname = "HDArmourWorn";
+		C.ArmourName = "HDArmour";
+		C.ArmourWornName = "HDArmourWorn";
 		Destroy(); // don't waste memory on this single use eventhandler
 	}
 }
 
-class HHCompat_HDArmourWorn : HHArmourType {
+class HHCompat_HDArmourWorn : HHArmourType
+{
 	override void DrawArmour(
 		HDStatusBar sb,
 		HDPickup hp,
-		int hdflags,
-		int gzflags
-	) {
-		HDArmourWorn arm = HDArmourWorn(hp);
-		HDPlayerPawn hdp = HDPlayerPawn(arm.Owner);
+		int hdFlags,
+		int gzFlags
+	)
+	{
+		let arm = HDArmourWorn(hp);
+		let hdp = HDPlayerPawn(arm.Owner);
 		Vector2 coords =
-			(hdflags & HDSB_AUTOMAP)? (4, 86) :
-			(hdflags & HDSB_MUGSHOT)? (((sb.hudlevel == 1)? -85 : -55), -4) :
+			(hdFlags & HDSB_AUTOMAP)? (4, 86) :
+			(hdFlags & HDSB_MUGSHOT)? (((sb.HudLevel == 1)? -85 : -55), -4) :
 			(0, -sb.mIndexFont.mFont.GetHeight() * 2);
-		string armoursprite = (arm.mega)? "ARMCA0" : "ARMSA0";
-		string armourback = (arm.mega)? "ARMER1" : "ARMER0";
+		string armourSprite = (arm.mega)? "ARMCA0" : "ARMSA0";
+		string armourBack = (arm.mega)? "ARMER1" : "ARMER0";
 		sb.DrawBar(
-			armoursprite, armourback,
-			arm.durability, (arm.mega)? HDCONST_BATTLEARMOUR : HDCONST_GARRISONARMOUR,
+			armourSprite, armourBack,
+			arm.Durability,
+			(arm.Mega)? HDCONST_BATTLEARMOUR : HDCONST_GARRISONARMOUR,
 			coords, -1, sb.SHADER_VERT,
-			gzflags
+			gzFlags
 		);
 
-		if (HHFunc.FindHelmet(hdp)) {
+		if (HHFunc.FindHelmet(hdp))
+		{
 			sb.DrawString(
-				sb.pNewSmallFont, sb.FormatNumber(arm.durability),
+				sb.pNewSmallFont,
+				sb.FormatNumber(arm.durability),
 				coords + (10, -7),
-				gzflags | sb.DI_ITEM_CENTER | sb.DI_TEXT_ALIGN_RIGHT,
-				Font.CR_DARKGRAY, scale: (0.5, 0.5)
+				gzFlags | sb.DI_ITEM_CENTER | sb.DI_TEXT_ALIGN_RIGHT,
+				Font.CR_DARKGRAY,
+				scale: (0.5, 0.5)
 			);
 		}
 	}
