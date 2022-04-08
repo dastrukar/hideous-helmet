@@ -1,5 +1,5 @@
 // The main helmet spawner handler
-class HHelmetSpawner : EventHandler
+class HHHelmetSpawner : EventHandler
 {
 	override void WorldLoaded(WorldEvent e)
 	{

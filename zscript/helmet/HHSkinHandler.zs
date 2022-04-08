@@ -1,4 +1,4 @@
-class HHelmetSkinHandler : EventHandler
+class HHSkinHandler : EventHandler
 {
 	// Set the skin stuff
 	// (Thanks Ace.)

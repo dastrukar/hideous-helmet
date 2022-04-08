@@ -1,4 +1,6 @@
 version "4.7"
+#include "zscript/HHConstants.zs"
+
 #include "zscript/armour/HHArmourNerf.zs"
 #include "zscript/armour/HHArmourNerfHandler.zs"
 #include "zscript/armour/HHArmourType_HDArmourWorn.zs"
@@ -6,8 +8,8 @@ version "4.7"
 
 #include "zscript/helmet/base.zs"
 #include "zscript/helmet/HasHelmet.zs"
-#include "zscript/helmet/HHelmetSkinHandler.zs"
-#include "zscript/helmet/HHelmetSpawner.zs"
+#include "zscript/helmet/HHSkinHandler.zs"
+#include "zscript/helmet/HHHelmetSpawner.zs"
 #include "zscript/helmet/HHSpawnType.zs"
 #include "zscript/helmet/HHSpawnType_Default.zs"
 
