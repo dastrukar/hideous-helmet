@@ -65,3 +65,10 @@ Then, a question came up.
 > What if your helmet breaks from excessive damage, and your HUD is gone?
 
 And here we are.
+
+
+## Credits
+```
+Matt : Made Hideous Destructor (which i had to copy some code over to overwrite)
+Accensus : Helped fixed HHSkinHandler
+```
