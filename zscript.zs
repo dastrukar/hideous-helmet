@@ -1,7 +1,4 @@
 version "4.7"
-#include "zscript/HHConstants.zs"
-//#include "zscript/HHFunc.zs" (in statusbar.zs)
-//#include "zscript/FiremodeInfo.zs" (in statusbar.zs)
 
 // [[ Armour Compatibility ]]
 #include "zscript/armour/HHArmourNerf.zs"
@@ -40,5 +37,8 @@ version "4.7"
 
 
 // [[ ETC ]]
+#include "zscript/HHConstants.zs"
+//#include "zscript/HHFunc.zs" (in statusbar.zs)
+//#include "zscript/FiremodeInfo.zs" (in statusbar.zs)
 #include "zscript/HHHandler.zs"
 #include "zscript/HHWhitelistMenu.zs"
