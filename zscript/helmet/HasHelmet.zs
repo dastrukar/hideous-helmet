@@ -8,13 +8,13 @@ class HasHelmet : InventoryFlag
 
 		// If has helmet, use that for durability
 		int durability;
-		Inventory helm = Owner.FindInventory("HHelmetWorn");
-		if (helm) durability = HHelmetWorn(helm).Durability;
+		let helm = HHFunc.FindHelmet(Owner);
+		if (helm) durability = helm.Durability;
 
 		if (durability > 0)
 		{
 			Vector3 tPos = (Owner.Pos.x, Owner.Pos.y, Owner.Pos.z + 5);
-			HHelmetSpawner.SummonHelmet(durability, tPos);
+			HHHelmetSpawner.SummonHelmet(durability, tPos);
 		}
 
 		Destroy();

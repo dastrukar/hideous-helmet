@@ -1,10 +1,10 @@
 // general functions that are nice to have
 struct HHFunc
 {
-	// This looks for any HHelmetWorn, not HHelmet
+	// This looks for any HHBaseHelmetWorn, not HHBaseHelmet
 	static HDArmourWorn FindHelmet(Actor actor)
 	{
-		return HDArmourWorn(actor.FindInventory("HHelmetWorn", true));
+		return HDArmourWorn(actor.FindInventory("HHBaseHelmetWorn", true));
 	}
 
 	static bool CheckForArmour(Actor actor)

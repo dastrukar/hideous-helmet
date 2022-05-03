@@ -85,7 +85,7 @@ extend class HDStatusBar{
 	// Helmet stuff
 	// Returns True, if not a weapon, is in whitelist, or the player has a helmet worn
 	bool CheckWeaponStuff(weapon w){
-		if (helmet || !hh_hideammo.GetBool()) return true;
+		if (showhud || !hh_hideammo.GetBool()) return true;
 		if (w && w != WP_NOCHANGE) {
 			// Read from hh_weaponwhitelist
 			array<string> whitelist; whitelist.clear();

@@ -17,7 +17,7 @@ class HDStatusBar:DoomStatusBar{
 	string mug;
 	int bigitemyofs;
 	color sbcolour;
-	hdarmourworn helmet;
+	bool showhud;
 	override void Init(){
 		BaseStatusBar.Init();
 		SetSize(0,320,200);
@@ -266,7 +266,6 @@ class HDStatusBar:DoomStatusBar{
 			||!hpl
 		)return;
 		cplayer.inventorytics=0;
-		helmet=HHFunc.FindHelmet(hpl);
 
 
 		if(automapactive){
@@ -325,12 +324,12 @@ class HDStatusBar:DoomStatusBar{
 		);
 
 		//mugshot
-		if(helmet || !hh_facecam.getbool())
+		if(showhud || !hh_facecam.getbool())
 		DrawTexture(GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(6,-14),DI_BOTTOMLEFT,alpha:blurred?0.2:1.);
 
 		//heartbeat/playercolour tracker
 		if(hpl && hpl.beatmax)
-		if(helmet||!hh_hidestatus.getbool()) {
+		if(showhud ||!hh_hidestatus.getbool()) {
 			float cpb=hpl.beatcount*1./hpl.beatmax;
 			float ysc=-(4+hpl.bloodpressure*0.05);
 			if(!hud_aspectscale.getbool())ysc*=1.2;
@@ -346,7 +345,7 @@ class HDStatusBar:DoomStatusBar{
 			pnewsmallfont,formatnumber(hpl.health),
 			(34,-24),DI_BOTTOMLEFT|DI_TEXT_ALIGN_CENTER,
 			hpl.health>70?Font.CR_OLIVE:(hpl.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
-		);else if(helmet||!hh_hidestatus.getbool()) DrawHealthTicker((40,-24),DI_BOTTOMLEFT);
+		);else if(showhud||!hh_hidestatus.getbool()) DrawHealthTicker((40,-24),DI_BOTTOMLEFT);
 
 		//items
 		DrawItemHUDAdditions(HDSB_AUTOMAP,DI_TOPLEFT);
@@ -355,12 +354,12 @@ class HDStatusBar:DoomStatusBar{
 		DrawInvSel(6,100,10,109,DI_TOPLEFT);
 
 		//guns
-		if(helmet||!hh_hideammo.getbool()) drawselectedweapon(-80,-60,DI_BOTTOMRIGHT);
+		if(showhud||!hh_hideammo.getbool()) drawselectedweapon(-80,-60,DI_BOTTOMRIGHT);
 
 		drawammocounters(-18);
 		drawweaponstash(true,-48);
 
-		if(helmet||!hh_hidecompass.getbool()) drawmypos(10);
+		if(showhud||!hh_hidecompass.getbool()) drawmypos(10);
 	}
 
 	void DrawMyPos(int downpos=(STB_COMPRAD<<2)){
@@ -543,7 +542,7 @@ class HDStatusBar:DoomStatusBar{
 			pnewsmallfont,FormatNumber(hpl.health),
 			(0,mxht),DI_TEXT_ALIGN_CENTER|DI_SCREEN_CENTER_BOTTOM,
 			hpl.health>70?Font.CR_OLIVE:(hpl.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
-		);else if(helmet || !hh_hidestatus.getbool()) DrawHealthTicker();
+		);else if(showhud|| !hh_hidestatus.getbool()) DrawHealthTicker();
 
 
 		//frags
@@ -556,7 +555,7 @@ class HDStatusBar:DoomStatusBar{
 
 		//heartbeat/playercolour tracker
 		if(hpl.beatmax)
-		if(helmet || !hh_hidestatus.getbool()){
+		if(showhud|| !hh_hidestatus.getbool()){
 			float cpb=hpl.beatcount*1./hpl.beatmax;
 			float ysc=-(3+hpl.bloodpressure*0.05);
 			if(!hud_aspectscale.getbool())ysc*=1.2;
@@ -572,7 +571,7 @@ class HDStatusBar:DoomStatusBar{
 			,DI_SCREEN_CENTER_BOTTOM
 		);
 
-		if(helmet)DrawWoundCount((46,-30));
+		if(showhud)DrawWoundCount((46,-30));
 
 		//weapon readouts!
 		if(cplayer.readyweapon&&cplayer.readyweapon!=WP_NOCHANGE)
@@ -632,7 +631,7 @@ class HDStatusBar:DoomStatusBar{
 			int wephelpheight=NewSmallFont.GetHeight()*5;
 
 			//compass
-			if(helmet||!hh_hidecompass.getbool()){
+			if(showhud||!hh_hidecompass.getbool()){
 				int STB_COMPRAD=12;vector2 compos=(-STB_COMPRAD,STB_COMPRAD)*2;
 				double compangle=hpl.angle;
 
@@ -713,7 +712,7 @@ class HDStatusBar:DoomStatusBar{
 
 
 		bool showmug = (
-			helmet ||
+			showhud ||
 			!hh_facecam.getbool()
 		);
 		if(usemughud&&showmug)DrawTexture(
@@ -835,6 +834,7 @@ class HDStatusBar:DoomStatusBar{
 			}
 		}
 		//helmet stuff
+		let helmet = HDArmourWorn(HHFunc.FindHelmet(hpl));
 		if(helmet){
 			helmet.DrawHudStuff(self,hpl,hdflags,gzflags);
 		}
@@ -1065,18 +1065,6 @@ class HDStatusBar:DoomStatusBar{
 	enum HDSBarNums{
 		SBAR_MAXAMMOCOLS=7,
 		SBAR_AMMOROW=14,
-	}
-
-	// NOTE(dastrukar): please finish this :]
-	void DrawHelmetOverlay(Vector2 overlaycoords){
-		let helmet=HDArmourWorn(cplayer.mo.findinventory("HHelmetWorn"));
-		if(helmet){
-			string overlaysprite="STBAR";
-			drawimage(
-				overlaysprite,
-				overlaycoords
-			);
-		}
 	}
 
 	void DrawWoundCount(Vector2 coords){

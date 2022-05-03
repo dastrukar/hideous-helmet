@@ -1,6 +1,19 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**PENDING**
+> I hope you like modules :]
+
+Added:
+* Helmet Manager! Using a helmet will now open this up instead. Hopefully it doesn't make wearing the helmet *too* clunky.
+
+Tweaks:
+* Helmets can't be stored into backpacks anymore. (due to balancing and techincal reasons)
+* Helmets now take more damage when shot in the head.
+
+Misc:
+* Reorganised files again
+---
 **5/04/2022**
 > This is all in preparation for the new upcoming modules feature that I've been planning for awhile now.
 

@@ -28,7 +28,7 @@ class HHHelmetSpawner : EventHandler
 	// Moved to a function for convenience
 	static void SummonHelmet(int durability, Vector3 pos)
 	{
-		let helm = HHelmet(Actor.Spawn("HHelmet", pos, ALLOW_REPLACE));
+		let helm = HudHelmet(Actor.Spawn("HudHelmet", pos, ALLOW_REPLACE));
 
 		helm.Vel.x += FRandom(-2, 2);
 		helm.Vel.y += FRandom(-2, 2);

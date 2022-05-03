@@ -1,6 +1,14 @@
-// Handles the "hh_strip" command
+// Handles the "hh_strip" command and gives the player a helmet manager
 class HHHandler : EventHandler
 {
+	override void PlayerSpawned(PlayerEvent e)
+	{
+		let player = HDPlayerPawn(Players[e.PlayerNumber].mo);
+		if (!player || player.FindInventory("HHHelmetManager")) return;
+
+		player.GiveInventory("HHHelmetManager", 1);
+	}
+
 	override void NetworkProcess(ConsoleEvent e)
 	{
 		let player = HDPlayerPawn(Players[e.Player].mo);
@@ -8,9 +16,9 @@ class HHHandler : EventHandler
 
 		if (player.Health > 0 && e.Name ~== "hh_strip")
 		{
-			HHelmetWorn helmet = HHelmetWorn(HHFunc.FindHelmet(player));
+			let helmet = HHBaseHelmetWorn(HHFunc.FindHelmet(player));
 			if (helmet) player.DropInventory(helmet);
-			else if (player.FindInventory("HHelmet", true)) player.UseInventory(player.FindInventory("HHelmet", true));
+			//else if (player.FindInventory("HHelmet", true)) player.UseInventory(player.FindInventory("HHelmet", true));
 		}
 	}
 }

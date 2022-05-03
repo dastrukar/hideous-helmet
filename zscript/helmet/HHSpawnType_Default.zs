@@ -32,8 +32,8 @@ class HHSpawnType_Default : HHSpawnType
 			T.GiveInventory("HasHelmet", 1);
 			if (hh_enemywearshelmet)
 			{
-				T.GiveInventory("HHelmetWorn", 1);
-				HHelmetWorn wrn = HHelmetWorn(T.FindInventory("HHelmetWorn"));
+				T.GiveInventory("HudHelmetWorn", 1);
+				let wrn = HHBaseHelmetWorn(T.FindInventory("HudHelmetWorn"));
 				wrn.durability = Random(hh_d_random_min, hh_d_random_max);
 
 				if (hh_debug) Console.PrintF("Gave helmet to "..T.GetClassName().." with durability "..wrn.durability);
@@ -42,7 +42,7 @@ class HHSpawnType_Default : HHSpawnType
 		else
 		{
 			// Armoru
-			HHelmetSpawner.SummonHelmet(HHCONST_HUDHELMET, T.Pos);
+			HHHelmetSpawner.SummonHelmet(HHCONST_HUDHELMET, T.Pos);
 		}
 	}
 }

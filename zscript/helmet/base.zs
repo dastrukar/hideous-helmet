@@ -2,6 +2,112 @@
 // Original code taken from Hideous Destructor
 
 // HDMagAmmo is used, due to how backpacks handle icons for HDArmour
+class HHBaseHelmet : HDMagAmmo abstract
+{
+	class<HHBaseHelmetWorn> WornHelmet;
+
+	property wornHelmet: WornHelmet;
+
+	Default
+	{
+		-Inventory.INVBAR // Helmet inventory will be handled via another item
+		+HDPickup.CHEATNOGIVE
+		+HDPickup.NOTINPOCKETS
+		+Inventory.ISARMOR
+		Inventory.Amount 1;
+		Tag "HUD Helmet";
+		Inventory.Icon "HELMA0";
+		Inventory.PickupMessage "Picked up the HUD helmet.";
+
+		// set it yourself you lazy prick
+		HDMagammo.MaxPerUnit 0; // Max durability
+		HDMagammo.MagBulk 0; // Weight per helmet
+		HHBaseHelmet.WornHelmet ""; // Which helmet to wear?
+	}
+
+	// This is only called if hd_helptext is true
+	virtual string GetFlavourText()
+	{
+		return "This helmet be looking real fine.";
+	}
+
+	override bool IsUsed()
+	{
+		return true;
+	}
+
+	/* might not need this
+	override int GetSBarNum(int flags)
+	{
+		int magSize = Mags.Size() - 1;
+		if (magSize < 0) return -1000000; // if -1000000, don't count on statusbar inv
+		else return Mags[magSize] % 1000;
+	}
+	*/
+
+	override void AddAMag(int addAmt)
+	{
+		if (addAmt < 0) addAmt = MaxPerUnit;
+		Mags.Push(addAmt);
+		Amount = Mags.Size();
+	}
+
+	override void MaxCheat()
+	{
+		SyncAmount();
+		for (int i = 0; i < Amount; i++) Mags[i] = MaxPerUnit;
+	}
+
+	override void ActualPickup(Actor other, bool silent)
+	{
+		if (!other) return;
+
+		int durability = Mags[Mags.Size() - 1];
+		// Put on the helmet right away?
+		if (
+			other.Player &&
+			other.Player.Cmd.Buttons & BT_USE &&
+			!other.FindInventory("HHBaseHelmetWorn", true) &&
+			HDPlayerPawn(other).StripTime == 0
+		)
+		{
+			HDArmour.ArmourChangeEffect(other);
+			let worn = HHBaseHelmetWorn(other.GiveInventoryType(WornHelmet));
+			worn.Durability = durability;
+			Destroy();
+			return;
+		}
+
+		if (!TryPickup(other)) return;
+
+		let helmet = HHBaseHelmet(other.FindInventory(self.GetClassName()));
+		helmet.SyncAmount();
+		helmet.Mags.Insert(0, durability);
+		helmet.Mags.Pop();
+		other.A_StartSound(PickupSound, CHAN_AUTO);
+		other.A_Log(string.Format("\cg%s", PickupMessage(), true));
+	}
+
+	override void Consolidate() {} // Don't consolidate :]
+
+	override double GetBulk()
+	{
+		SyncAmount();
+		return MagBulk * Amount;
+	}
+
+	override void SyncAmount()
+	{
+		if (Amount < 1)
+		{
+			Destroy();
+			return;
+		}
+
+		Super.SyncAmount();
+		for (int i = 0; i < Amount; i++) Mags[i] = Min(Mags[i], MaxPerUnit);
+	}
+}
 
 class HHelmet : HDMagAmmo
 {
