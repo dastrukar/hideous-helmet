@@ -7,8 +7,6 @@ class HHBaseHelmet : HDMagAmmo abstract
 	protected class<HHBaseHelmetWorn> _WornHelmet;
 
 	int ModuleLimit;
-	Array<HHBaseModuleLoaded> Modules;
-	Array<HHBaseModuleLoaded> InternalModules;
 
 	property WornHelmet: _WornHelmet;
 	property ModuleLimit: ModuleLimit;
@@ -128,8 +126,6 @@ class HHBaseHelmet : HDMagAmmo abstract
 		// Put on the helmet
 		HDArmour.ArmourChangeEffect(hdp);
 		let wornHelm = HHBaseHelmetWorn(hdp.GiveInventoryType(_WornHelmet));
-		wornHelm.Modules.Copy(Modules);
-		wornHelm.InternalModules.Copy(InternalModules);
 		wornHelm.Durability = Mags[Mags.Size() - 1];
 
 		hdp.A_Log(string.Format("You put on the %s.", GetTag()));

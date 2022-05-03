@@ -5,8 +5,6 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 
 	int Durability;
 	int MaxDurability;
-	Array<HHBaseModuleLoaded> Modules;
-	Array<HHBaseModuleLoaded> InternalModules;
 
 	property HelmetBulk: _helmetBulk;
 	property TossHelmet: _tossHelmet;
@@ -66,8 +64,6 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 		tossed.Mags.Clear();
 		tossed.Mags.Push(Durability);
 		tossed.Amount = 1;
-		tossed.Modules.Copy(Modules);
-		tossed.InternalModules.Copy(InternalModules);
 		Owner.A_Log("Removing helmet first.", true);
 		Destroy();
 		return tossed;
@@ -302,14 +298,8 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 	override void DoEffect()
 	{
 		// Internal modules
-		for (int i = 0; i < InternalModules.Size(); i++)
-		{
-		}
 
 		// Modules
-		for (int i = 0; i < Modules.Size(); i++)
-		{
-		}
 	}
 
 	void DoHelmetDebug(
