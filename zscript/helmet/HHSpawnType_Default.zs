@@ -42,7 +42,7 @@ class HHSpawnType_Default : HHSpawnType
 		else
 		{
 			// Armoru
-			HHelmetSpawner.SummonHelmet(HHCONST_HUDHELMET, T.Pos);
+			HHHelmetSpawner.SummonHelmet(HHCONST_HUDHELMET, T.Pos);
 		}
 	}
 }
