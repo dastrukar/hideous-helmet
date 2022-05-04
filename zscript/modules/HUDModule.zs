@@ -4,6 +4,6 @@ class HUDModule : HHBaseModule
 	Default
 	{
 		HHBaseModule.ModuleEnergy 5;
-		Tag "HUD Module";
+		Tag "$HUDModule_Name";
 	}
 }

@@ -8,9 +8,47 @@ class HudHelmet : HHBaseHelmet
 {
 	Default
 	{
-		Tag "HUD Helmet";
+		Tag "$HudHelmet_Name";
 		HDPickup.RefId "hdh";
 		Inventory.Icon "HELMA0";
+		Inventory.PickupMessage "$HudHelmet_PickupMessage";
+		HDMagammo.MaxPerUnit HHCONST_HUDHELMET; // Max durability
+		HDMagammo.MagBulk ENC_HUDHELMET; // Weight per helmet
+		HHBaseHelmet.WornHelmet "HudHelmetWorn"; // Which helmet to wear?
+		HHBaseHelmet.ModuleLimit 20; // How much module points?
+	}
+
+	override string GetFlavourText()
+	{
+		return "This is a HUD Helmet.";
+	}
+}
+
+class TESTHudHelmet : HHBaseHelmet
+{
+	Default
+	{
+		Tag "HUD Helmet";
+		Inventory.Icon "PISTA0";
+		Inventory.PickupMessage "Picked up the HUD Helmet.";
+		HDMagammo.MaxPerUnit HHCONST_HUDHELMET; // Max durability
+		HDMagammo.MagBulk ENC_HUDHELMET; // Weight per helmet
+		HHBaseHelmet.WornHelmet "HudHelmetWorn"; // Which helmet to wear?
+		HHBaseHelmet.ModuleLimit 20; // How much module points?
+	}
+
+	override string GetFlavourText()
+	{
+		return "This is a HUD Helmet.";
+	}
+}
+
+class TTESTHudHelmet : HHBaseHelmet
+{
+	Default
+	{
+		Tag "HUD Helmet";
+		Inventory.Icon "CLIPA0";
 		Inventory.PickupMessage "Picked up the HUD Helmet.";
 		HDMagammo.MaxPerUnit HHCONST_HUDHELMET; // Max durability
 		HDMagammo.MagBulk ENC_HUDHELMET; // Weight per helmet

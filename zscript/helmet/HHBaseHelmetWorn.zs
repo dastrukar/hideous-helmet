@@ -19,7 +19,6 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 		HHBaseHelmetWorn.MaxDurability 0;
 		HHBaseHelmetWorn.HelmetBulk 0;
 		HHBaseHelmetWorn.TossHelmet "";
-		Tag "HUD Helmet";
 	}
 
 	override void BeginPlay()
@@ -64,7 +63,7 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 		tossed.Mags.Clear();
 		tossed.Mags.Push(Durability);
 		tossed.Amount = 1;
-		Owner.A_Log("Removing helmet first.", true);
+		Owner.A_Log(Stringtable.Localize("$HelmetWorn_Remove"), true);
 		Destroy();
 		return tossed;
 	}

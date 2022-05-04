@@ -7,7 +7,7 @@ class HudHelmetWorn : HHBaseHelmetWorn
 		HHBaseHelmetWorn.HelmetBulk ENC_HUDHELMET / 2;
 		HHBaseHelmetWorn.TossHelmet "HudHelmet";
 		HDPickup.RefId "hhw";
-		Tag "HUD Helmet";
+		Tag "$HudHelmet_Name";
 	}
 
 	override void DrawHUDStuff(
