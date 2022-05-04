@@ -1,6 +1,12 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**4/05/2022**
+> Hideous helmet has been broken for how long??
+
+Fixes:
+* Fixed stupid oversight in HasHelmet
+---
 **5/04/2022**
 > This is all in preparation for the new upcoming modules feature that I've been planning for awhile now.
 

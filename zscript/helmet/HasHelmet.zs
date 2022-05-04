@@ -14,7 +14,7 @@ class HasHelmet : InventoryFlag
 		if (durability > 0)
 		{
 			Vector3 tPos = (Owner.Pos.x, Owner.Pos.y, Owner.Pos.z + 5);
-			HHelmetSpawner.SummonHelmet(durability, tPos);
+			HHHelmetSpawner.SummonHelmet(durability, tPos);
 		}
 
 		Destroy();
