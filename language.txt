@@ -1,0 +1,15 @@
+[eng default]
+HHHelmetManager_HelpText =
+	"\c-while in \c[Fire]helmet manager\n"
+	"\c[Sapphire]Fire\c-/\c[Sapphire]Altfire  \c-Previous/Next helmet\n"
+	"\c[Sapphire]Firemode\c-+\c[Sapphire]Fire\c-/\c[Sapphire]Altfire  \c-Previous/Next helmet type\n"
+	"\c[Sapphire]Reload  \c-Wear selected helmet\n"
+	"\c[Sapphire]Unload  \c-Remove any worn helmet\n"
+	"\c[Sapphire]Zoom  \c-Switch to module manager\n"
+	"\n"
+	"while in \c[Fire]module manager\n"
+	"\c[Sapphire]Fire\c-/\c[Sapphire]Altfire  \c-Previous/Next module\n"
+	"\c[Sapphire]Firemode\c-+\c[Sapphire]Fire\c-/\c[Sapphire]Altfire  \c-Previous/Next loaded module\n"
+	"\c[Sapphire]Reload  \c-Load module\n"
+	"\c[Sapphire]Unload  \c-Unload module\n"
+	"\c[Sapphire]Zoom  \c-Switch to helmet manager";

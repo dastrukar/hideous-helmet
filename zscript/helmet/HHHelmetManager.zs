@@ -15,6 +15,7 @@ class HHHelmetManager : HDWeapon
 		+Weapon.NO_AUTO_SWITCH;
 		+NOINTERACTION;
 		Weapon.SelectionOrder 1000;
+		Tag "Helmet/Module Manager";
 	}
 
 	override void BeginPlay()
@@ -27,6 +28,18 @@ class HHHelmetManager : HDWeapon
 		{
 			if (AllActorClasses[i] is "HHBaseHelmet") _Helmets.Push(GetDefaultByType(AllActorClasses[i]).GetClassName());
 		}
+	}
+
+	override string GetHelpText()
+	{
+		return Stringtable.Localize("$HHHelmetManager_HelpText");
+			/*
+			WEPHELP_FIRE.."/"..WEPHELP_ALTFIRE.."  "..Stringtable.Localize("$HHHelmetManager_HelpText"..num.."A").."\n"..
+			WEPHELP_FIREMODE.."+"..WEPHELP_FIRE.."/"..WEPHELP_ALTFIRE.."  "..Stringtable.Localize("$HHHelmetManager_HelpText"..num.."B").."\n"..
+			WEPHELP_RELOAD.."  "..Stringtable.Localize("$HHHelmetManager_HelpText"..num.."C").."\n"..
+			WEPHELP_UNLOAD.."  "..Stringtable.Localize("$HHHelmetManager_HelpText"..num.."D").."\n"..
+			WEPHELP_ZOOM.."  "..Stringtable.Localize("$HHHelmetManager_HelpText"..num.."E");
+			*/
 	}
 
 	override Inventory CreateTossable(int amt)
