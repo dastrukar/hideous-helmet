@@ -11,11 +11,15 @@ class HudHelmet : HHBaseHelmet
 		Tag "$HudHelmet_Name";
 		HDPickup.RefId "hdh";
 		Inventory.Icon "HELMA0";
-		Inventory.PickupMessage "$HudHelmet_PickupMessage";
 		HDMagammo.MaxPerUnit HHCONST_HUDHELMET; // Max durability
 		HDMagammo.MagBulk ENC_HUDHELMET; // Weight per helmet
 		HHBaseHelmet.WornHelmet "HudHelmetWorn"; // Which helmet to wear?
 		HHBaseHelmet.ModuleLimit 20; // How much module points?
+	}
+
+	override string PickupMessage()
+	{
+		return Stringtable.Localize("$HudHelmet_PickupMessage");
 	}
 
 	override string GetFlavourText()
