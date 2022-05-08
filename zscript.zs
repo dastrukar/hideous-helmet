@@ -27,8 +27,8 @@ version "4.7"
 #include "zscript/helmet/HHSpawnType.zs"
 #include "zscript/helmet/HHSpawnType_Default.zs"
 
-// [ Manager ]
-#include "zscript/helmet/HHHelmetManager.zs"
+// [ Helmet/Module Manager ]
+#include "zscript/helmet/HHManager.zs"
 
 // [ Items ]
 #include "zscript/helmet/HudHelmet.zs"

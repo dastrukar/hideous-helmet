@@ -4,9 +4,9 @@ class HHHandler : EventHandler
 	override void PlayerSpawned(PlayerEvent e)
 	{
 		let player = HDPlayerPawn(Players[e.PlayerNumber].mo);
-		if (!player || player.FindInventory("HHHelmetManager")) return;
+		if (!player || player.FindInventory("HHManager")) return;
 
-		player.GiveInventory("HHHelmetManager", 1);
+		player.GiveInventory("HHManager", 1);
 	}
 
 	override void NetworkProcess(ConsoleEvent e)

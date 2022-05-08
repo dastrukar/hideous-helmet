@@ -1,5 +1,5 @@
 // Ah yes, more item micro management
-class HHHelmetManager : HDWeapon
+class HHManager : HDWeapon
 {
 	private Array<string> _Helmets;
 	private Array<HHBaseModule> _Modules;
