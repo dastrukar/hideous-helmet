@@ -139,7 +139,7 @@ class HHBaseHelmet : HDMagAmmo abstract
 	States
 	{
 		Use:
-			TNT1 A 0 { HHHelmetManager.ManageHelmet(Invoker); }
+			TNT1 A 0 { HHManager.ManageHelmet(Invoker); }
 			fail;
 	}
 }

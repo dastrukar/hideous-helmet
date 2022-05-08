@@ -15,7 +15,7 @@ class HHManager : HDWeapon
 		+Weapon.NO_AUTO_SWITCH;
 		+NOINTERACTION;
 		Weapon.SelectionOrder 1000;
-		Tag "$HHHelmetManager_Name";
+		Tag "$HHManager_Name";
 	}
 
 	override void BeginPlay()
@@ -32,7 +32,7 @@ class HHManager : HDWeapon
 
 	override string GetHelpText()
 	{
-		return Stringtable.Localize("$HHHelmetManager_HelpText");
+		return Stringtable.Localize("$HHManager_HelpText");
 	}
 
 	override Inventory CreateTossable(int amt)
@@ -62,7 +62,7 @@ class HHManager : HDWeapon
 		// Header
 		sb.DrawString(
 			sb.pSmallFont,
-			Stringtable.Localize("$HHHelmetManager_Header"),
+			Stringtable.Localize("$HHManager_Header"),
 			headerPos,
 			commonFlags,
 			scale: hudScale
@@ -72,7 +72,7 @@ class HHManager : HDWeapon
 		{
 			sb.DrawString(
 				sb.pSmallFont,
-				Stringtable.Localize("$HHHelmetManager_NoHelmets"),
+				Stringtable.Localize("$HHManager_NoHelmets"),
 				(0, 0),
 				commonFlags,
 				scale: hudScale
@@ -264,7 +264,7 @@ class HHManager : HDWeapon
 	static void ManageHelmet(HHBaseHelmet helmetType)
 	{
 		let master = HDPlayerPawn(helmetType.Owner);
-		let manager = HHHelmetManager(master.FindInventory("HHHelmetManager"));
+		let manager = HHManager(master.FindInventory("HHManager"));
 
 		manager.SelectedHelmet = helmetType.GetClassName();
 		master.UseInventory(manager);

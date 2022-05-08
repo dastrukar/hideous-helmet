@@ -4,8 +4,8 @@ HelmetWorn_Remove = "Removing helmet first.";
 HudHelmet_Name = "HUD Helmet";
 HudHelmet_PickupMessage = "Picked up the HUD Helmet.";
 
-HHHelmetManager_Name = "Helmet/Module Manager";
-HHHelmetManager_HelpText =
+HHManager_Name = "Helmet/Module Manager";
+HHManager_HelpText =
 	"\c-while in \c[Fire]helmet manager\n"
 	"\c[Sapphire]Fire\c-/\c[Sapphire]Altfire  \c-Previous/Next helmet\n"
 	"\c[Sapphire]Firemode\c-+\c[Sapphire]Fire\c-/\c[Sapphire]Altfire  \c-Previous/Next helmet type\n"
@@ -20,7 +20,7 @@ HHHelmetManager_HelpText =
 	"\c[Sapphire]Unload  \c-Unload module\n"
 	"\c[Sapphire]Zoom  \c-Switch to helmet manager";
 
-HHHelmetManager_Header = "\c[Sapphire]=== \c[Gold]Helmet Manager \c[Sapphire]===";
-HHHelmetManager_NoHelmets = "You don't have any helmets.";
+HHManager_Header = "\c[Sapphire]=== \c[Gold]Helmet Manager \c[Sapphire]===";
+HHManager_NoHelmets = "You don't have any helmets.";
 
 HUDModule_Name = "HUD Module";
