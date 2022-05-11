@@ -8,6 +8,10 @@ version "4.7"
 #include "zscript/armour/HHArmourTypeHandler.zs"
 
 
+// [[ Helmet/Module Manager ]]
+#include "zscript/HHManager.zs"
+
+
 // [[ Modules ]]
 // [ Base ]
 #include "zscript/modules/HHBaseModule.zs"
@@ -26,9 +30,6 @@ version "4.7"
 #include "zscript/helmet/HHHelmetSpawner.zs"
 #include "zscript/helmet/HHSpawnType.zs"
 #include "zscript/helmet/HHSpawnType_Default.zs"
-
-// [ Helmet/Module Manager ]
-#include "zscript/HHManager.zs"
 
 // [ Items ]
 #include "zscript/helmet/HudHelmet.zs"
