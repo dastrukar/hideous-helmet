@@ -5,6 +5,8 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 
 	int Durability;
 	int MaxDurability;
+	HHModuleStorage ModuleStorage;
+	HHModuleStorage InternalModuleStorage;
 
 	property HelmetBulk: _helmetBulk;
 	property TossHelmet: _tossHelmet;
@@ -25,6 +27,8 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 	{
 		Super.BeginPlay();
 		Durability = MaxDurability;
+		ModuleStorage = HHModuleStorage(new("HHModuleStorage"));
+		InternalModuleStorage = HHModuleStorage(new("HHModuleStorage"));
 	}
 
 	override double GetBulk()
@@ -37,7 +41,7 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 		let hdp = HDPlayerPawn(Owner);
 		if (hdp.StripTime > 0) return null;
 
-		//armour sometimes crumbles into dust
+		// Helmet sometimes crumbles into dust
 		if (Durability < Random(1, 5))
 		{
 			for (int i = 0; i < 10; i++)
@@ -53,7 +57,7 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 			return null;
 		}
 
-		//finally actually take off the armour
+		// Take off the helmet
 		HDArmour.ArmourChangeEffect(Owner);
 		let tossed = HHBaseHelmet(Owner.Spawn(
 			_tossHelmet,
@@ -63,6 +67,8 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 		tossed.Mags.Clear();
 		tossed.Mags.Push(Durability);
 		tossed.Amount = 1;
+		tossed.ModuleStorage = ModuleStorage;
+		tossed.InternalModuleStorage = InternalModuleStorage;
 		Owner.A_Log(Stringtable.Localize("$HelmetWorn_Remove"), true);
 		Destroy();
 		return tossed;
@@ -297,8 +303,39 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 	override void DoEffect()
 	{
 		// Internal modules
+		for (int i = 0; i < InternalModuleStorage.Modules.Size(); i++)
+		{
+			GetDefaultByType((class<HHBaseModule>)(InternalModuleStorage.Modules[i])).DoModuleEffect(Owner);
+		}
 
 		// Modules
+		for (int i = 0; i < ModuleStorage.Modules.Size(); i++)
+		{
+			GetDefaultByType((class<HHBaseModule>)(ModuleStorage.Modules[i])).DoModuleEffect(Owner);
+		}
+	}
+
+	// Handle module HUD stuff. Make sure to use Super.DrawHUDStuff!
+	override void DrawHUDStuff(
+		HDStatusBar sb,
+		HDPlayerPawn hpl,
+		int hdFlags,
+		int gzFlags
+	)
+	{
+		// Internal modules
+		for (int i = 0; i < InternalModuleStorage.Modules.Size(); i++)
+		{
+			Console.PrintF(""..InternalModuleStorage.Modules[i]);
+			GetDefaultByType((class<HHBaseModule>)(InternalModuleStorage.Modules[i])).DoHUDStuff(sb, hpl);
+		}
+
+		// Modules
+		for (int i = 0; i < ModuleStorage.Modules.Size(); i++)
+		{
+			Console.PrintF(""..ModuleStorage.Modules[i]);
+			GetDefaultByType((class<HHBaseModule>)(ModuleStorage.Modules[i])).DoHUDStuff(sb, hpl);
+		}
 	}
 
 	void DoHelmetDebug(

@@ -17,6 +17,7 @@ class HudHelmetWorn : HHBaseHelmetWorn
 		int gzFlags
 	)
 	{
+		Super.DrawHUDStuff(sb, hpl, hdFlags, gzFlags);
 		string helmetSprite = "HELMA0";
 		string helmetBack = "HELMB0";
 		bool showOnTop = sb.hh_durabilitytop.GetBool();

@@ -29,4 +29,10 @@ class HHBaseModule : HDMagAmmo abstract
 		else if (durability <= 25) return "Unstable";
 		else return "Perfect";
 	}
+
+	// Special effects for those who want to draw stuff
+	virtual void DoModuleEffect(Actor actor) {}
+
+	// Generic draw stuff
+	ui virtual void DoHUDStuff(HDStatusBar sb, HDPlayerPawn hdp) {}
 }

@@ -16,6 +16,7 @@ version "4.7"
 // [ Base ]
 #include "zscript/modules/HHBaseModule.zs"
 #include "zscript/modules/HHModuleHandler.zs"
+#include "zscript/modules/HHModuleStorage.zs"
 
 // [ Items ]
 #include "zscript/modules/HUDModule.zs"
