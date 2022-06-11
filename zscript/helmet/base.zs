@@ -280,13 +280,13 @@ class HHelmetWorn : HDArmourWorn
 	}
 
 	// Handle damage
-	override int, name, int, int, int, int, int HandleDamage(
+	override int, name, int, double, int, int, int HandleDamage(
 		int damage,
 		name mod,
 		int flags,
 		actor inflictor,
 		actor source,
-		int toWound,
+		double toWound,
 		int toBurn,
 		int toStun,
 		int toBreak
