@@ -1,6 +1,12 @@
 All changes are sorted from top to bottom, Latest to Oldest.
 Date format: DD/MM/YYYY
 ---
+**11/06/2022**
+> Don't expect this to work well
+
+Compat:
+* Updated to latest main of Hideous Destructor.
+---
 **4/05/2022**
 > Hideous helmet has been broken for how long??
 
