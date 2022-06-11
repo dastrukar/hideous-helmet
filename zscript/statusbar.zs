@@ -744,7 +744,7 @@ class HDStatusBar:DoomStatusBar{
 			string s=hpl.specialtip;
 			screen.DrawText(NewSmallFont,OptionMenuSettings.mFontColorValue,
 				2,
-				450-NewSmallFont.GetHeight()*5,
+				450-NewSmallFont.GetHeight()*5.5,
 				s,
 				DTA_VirtualWidth,600,
 				DTA_VirtualHeight,450,
@@ -1082,7 +1082,9 @@ class HDStatusBar:DoomStatusBar{
 	void DrawWoundCount(Vector2 coords){
 		if(hh_showbleed.getbool()){
 			int of=0;
-			let wounds=hpl.woundcount;
+			int wounds = HDBleedingWound.WoundCount(hpl);
+			HDBleedingWound biggestWound = HDBleedingWound.FindBiggest(hpl);
+
 			if(hh_showbleedwhenbleeding.getbool()&&!wounds) return;
 			if(wounds){
 				drawimage(
@@ -1091,14 +1093,16 @@ class HDStatusBar:DoomStatusBar{
 					0.6,
 					scale:(0.5,0.5)
 				);
-				of=clamp(int(wounds*0.2),1,3);
+				if (biggestWound && biggestWound.Depth) of=clamp(int(biggestWound.depth*0.2),1,3);
 				if(hpl.flip)of=-of;
 			}
 			drawrect(coords.x+2,coords.y+of,2,6);
 			drawrect(coords.x,coords.y+2+of,6,2);
 
 			if(hh_woundcounter.getbool()){
-				let wcol=wounds<1? Font.CR_WHITE:Font.CR_RED;
+				let wcol =
+					(wounds < 1)? Font.CR_WHITE :
+					(biggestWound && biggestWound.Depth)? Font.CR_RED : Font.CR_FIRE;
 				drawstring(
 					mIndexFont,
 					formatnumber(wounds,3),
