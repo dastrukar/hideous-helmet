@@ -315,7 +315,7 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 		}
 	}
 
-	// Handle module HUD stuff. Make sure to use Super.DrawHUDStuff!
+	// Handle module HUD stuff. Make sure to use Super.DrawHUDStuff when creating a new helmet!
 	override void DrawHUDStuff(
 		HDStatusBar sb,
 		HDPlayerPawn hpl,
