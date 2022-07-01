@@ -43,7 +43,7 @@ class HHManager : HDWeapon
 
 	override void DrawHUDStuff(HDStatusBar sb, HDWeapon wp, HDPlayerPawn hpl)
 	{
-		Vector2 charSize = (sb.pSmallFont.mFont.GetCharWidth("0"), sb.pSmallFont.mFont.GetHeight());
+		Vector2 charSize = (sb.pSmallFont.mFont.GetCharWidth("0"), sb.pSmallFont.mFont.GetHeight()) * hh_managerscale;
 		Vector2 helmetsPos =
 			(_helmetMode)?
 			(0, 0):
@@ -60,9 +60,13 @@ class HHManager : HDWeapon
 		HHBaseHelmet selHelmet = GetHelmet();
 
 		// Header
+		string headerText =
+			(_helmetMode)?
+			Stringtable.Localize("$HHManager_HMHeader"):
+			Stringtable.Localize("$HHManager_MMHeader");
 		sb.DrawString(
 			sb.pSmallFont,
-			Stringtable.Localize("$HHManager_Header"),
+			headerText,
 			headerPos,
 			commonFlags,
 			scale: hudScale
@@ -81,13 +85,17 @@ class HHManager : HDWeapon
 		}
 
 		// Helmet position stuff
-		Vector2 helmetSize = TexMan.GetScaledSize(selHelmet.Icon);
+		Vector2 helmetSize = TexMan.GetScaledSize(selHelmet.Icon) * hh_managerscale;
+		Vector2 helmetNamePos =
+			(_helmetMode)?
+			(helmetsPos.x, helmetsPos.y + (charSize.y * 3)):
+			(helmetsPos.x, helmetsPos.y + (charSize.y * 1));
 
 		// Draw current helmet
 		sb.DrawString(
 			sb.pSmallFont,
 			selHelmet.GetTag(),
-			(helmetsPos.x, helmetsPos.y + (charSize.y * 3)),
+			helmetNamePos,
 			commonFlags,
 			Font.CR_WHITE,
 			scale: hudScale
@@ -379,6 +387,6 @@ class HHManager : HDWeapon
 	{
 		Ready:
 			TNT1 A 1 A_HMReady();
-			goto ReadyEnd; // idk why not including this slows you down
+			goto ReadyEnd; // prevents weapon slowing you down
 	}
 }
