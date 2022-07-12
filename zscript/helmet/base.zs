@@ -491,7 +491,7 @@ class HHelmetWorn : HDArmourWorn
 				!hdp.Incapacitated
 			)
 			{
-				hdp.HudBobRecoil2 += (FRandom(-5, 5), FRandom(2.5, 4)) * 0.01 * hitHeight * mass;
+				hdp.WepBobRecoil2 += (FRandom(-5, 5), FRandom(2.5, 4)) * 0.01 * hitHeight * mass;
 				hdp.PlayRunning();
 			}
 			else if (Random(0, 255) < hitActor.PainChance)

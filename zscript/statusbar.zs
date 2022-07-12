@@ -248,7 +248,14 @@ class HDStatusBar:DoomStatusBar{
 			}
 		}
 
-		blurred=hpl.bshadow||hpl.binvisible;
+		blurred=false;
+		if (hpl.binvisible) {blurred = true;}
+		else if (hpl.bshadow) {
+			switch(hpl.GetRenderStyle()) {
+				case STYLE_Fuzzy: case STYLE_None: blurred=true;
+				default: break;
+			}
+		}
 
 		//all the hud use timer determinations go here
 		if(cplayer.buttons&BT_USE)hudusetimer++;
@@ -273,7 +280,7 @@ class HDStatusBar:DoomStatusBar{
 			DrawAutomapHUD(ticfrac);
 			DrawAutomapStuff();
 		}else if(cplayer.mo==cplayer.camera){
-			DrawAlwaysStuff();
+			DrawAlwaysStuff(ticfrac);
 			if(hpl.health>0){
 				BeginHUD(forcescaled:false);
 
@@ -388,7 +395,7 @@ class HDStatusBar:DoomStatusBar{
 			default:return "STC";
 		}else return mugshot;
 	}
-	void DrawAlwaysStuff(){
+	void DrawAlwaysStuff(double ticfrac){
 		if(
 			hpl.health>0&&(
 				hpl.binvisible
@@ -466,7 +473,7 @@ class HDStatusBar:DoomStatusBar{
 		if(
 			!blurred
 			&&hpl.health>0
-		)DrawHDXHair(hpl);
+		)DrawHDXHair(hpl,ticfrac);
 
 
 
