@@ -41,6 +41,49 @@ class HHManager : HDWeapon
 		return null;
 	}
 
+	private ui void DrawModsList(
+		HDStatusBar sb,
+		Array<HHBaseModule> mods,
+		int index,
+		Vector2 pos,
+		int flags,
+		string selPrefix="",
+		string selSuffix=""
+	)
+	{
+		Vector2 charSize = (sb.pSmallFont.mFont.GetCharWidth("0"), sb.pSmallFont.mFont.GetHeight()) * hh_managerscale;
+
+		int modListSize =
+			(mods.Size() >= 5)? 5:
+			(mods.Size() > 1)? 3:
+			1;
+		float modDrawOffset =
+			(modListSize == 5)? charSize.y * -4:
+			(modListSize == 3)? charSize.y * -2:
+			0;
+
+		for (int i = 0; i < modListSize; i++)
+		{
+			int offset = i - (modListSize >= 3) - (modListSize >= 5);
+			int actualIndex = index + offset;
+
+			if (actualIndex < 0) actualIndex = mods.Size() + offset;
+			if (!mods[actualIndex]) return;
+
+			string moduleName = mods[actualIndex].GetTag();
+			if (offset == 0) moduleName = selPrefix..moduleName..selSuffix;
+
+			sb.DrawString(
+				sb.pSmallFont,
+				moduleName,
+				(pos.x, pos.y + modDrawOffset),
+				flags
+			);
+
+			modDrawOffset += charSize.y * 2;
+		}
+	}
+
 	override void DrawHUDStuff(HDStatusBar sb, HDWeapon wp, HDPlayerPawn hpl)
 	{
 		Vector2 charSize = (sb.pSmallFont.mFont.GetCharWidth("0"), sb.pSmallFont.mFont.GetHeight()) * hh_managerscale;
@@ -197,17 +240,6 @@ class HHManager : HDWeapon
 		}
 		else
 		{
-			if (_Modules.Size() == 0)
-			{
-				sb.DrawString(
-					sb.pSmallFont,
-					"No modules available.",
-					(0, 0),
-					commonFlags,
-					scale: hudScale
-				);
-				return;
-			}
 			// Arrows
 			sb.DrawString(
 				sb.pSmallFont,
@@ -223,11 +255,111 @@ class HHManager : HDWeapon
 				commonFlags,
 				scale: hudScale
 			);
+
+			// Modules on person
+			if (_Modules.Size() == 0)
+			{
+				sb.DrawString(
+					sb.pSmallFont,
+					"No modules available.",
+					modulesPos,
+					moduleFlags,
+					scale: hudScale
+				);
+			}
+			else
+			{
+				int modListSize =
+					(_Modules.Size() >= 5)? 5:
+					(_Modules.Size() > 1)? 3:
+					1;
+				float modDrawOffset =
+					(modListSize == 5)? charSize.y * -4:
+					(modListSize == 3)? charSize.y * -2:
+					0;
+
+				for (int i = 0; i < modListSize; i++)
+				{
+					int offset = i - (modListSize >= 3) - (modListSize >= 5);
+					int actualIndex = _ModuleIndex + offset;
+
+					if (actualIndex < 0) actualIndex = _Modules.Size() + offset;
+					if (!_Modules[actualIndex]) return;
+
+					string moduleName = _Modules[actualIndex].GetTag();
+					if (offset == 0) moduleName = moduleName.." <";
+
+					sb.DrawString(
+						sb.pSmallFont,
+						moduleName,
+						(modulesPos.x, modulesPos.y + modDrawOffset),
+						moduleFlags
+					);
+
+					modDrawOffset += charSize.y * 2;
+				}
+				/*
+				DrawModsList(
+					sb,
+					_Modules,
+					_ModuleIndex,
+					modulesPos,
+					moduleFlags,
+					selSuffix: " <"
+				);
+				*/
+			}
+
+			// Modules in helmet
+			HHModuleStorage loadedModules = GetHelmet().InternalModuleStorage;
+			if (loadedModules.Modules.Size() == 0)
+			{
+				sb.DrawString(
+					sb.pSmallFont,
+					"No loaded modules.",
+					lModulesPos,
+					lModuleFlags,
+					scale: hudScale
+				);
+			}
+			else
+			{
+				int modListSize =
+					(loadedModules.Modules.Size() >= 5)? 5:
+					(loadedModules.Modules.Size() > 1)? 3:
+					1;
+				float modDrawOffset =
+					(modListSize == 5)? charSize.y * -4:
+					(modListSize == 3)? charSize.y * -2:
+					0;
+
+				for (int i = 0; i < modListSize; i++)
+				{
+					int offset = i - (modListSize >= 3) - (modListSize >= 5);
+					int actualIndex = _ModuleIndex + offset;
+
+					if (actualIndex < 0) actualIndex = loadedModules.Modules.Size() + offset;
+					if (!loadedModules.Modules[actualIndex]) return;
+
+					string moduleName = GetDefaultByType(loadedModules.Modules[actualIndex]).GetTag();
+					if (offset == 0) moduleName = "> "..moduleName;
+
+					sb.DrawString(
+						sb.pSmallFont,
+						moduleName,
+						(lModulesPos.x, lModulesPos.y + modDrawOffset),
+						lModuleFlags,
+						scale: hudScale
+					);
+
+					modDrawOffset += charSize.y * 2;
+				}
+			}
 		}
 	}
 
 	// Updates SelectedHelmet, in case that helmet is no longer valid
-	void UpdateHelmet()
+	private void UpdateHelmet()
 	{
 		if (Owner.FindInventory(SelectedHelmet)) return;
 
@@ -239,12 +371,12 @@ class HHManager : HDWeapon
 		}
 	}
 
-	clearscope HHBaseHelmet GetHelmet()
+	private clearscope HHBaseHelmet GetHelmet()
 	{
 		return HHBaseHelmet(Owner.FindInventory(SelectedHelmet));
 	}
 
-	clearscope string GetNextHelmet(bool reverse=false)
+	private clearscope string GetNextHelmet(bool reverse=false)
 	{
 		// Get the current helmet pos
 		int step = (reverse)? -1 : 1;
@@ -272,13 +404,15 @@ class HHManager : HDWeapon
 	static void ManageHelmet(HHBaseHelmet helmetType)
 	{
 		let master = HDPlayerPawn(helmetType.Owner);
+		if (!master) return;
+
 		let manager = HHManager(master.FindInventory("HHManager"));
 
 		manager.SelectedHelmet = helmetType.GetClassName();
 		master.UseInventory(manager);
 	}
 
-	void UpdateModuleList()
+	private void UpdateModuleList()
 	{
 		_Modules.Clear();
 
@@ -290,7 +424,7 @@ class HHManager : HDWeapon
 		}
 	}
 
-	action void A_HMReady()
+	private action void A_HMReady()
 	{
 		Invoker.UpdateHelmet();
 		HHBaseHelmet helmet = Invoker.GetHelmet();

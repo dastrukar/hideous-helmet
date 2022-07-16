@@ -326,14 +326,12 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 		// Internal modules
 		for (int i = 0; i < InternalModuleStorage.Modules.Size(); i++)
 		{
-			Console.PrintF(""..InternalModuleStorage.Modules[i]);
 			GetDefaultByType((class<HHBaseModule>)(InternalModuleStorage.Modules[i])).DoHUDStuff(sb, hpl);
 		}
 
 		// Modules
 		for (int i = 0; i < ModuleStorage.Modules.Size(); i++)
 		{
-			Console.PrintF(""..ModuleStorage.Modules[i]);
 			GetDefaultByType((class<HHBaseModule>)(ModuleStorage.Modules[i])).DoHUDStuff(sb, hpl);
 		}
 	}
