@@ -264,6 +264,7 @@ class HHManager : HDWeapon
 					"No modules available.",
 					modulesPos,
 					moduleFlags,
+					Font.CR_BLACK,
 					scale: hudScale
 				);
 			}
@@ -309,6 +310,7 @@ class HHManager : HDWeapon
 					"No loaded modules.",
 					lModulesPos,
 					lModuleFlags,
+					Font.CR_BLACK,
 					scale: hudScale
 				);
 			}
