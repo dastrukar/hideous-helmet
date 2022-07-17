@@ -298,20 +298,10 @@ class HHManager : HDWeapon
 
 					modDrawOffset += charSize.y * 2;
 				}
-				/*
-				DrawModsList(
-					sb,
-					_Modules,
-					_ModuleIndex,
-					modulesPos,
-					moduleFlags,
-					selSuffix: " <"
-				);
-				*/
 			}
 
 			// Modules in helmet
-			HHModuleStorage loadedModules = GetHelmet().InternalModuleStorage;
+			HHModuleStorage loadedModules = GetHelmet().ModuleStorage;
 			if (loadedModules.Modules.Size() == 0)
 			{
 				sb.DrawString(
