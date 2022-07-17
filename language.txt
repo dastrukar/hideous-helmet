@@ -23,5 +23,6 @@ HHManager_Name = "Helmet/Module Manager";
 HHManager_HMHeader = "\c[Sapphire]=== \c[Gold]Helmet Manager \c[Sapphire]===";
 HHManager_MMHeader = "\c[Sapphire]=== \c[Gold]Module Manager \c[Sapphire]===";
 HHManager_NoHelmets = "You don't have any helmets.";
+HHManager_NotWearingHelmet = "You're not wearing a helmet.";
 
 HUDModule_Name = "HUD Module";

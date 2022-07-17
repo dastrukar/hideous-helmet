@@ -464,7 +464,7 @@ class HHManager : HDWeapon
 				// Helmet
 				let wornHelm = HHBaseHelmetWorn(HHFunc.FindHelmet(Invoker.Owner));
 				if (wornHelm) Invoker.Owner.DropInventory(wornHelm);
-				else Invoker.Owner.A_Log("You're not wearing a helmet.");
+				else Invoker.Owner.A_Log(Stringtable.Localize("$HHManager_NotWearingHelmet"));
 			}
 			else
 			{
