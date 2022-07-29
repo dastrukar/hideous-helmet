@@ -238,6 +238,16 @@ class HHManager : HDWeapon
 				);
 			}
 		}
+		else if (selHelmet.ModuleLimit <= 0)
+		{
+			sb.DrawString(
+				sb.pSmallFont,
+				Stringtable.Localize("$HHManager_ModulesNotSupported"),
+				(0, 0),
+				commonFlags,
+				scale: hudScale
+			);
+		}
 		else
 		{
 			// Arrows
@@ -261,10 +271,9 @@ class HHManager : HDWeapon
 			{
 				sb.DrawString(
 					sb.pSmallFont,
-					"No modules available.",
+					Stringtable.Localize("$HHManager_NoModules"),
 					modulesPos,
 					moduleFlags,
-					Font.CR_BLACK,
 					scale: hudScale
 				);
 			}
@@ -307,10 +316,9 @@ class HHManager : HDWeapon
 			{
 				sb.DrawString(
 					sb.pSmallFont,
-					"No loaded modules.",
+					Stringtable.Localize("$HHManager_NoModulesLoaded"),
 					lModulesPos,
 					lModuleFlags,
-					Font.CR_BLACK,
 					scale: hudScale
 				);
 			}
