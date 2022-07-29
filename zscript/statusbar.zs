@@ -17,7 +17,7 @@ class HDStatusBar:DoomStatusBar{
 	string mug;
 	int bigitemyofs;
 	color sbcolour;
-	bool showhud;
+	int showhud;
 	override void Init(){
 		BaseStatusBar.Init();
 		SetSize(0,320,200);
@@ -214,6 +214,7 @@ class HDStatusBar:DoomStatusBar{
 			||!hpl
 		)return;
 
+		if (showhud > 0) --showhud;
 		sbcolour=cplayer.GetDisplayColor();
 
 		wepsprites.clear();wepspritescales.clear();wepspriteofs.clear();wepspritecounts.clear();
