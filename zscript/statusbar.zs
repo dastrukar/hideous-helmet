@@ -17,7 +17,7 @@ class HDStatusBar:DoomStatusBar{
 	string mug;
 	int bigitemyofs;
 	color sbcolour;
-	int showhud;
+	int showhud; // int because i'm too lazy to code a sane way to check for HUD Module
 	override void Init(){
 		BaseStatusBar.Init();
 		SetSize(0,320,200);

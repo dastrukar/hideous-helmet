@@ -20,8 +20,9 @@ class HHHandler : EventHandler
 		if (player.Health > 0 && e.Name ~== "hh_strip")
 		{
 			let helmet = HHBaseHelmetWorn(HHFunc.FindHelmet(player));
+			HHBaseHelmet spareHelm;
 			if (helmet) player.DropInventory(helmet);
-			//else if (player.FindInventory("HHelmet", true)) player.UseInventory(player.FindInventory("HHelmet", true));
+			else if (spareHelm = HHBaseHelmet(player.FindInventory("HHBaseHelmet", true))) spareHelm.TryWearHelmet();
 		}
 	}
 }
