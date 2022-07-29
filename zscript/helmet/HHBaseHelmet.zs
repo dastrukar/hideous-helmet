@@ -7,8 +7,8 @@ class HHBaseHelmet : HDMagAmmo abstract
 	protected class<HHBaseHelmetWorn> _WornHelmet;
 
 	int ModuleLimit;
-	HHModuleStorage ModuleStorage;
-	HHModuleStorage InternalModuleStorage;
+	Array<HHModuleStorage> ModuleStorage;
+	Array<HHModuleStorage> InternalModuleStorage;
 
 	property WornHelmet: _WornHelmet;
 	property ModuleLimit: ModuleLimit;
@@ -42,13 +42,13 @@ class HHBaseHelmet : HDMagAmmo abstract
 	override void BeginPlay()
 	{
 		Super.BeginPlay();
-		ModuleStorage = HHModuleStorage(new("HHModuleStorage"));
-		InternalModuleStorage = HHModuleStorage(new("HHModuleStorage"));
+		ModuleStorage.Push(HHModuleStorage(new("HHModuleStorage")));
+		InternalModuleStorage.Push(HHModuleStorage(new("HHModuleStorage")));
 
 		// shit hack
 		let m = HHBaseModule(Actor.Spawn("HUDModule", Pos));
-		InternalModuleStorage.Modules.Push(m.GetClass());
-		InternalModuleStorage.Durability.Push(100);
+		InternalModuleStorage[0].Modules.Push(m.GetClass());
+		InternalModuleStorage[0].Durability.Push(100);
 		m.Destroy();
 	}
 
@@ -89,8 +89,7 @@ class HHBaseHelmet : HDMagAmmo abstract
 		)
 		{
 			HDArmour.ArmourChangeEffect(other);
-			let worn = HHBaseHelmetWorn(other.GiveInventoryType(_wornHelmet));
-			worn.Durability = durability;
+			TryWearHelmet();
 			Destroy();
 			return;
 		}
@@ -142,8 +141,8 @@ class HHBaseHelmet : HDMagAmmo abstract
 		HDArmour.ArmourChangeEffect(hdp);
 		let wornHelm = HHBaseHelmetWorn(hdp.GiveInventoryType(_WornHelmet));
 		wornHelm.Durability = Mags[Mags.Size() - 1];
-		wornHelm.ModuleStorage = ModuleStorage;
-		wornHelm.InternalModuleStorage = InternalModuleStorage;
+		wornHelm.ModuleStorage = ModuleStorage[Mags.Size() - 1];
+		wornHelm.InternalModuleStorage = InternalModuleStorage[Mags.Size() - 1];
 
 		hdp.A_Log(string.Format("You put on the %s.", GetTag()));
 

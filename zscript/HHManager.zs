@@ -302,7 +302,7 @@ class HHManager : HDWeapon
 			}
 
 			// Modules in helmet
-			HHModuleStorage loadedModules = GetHelmet().ModuleStorage;
+			HHModuleStorage loadedModules = selHelmet.ModuleStorage[selHelmet.ModuleStorage.Size() - 1];
 			if (loadedModules.Modules.Size() == 0)
 			{
 				sb.DrawString(
