@@ -399,6 +399,7 @@ class HHManager : HDWeapon
 		if (!master) return;
 
 		let manager = HHManager(master.FindInventory("HHManager"));
+		if (!manager) return;
 
 		manager.SelectedHelmet = helmetType.GetClassName();
 		master.UseInventory(manager);

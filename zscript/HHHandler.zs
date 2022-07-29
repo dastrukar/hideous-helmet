@@ -1,12 +1,15 @@
 // Handles the "hh_strip" command and gives the player a helmet manager
 class HHHandler : EventHandler
 {
-	override void PlayerSpawned(PlayerEvent e)
+	override void WorldLoaded(WorldEvent e)
 	{
-		let player = HDPlayerPawn(Players[e.PlayerNumber].mo);
-		if (!player || player.FindInventory("HHManager")) return;
+		for (int i = 0; i < MAXPLAYERS; i++)
+		{
+			let player = HDPlayerPawn(Players[i].mo);
+			if (!player || player.FindInventory("HHManager")) return;
 
-		player.GiveInventory("HHManager", 1);
+			player.GiveInventory("HHManager", 1);
+		}
 	}
 
 	override void NetworkProcess(ConsoleEvent e)
