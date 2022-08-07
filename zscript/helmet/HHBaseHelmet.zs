@@ -18,7 +18,7 @@ class HHBaseHelmet : HDMagAmmo abstract
 		+Inventory.INVBAR;
 		+HDPickup.CHEATNOGIVE;
 		+HDPickup.NOTINPOCKETS;
-		-HDPickup.FITSINBACKPACK; // Putting the helmet into a backpack will delete modules
+		-HDPickup.FITSINBACKPACK; // Putting the helmet into a backpack will delete modules (will have to figure out a workaround)
 		+Inventory.ISARMOR;
 		Inventory.Amount 1;
 
@@ -75,11 +75,8 @@ class HHBaseHelmet : HDMagAmmo abstract
 		for (int i = 0; i < Amount; i++) Mags[i] = MaxPerUnit;
 	}
 
-	override void ActualPickup(Actor other, bool silent)
+	override bool BeforePockets(actor other)
 	{
-		if (!other) return;
-
-		int durability = Mags[Mags.Size() - 1];
 		// Put on the helmet right away?
 		if (
 			other.Player &&
@@ -91,9 +88,16 @@ class HHBaseHelmet : HDMagAmmo abstract
 			HDArmour.ArmourChangeEffect(other);
 			TryWearHelmet();
 			Destroy();
-			return;
+			return true;
 		}
+		return false;
+	}
 
+	override void ActualPickup(Actor other, bool silent)
+	{
+		if (!other) return;
+
+		int durability = Mags[Mags.Size() - 1];
 		if (!TryPickup(other)) return;
 
 		let helmet = HHBaseHelmet(other.FindInventory(self.GetClassName()));
