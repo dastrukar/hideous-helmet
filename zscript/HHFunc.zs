@@ -136,15 +136,16 @@ class HHFunc : Service
 		let w = HDWeapon(sb.CPlayer.ReadyWeapon);
 		if (w && w != WP_NOCHANGE)
 		{
+			// If the weapon doesn't have a slot number, then it ain't a weapon
+			bool is_gun = (w.SlotNumber >= 0);
+			if (!is_gun)
+				return true;
+
 			// Read from hh_weaponwhitelist
 			Array<string> whitelist;
 			whitelist.Clear();
-			bool is_gun = (w.SlotNumber >= 0);
 			string text = CVar.GetCVar("hh_weaponwhitelist", sb.CPlayer).GetString();
 
-			// If the weapon doesn't have a slot number, then it ain't a weapon
-			if (!is_gun)
-				return true;
 
 			text.Split(whitelist," ");
 			for (int i = 0; i < whitelist.Size(); i++)
