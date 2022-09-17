@@ -12,7 +12,7 @@ class HHHelmetSpawner : EventHandler
 		Actor T = e.Thing;
 
 		// Find anything inheriting from HHSpawnType and use it :]
-		let ti = ThinkerIterator.Create("HHSpawnType", STAT_DEFAULT);
+		let ti = ThinkerIterator.Create("HHSpawnType", Thinker.STAT_DEFAULT);
 
 		HHSpawnType hhst;
 		while (hhst = HHSpawnType(ti.next()))

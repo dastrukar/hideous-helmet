@@ -1,8 +1,3 @@
-// might as well load some shit via this override for my sanity sake
-#include "zscript/HHFunc.zs"
-#include "zscript/FiremodeInfo.zs"
-#include "zscript/armour/HHArmourType.zs"
-
 // ------------------------------------------------------------
 // HD HUD. HUD for HD. Hdhdhdhdhhdhdhhdhd
 // ------------------------------------------------------------
@@ -17,7 +12,6 @@ class HDStatusBar:DoomStatusBar{
 	string mug;
 	int bigitemyofs;
 	color sbcolour;
-	int showhud; // int because i'm too lazy to code a sane way to check for HUD Module
 	override void Init(){
 		BaseStatusBar.Init();
 		SetSize(0,320,200);
@@ -124,30 +118,6 @@ class HDStatusBar:DoomStatusBar{
 	transient cvar hud_aspectscale;
 	transient cvar crosshaircolor;
 
-	transient cvar hh_facecam;
-	transient cvar hh_hideammo;
-	transient cvar hh_hidestatus;
-	transient cvar hh_hidecompass;
-
-	transient cvar hh_showbleed;
-	transient cvar hh_woundcounter;
-	transient cvar hh_showbleedwhenbleeding;
-
-	transient cvar hh_hideslot1;
-	transient cvar hh_hideslot2;
-	transient cvar hh_hideslot3;
-	transient cvar hh_hideslot4;
-	transient cvar hh_hideslot5;
-	transient cvar hh_hideslot6;
-	transient cvar hh_hideslot7;
-	transient cvar hh_hideslot8;
-	transient cvar hh_hideslot9;
-	transient cvar hh_hideslot0;
-	transient cvar hh_hidefiremode;
-
-	transient cvar hh_helmetoffsety;
-	transient cvar hh_durabilitytop;
-
 	void PushCircleUVCoords(Shape2D circle, vector2 scale = (1, 1)){
 		circle.Clear(Shape2D.C_Coords);
 		for(int i = 0; i < circleVertCount; i++){
@@ -182,30 +152,6 @@ class HDStatusBar:DoomStatusBar{
 			hd_setweapondefault=cvar.getcvar("hd_setweapondefault",cplayer);
 			hud_aspectscale=cvar.getcvar("hud_aspectscale",cplayer);
 			crosshaircolor=cvar.getcvar("crosshaircolor",cplayer);
-
-			hh_facecam=cvar.getcvar("hh_bigbrotheriswatchingyou", cplayer);
-			hh_hideammo=cvar.getcvar("hh_hideammo", cplayer);
-			hh_hidestatus=cvar.getcvar("hh_hidestatus", cplayer);
-			hh_hidecompass=cvar.getcvar("hh_hidecompass", cplayer);
-
-			hh_showbleed=cvar.getcvar("hh_showbleed", cplayer);
-			hh_woundcounter=cvar.getcvar("hh_woundcounter", cplayer);
-			hh_showbleedwhenbleeding=cvar.getcvar("hh_showbleedwhenbleeding", cplayer);
-
-			hh_hideslot1=cvar.getcvar("hh_hideslot1", cplayer);
-			hh_hideslot2=cvar.getcvar("hh_hideslot2", cplayer);
-			hh_hideslot3=cvar.getcvar("hh_hideslot3", cplayer);
-			hh_hideslot4=cvar.getcvar("hh_hideslot4", cplayer);
-			hh_hideslot5=cvar.getcvar("hh_hideslot5", cplayer);
-			hh_hideslot6=cvar.getcvar("hh_hideslot6", cplayer);
-			hh_hideslot7=cvar.getcvar("hh_hideslot7", cplayer);
-			hh_hideslot8=cvar.getcvar("hh_hideslot8", cplayer);
-			hh_hideslot9=cvar.getcvar("hh_hideslot9", cplayer);
-			hh_hideslot0=cvar.getcvar("hh_hideslot0", cplayer);
-			hh_hidefiremode=cvar.getcvar("hh_hidefiremode", cplayer);
-
-			hh_helmetoffsety=cvar.getcvar("hh_helmetoffsety", cplayer);
-			hh_durabilitytop=cvar.getcvar("hh_durabilitytop", cplayer);
 		}
 		super.tick();
 		hpl=hdplayerpawn(cplayer.mo);
@@ -214,7 +160,6 @@ class HDStatusBar:DoomStatusBar{
 			||!hpl
 		)return;
 
-		if (showhud > 0) --showhud;
 		sbcolour=cplayer.GetDisplayColor();
 
 		wepsprites.clear();wepspritescales.clear();wepspriteofs.clear();wepspritecounts.clear();
@@ -249,7 +194,14 @@ class HDStatusBar:DoomStatusBar{
 			}
 		}
 
-		blurred=hpl.bshadow||hpl.binvisible;
+		blurred=false;
+		if (hpl.binvisible) {blurred = true;}
+		else if (hpl.bshadow) {
+			switch(hpl.GetRenderStyle()) {
+				case STYLE_Fuzzy: case STYLE_None: blurred=true;
+				default: break;
+			}
+		}
 
 		//all the hud use timer determinations go here
 		if(cplayer.buttons&BT_USE)hudusetimer++;
@@ -273,7 +225,7 @@ class HDStatusBar:DoomStatusBar{
 			DrawAutomapHUD(ticfrac);
 			DrawAutomapStuff();
 		}else if(cplayer.mo==cplayer.camera){
-			DrawAlwaysStuff();
+			DrawAlwaysStuff(ticfrac);
 			if(hpl.health>0){
 				BeginHUD(forcescaled:false);
 
@@ -325,12 +277,10 @@ class HDStatusBar:DoomStatusBar{
 		);
 
 		//mugshot
-		if(showhud || !hh_facecam.getbool())
 		DrawTexture(GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(6,-14),DI_BOTTOMLEFT,alpha:blurred?0.2:1.);
 
 		//heartbeat/playercolour tracker
-		if(hpl && hpl.beatmax)
-		if(showhud ||!hh_hidestatus.getbool()) {
+		if(hpl && hpl.beatmax){
 			float cpb=hpl.beatcount*1./hpl.beatmax;
 			float ysc=-(4+hpl.bloodpressure*0.05);
 			if(!hud_aspectscale.getbool())ysc*=1.2;
@@ -346,7 +296,7 @@ class HDStatusBar:DoomStatusBar{
 			pnewsmallfont,formatnumber(hpl.health),
 			(34,-24),DI_BOTTOMLEFT|DI_TEXT_ALIGN_CENTER,
 			hpl.health>70?Font.CR_OLIVE:(hpl.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
-		);else if(showhud||!hh_hidestatus.getbool()) DrawHealthTicker((40,-24),DI_BOTTOMLEFT);
+		);else DrawHealthTicker((40,-24),DI_BOTTOMLEFT);
 
 		//items
 		DrawItemHUDAdditions(HDSB_AUTOMAP,DI_TOPLEFT);
@@ -354,13 +304,14 @@ class HDStatusBar:DoomStatusBar{
 		//inventory selector
 		DrawInvSel(6,100,10,109,DI_TOPLEFT);
 
+
 		//guns
-		if(showhud||!hh_hideammo.getbool()) drawselectedweapon(-80,-60,DI_BOTTOMRIGHT);
+		drawselectedweapon(-80,-60,DI_BOTTOMRIGHT);
 
 		drawammocounters(-18);
 		drawweaponstash(true,-48);
 
-		if(showhud||!hh_hidecompass.getbool()) drawmypos(10);
+		drawmypos(10);
 	}
 
 	void DrawMyPos(int downpos=(STB_COMPRAD<<2)){
@@ -388,7 +339,7 @@ class HDStatusBar:DoomStatusBar{
 			default:return "STC";
 		}else return mugshot;
 	}
-	void DrawAlwaysStuff(){
+	void DrawAlwaysStuff(double ticfrac){
 		if(
 			hpl.health>0&&(
 				hpl.binvisible
@@ -466,7 +417,7 @@ class HDStatusBar:DoomStatusBar{
 		if(
 			!blurred
 			&&hpl.health>0
-		)DrawHDXHair(hpl);
+		)DrawHDXHair(hpl,ticfrac);
 
 
 
@@ -490,11 +441,11 @@ class HDStatusBar:DoomStatusBar{
 			translation:Font.CR_DARKGRAY,
 			wrapwidth:smallfont.StringWidth("m")*80
 		);
+
 	}
 	void DrawCommonStuff(bool usemughud){
 		let cp=HDPlayerPawn(CPlayer.mo);
 		if(!cp)return;
-		//DrawHelmetOverlay((0,0));
 
 		int mxht=-4-mIndexFont.mFont.GetHeight();
 		int mhht=-4-mHUDFont.mFont.getheight();
@@ -538,12 +489,13 @@ class HDStatusBar:DoomStatusBar{
 			DI_SCREEN_CENTER_BOTTOM
 		);
 
+
 		//health
 		if(hd_debug)drawstring(
 			pnewsmallfont,FormatNumber(hpl.health),
 			(0,mxht),DI_TEXT_ALIGN_CENTER|DI_SCREEN_CENTER_BOTTOM,
 			hpl.health>70?Font.CR_OLIVE:(hpl.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
-		);else if(showhud|| !hh_hidestatus.getbool()) DrawHealthTicker();
+		);else DrawHealthTicker();
 
 
 		//frags
@@ -555,8 +507,7 @@ class HDStatusBar:DoomStatusBar{
 
 
 		//heartbeat/playercolour tracker
-		if(hpl.beatmax)
-		if(showhud|| !hh_hidestatus.getbool()){
+		if(hpl.beatmax){
 			float cpb=hpl.beatcount*1./hpl.beatmax;
 			float ysc=-(3+hpl.bloodpressure*0.05);
 			if(!hud_aspectscale.getbool())ysc*=1.2;
@@ -571,8 +522,6 @@ class HDStatusBar:DoomStatusBar{
 			usemughud?HDSB_MUGSHOT:0
 			,DI_SCREEN_CENTER_BOTTOM
 		);
-
-		if(showhud)DrawWoundCount((46,-30));
 
 		//weapon readouts!
 		if(cplayer.readyweapon&&cplayer.readyweapon!=WP_NOCHANGE)
@@ -632,62 +581,42 @@ class HDStatusBar:DoomStatusBar{
 			int wephelpheight=NewSmallFont.GetHeight()*5;
 
 			//compass
-			if(showhud||!hh_hidecompass.getbool()){
-				int STB_COMPRAD=12;vector2 compos=(-STB_COMPRAD,STB_COMPRAD)*2;
-				double compangle=hpl.angle;
+			int STB_COMPRAD=12;vector2 compos=(-STB_COMPRAD,STB_COMPRAD)*2;
+			double compangle=hpl.angle;
 
-				double compangle2=hpl.deltaangle(0,compangle);
-				if(abs(compangle2)<120)screen.DrawText(NewSmallFont,
-					font.CR_GOLD,
-					600+compangle2*32/cplayer.fov,
-					wephelpheight,
-					"E",
-					DTA_VirtualWidth,640,DTA_VirtualHeight,480
-				);
-				compangle2=hpl.deltaangle(-90,compangle);
-				if(abs(compangle2)<120)screen.DrawText(NewSmallFont,
-					font.CR_BLACK,
-					600+compangle2*32/cplayer.fov,
-					wephelpheight,
-					"S",
-					DTA_VirtualWidth,640,DTA_VirtualHeight,480
-				);
-				compangle2=hpl.deltaangle(180,compangle);
-				if(abs(compangle2)<120)screen.DrawText(NewSmallFont,
-					font.CR_RED,
-					600+compangle2*32/cplayer.fov,
-					wephelpheight,
-					"W",
-					DTA_VirtualWidth,640,DTA_VirtualHeight,480
-				);
-				compangle2=hpl.deltaangle(90,compangle);
-				if(abs(compangle2)<120)screen.DrawText(NewSmallFont,
-					font.CR_WHITE,
-					600+compangle2*32/cplayer.fov,
-					wephelpheight,
-					"N",
-					DTA_VirtualWidth,640,DTA_VirtualHeight,480
-				);
+			double compangle2=hpl.deltaangle(0,compangle);
+			if(abs(compangle2)<120)screen.DrawText(NewSmallFont,
+				font.CR_GOLD,
+				600+compangle2*32/cplayer.fov,
+				wephelpheight,
+				"E",
+				DTA_VirtualWidth,640,DTA_VirtualHeight,480
+			);
+			compangle2=hpl.deltaangle(-90,compangle);
+			if(abs(compangle2)<120)screen.DrawText(NewSmallFont,
+				font.CR_BLACK,
+				600+compangle2*32/cplayer.fov,
+				wephelpheight,
+				"S",
+				DTA_VirtualWidth,640,DTA_VirtualHeight,480
+			);
+			compangle2=hpl.deltaangle(180,compangle);
+			if(abs(compangle2)<120)screen.DrawText(NewSmallFont,
+				font.CR_RED,
+				600+compangle2*32/cplayer.fov,
+				wephelpheight,
+				"W",
+				DTA_VirtualWidth,640,DTA_VirtualHeight,480
+			);
+			compangle2=hpl.deltaangle(90,compangle);
+			if(abs(compangle2)<120)screen.DrawText(NewSmallFont,
+				font.CR_WHITE,
+				600+compangle2*32/cplayer.fov,
+				wephelpheight,
+				"N",
+				DTA_VirtualWidth,640,DTA_VirtualHeight,480
+			);
 
-				let whh=wephelpheight+NewSmallFont.GetHeight();
-				screen.DrawText(NewSmallFont,
-					font.CR_OLIVE,
-					600,
-					whh,
-					"^",
-					DTA_VirtualWidth,640,DTA_VirtualHeight,480
-				);
-				string postxt=string.format("%i,%i,%i",hpl.pos.x,hpl.pos.y,hpl.pos.z);
-				screen.DrawText(NewSmallFont,
-					font.CR_OLIVE,
-					600-(NewSmallFont.StringWidth(postxt)>>1),
-					whh+6,
-					postxt,
-					DTA_VirtualWidth,640,DTA_VirtualHeight,480
-				);
-			}
-
-			// Draw help text
 			string s=hpl.wephelptext;
 			if(s!="")screen.DrawText(NewSmallFont,OptionMenuSettings.mFontColorValue,
 				8,
@@ -697,6 +626,24 @@ class HDStatusBar:DoomStatusBar{
 				DTA_VirtualHeight,480,
 				DTA_Alpha,0.8
 			);
+
+			wephelpheight+=NewSmallFont.GetHeight();
+			screen.DrawText(NewSmallFont,
+				font.CR_OLIVE,
+				600,
+				wephelpheight,
+				"^",
+				DTA_VirtualWidth,640,DTA_VirtualHeight,480
+			);
+			string postxt=string.format("%i,%i,%i",hpl.pos.x,hpl.pos.y,hpl.pos.z);
+			screen.DrawText(NewSmallFont,
+				font.CR_OLIVE,
+				600-(NewSmallFont.StringWidth(postxt)>>1),
+				wephelpheight+6,
+				postxt,
+				DTA_VirtualWidth,640,DTA_VirtualHeight,480
+			);
+
 		}
 
 		if(hd_debug>=3){
@@ -712,11 +659,7 @@ class HDStatusBar:DoomStatusBar{
 		}
 
 
-		bool showmug = (
-			showhud ||
-			!hh_facecam.getbool()
-		);
-		if(usemughud&&showmug)DrawTexture(
+		if(usemughud)DrawTexture(
 			GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(0,-14),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM,
 			alpha:blurred?0.2:1.
@@ -744,7 +687,7 @@ class HDStatusBar:DoomStatusBar{
 			string s=hpl.specialtip;
 			screen.DrawText(NewSmallFont,OptionMenuSettings.mFontColorValue,
 				2,
-				450-NewSmallFont.GetHeight()*5,
+				450-NewSmallFont.GetHeight()*5.5,
 				s,
 				DTA_VirtualWidth,600,
 				DTA_VirtualHeight,450,
@@ -829,15 +772,7 @@ class HDStatusBar:DoomStatusBar{
 		if(!hpl)return;
 		for(let item=hpl.inv;item!=NULL;item=item.inv){
 			let hp=HDPickup(item);
-			if(hp){
-				if (HHFunc.IsWornArmour(hp.GetClassName())) HandleDrawArmour(hp,hpl,hdflags,gzflags);
-				else hp.DrawHudStuff(self,hpl,hdflags,gzflags);
-			}
-		}
-		//helmet stuff
-		let helmet = HDArmourWorn(HHFunc.FindHelmet(hpl));
-		if(helmet){
-			helmet.DrawHudStuff(self,hpl,hdflags,gzflags);
+			if(hp)hp.DrawHudStuff(self,hpl,hdflags,gzflags);
 		}
 	}
 	color savedcolour;
@@ -1066,54 +1001,6 @@ class HDStatusBar:DoomStatusBar{
 	enum HDSBarNums{
 		SBAR_MAXAMMOCOLS=7,
 		SBAR_AMMOROW=14,
-	}
-
-	void DrawWoundCount(Vector2 coords){
-		if(hh_showbleed.getbool()){
-			int of=0;
-			let wounds=hpl.woundcount;
-			if(hh_showbleedwhenbleeding.getbool()&&!wounds) return;
-			if(wounds){
-				drawimage(
-					"BLUDC0",(coords.x,coords.y+1),
-					DI_SCREEN_CENTER_BOTTOM|DI_ITEM_LEFT_TOP,
-					0.6,
-					scale:(0.5,0.5)
-				);
-				of=clamp(int(wounds*0.2),1,3);
-				if(hpl.flip)of=-of;
-			}
-			drawrect(coords.x+2,coords.y+of,2,6);
-			drawrect(coords.x,coords.y+2+of,6,2);
-
-			if(hh_woundcounter.getbool()){
-				let wcol=wounds<1? Font.CR_WHITE:Font.CR_RED;
-				drawstring(
-					mIndexFont,
-					formatnumber(wounds,3),
-					coords+(8,1),
-					DI_SCREEN_CENTER_BOTTOM|DI_TEXT_ALIGN_LEFT,
-					wcol
-				);
-			}
-		}
-	}
-
-	void HandleDrawArmour(
-		hdpickup hp,
-		hdplayerpawn hpl,
-		int hdflags,
-		int gzflags
-	){
-		ThinkerIterator ti = ThinkerIterator.Create("HHArmourType");
-
-		Thinker T;
-		while (T=ti.next()) {
-			HHArmourType hhat = HHArmourType(T);
-			if (hhat.GetWornName() == hp.GetClassName()) {
-				hhat.DrawArmour(self, hp, hdflags, gzflags);
-			}
-		}
 	}
 }
 

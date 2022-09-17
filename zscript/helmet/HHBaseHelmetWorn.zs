@@ -83,13 +83,13 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 	}
 
 	// Handle damage
-	override int, name, int, int, int, int, int HandleDamage(
+	override int, name, int, double, int, int, int HandleDamage(
 		int damage,
 		name mod,
 		int flags,
 		actor inflictor,
 		actor source,
-		int toWound,
+		double toWound,
 		int toBurn,
 		int toStun,
 		int toBreak
@@ -287,7 +287,7 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 				!hdp.Incapacitated
 			)
 			{
-				hdp.HudBobRecoil2 += (FRandom(-5, 5), FRandom(2.5, 4)) * 0.01 * hitHeight * mass;
+				hdp.WepBobRecoil2 += (FRandom(-5, 5), FRandom(2.5, 4)) * 0.01 * hitHeight * mass;
 				hdp.PlayRunning();
 			}
 			else if (Random(0, 255) < hitActor.PainChance)
