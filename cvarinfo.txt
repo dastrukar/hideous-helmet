@@ -1,3 +1,4 @@
+// client-side
 user bool hh_overwritewhitelist=false;
 user string hh_weaponwhitelist="9 z66 vul m64 smr";
 
@@ -15,13 +16,16 @@ user bool hh_showoverlay=false;
 
 user bool hh_showbleed=true;
 user bool hh_woundcounter=true;
-user bool hh_showbleedwhenbleeding=false;
 
-user int hh_helmetoffsety=0;
-user bool hh_durabilitytop=false;
+// client-only
+nosave bool hh_showbleedwhenbleeding=false;
+
+nosave int hh_helmetoffsety=0;
+nosave bool hh_durabilitytop=false;
 
 nosave float hh_managerscale=1.00;
 
+// server-side
 server int hh_d_random_min=8;
 server int hh_d_random_max=62;
 
