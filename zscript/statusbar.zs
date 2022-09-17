@@ -14,7 +14,7 @@ class HDStatusBar:DoomStatusBar{
 	color sbcolour;
 
 	// Helmet stuff
-	bool ShowHud;
+	int ShowHUD;
 	Service HHFunc;
 
 	override void Init(){
@@ -87,7 +87,7 @@ class HDStatusBar:DoomStatusBar{
 		}
 
 		// HH
-		ShowHud = false;
+		ShowHUD = 0;
 		HHFunc = ServiceIterator.Find("HHFunc").Next();
 	}
 
@@ -164,6 +164,9 @@ class HDStatusBar:DoomStatusBar{
 			hh_hidecompass = CVar.GetCVar("hh_hidecompass", CPlayer);
 			hh_hidefiremode = CVar.GetCVar("hh_hidefiremode", CPlayer);
 		}
+
+		if (ShowHUD > 0)
+			--ShowHUD;
 
 		if(!hd_mugshot){
 			hd_mugshot=cvar.getcvar("hd_mugshot",cplayer);
@@ -302,9 +305,12 @@ class HDStatusBar:DoomStatusBar{
 		);
 
 		//mugshot
+		if (ShowHUD || !hh_bigbrotheriswatchingyou.GetBool())
 		DrawTexture(GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(6,-14),DI_BOTTOMLEFT,alpha:blurred?0.2:1.);
 
 		//heartbeat/playercolour tracker
+		if (ShowHUD || !hh_hidestatus.GetBool() || hd_debug)
+		{
 		if(hpl && hpl.beatmax){
 			float cpb=hpl.beatcount*1./hpl.beatmax;
 			float ysc=-(4+hpl.bloodpressure*0.05);
@@ -322,6 +328,7 @@ class HDStatusBar:DoomStatusBar{
 			(34,-24),DI_BOTTOMLEFT|DI_TEXT_ALIGN_CENTER,
 			hpl.health>70?Font.CR_OLIVE:(hpl.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
 		);else DrawHealthTicker((40,-24),DI_BOTTOMLEFT);
+		}
 
 		//items
 		DrawItemHUDAdditions(HDSB_AUTOMAP,DI_TOPLEFT);
@@ -336,6 +343,7 @@ class HDStatusBar:DoomStatusBar{
 		drawammocounters(-18);
 		drawweaponstash(true,-48);
 
+		if (ShowHUD || !hh_hidecompass.GetBool())
 		drawmypos(10);
 	}
 
@@ -516,11 +524,14 @@ class HDStatusBar:DoomStatusBar{
 
 
 		//health
+		if (ShowHUD || !hh_hidestatus.GetBool())
+		{
 		if(hd_debug)drawstring(
 			pnewsmallfont,FormatNumber(hpl.health),
 			(0,mxht),DI_TEXT_ALIGN_CENTER|DI_SCREEN_CENTER_BOTTOM,
 			hpl.health>70?Font.CR_OLIVE:(hpl.health>33?Font.CR_GOLD:Font.CR_RED),scale:(0.5,0.5)
 		);else DrawHealthTicker();
+		}
 
 
 		//frags
@@ -532,6 +543,8 @@ class HDStatusBar:DoomStatusBar{
 
 
 		//heartbeat/playercolour tracker
+		if (ShowHUD || !hh_hidestatus.GetBool())
+		{
 		if(hpl.beatmax){
 			float cpb=hpl.beatcount*1./hpl.beatmax;
 			float ysc=-(3+hpl.bloodpressure*0.05);
@@ -540,6 +553,7 @@ class HDStatusBar:DoomStatusBar{
 				color(int(cpb*255),sbcolour.r,sbcolour.g,sbcolour.b),
 				-12,-6-cpb*2,3,ysc, DI_SCREEN_CENTER_BOTTOM
 			);
+		}
 		}
 
 		//items
@@ -606,6 +620,8 @@ class HDStatusBar:DoomStatusBar{
 			int wephelpheight=NewSmallFont.GetHeight()*5;
 
 			//compass
+			if (ShowHUD || !hh_hidecompass.GetBool())
+			{
 			int STB_COMPRAD=12;vector2 compos=(-STB_COMPRAD,STB_COMPRAD)*2;
 			double compangle=hpl.angle;
 
@@ -641,6 +657,7 @@ class HDStatusBar:DoomStatusBar{
 				"N",
 				DTA_VirtualWidth,640,DTA_VirtualHeight,480
 			);
+			}
 
 			string s=hpl.wephelptext;
 			if(s!="")screen.DrawText(NewSmallFont,OptionMenuSettings.mFontColorValue,
@@ -652,6 +669,8 @@ class HDStatusBar:DoomStatusBar{
 				DTA_Alpha,0.8
 			);
 
+			if (ShowHUD || !hh_hidecompass.GetBool())
+			{
 			wephelpheight+=NewSmallFont.GetHeight();
 			screen.DrawText(NewSmallFont,
 				font.CR_OLIVE,
@@ -668,6 +687,7 @@ class HDStatusBar:DoomStatusBar{
 				postxt,
 				DTA_VirtualWidth,640,DTA_VirtualHeight,480
 			);
+			}
 
 		}
 
@@ -684,6 +704,7 @@ class HDStatusBar:DoomStatusBar{
 		}
 
 
+		if (ShowHUD || !hh_bigbrotheriswatchingyou.GetBool())
 		if(usemughud)DrawTexture(
 			GetMugShot(5,Mugshot.CUSTOM,getmug(hpl.mugshot)),(0,-14),
 			DI_ITEM_CENTER_BOTTOM|DI_SCREEN_CENTER_BOTTOM,
@@ -797,7 +818,25 @@ class HDStatusBar:DoomStatusBar{
 		if(!hpl)return;
 		for(let item=hpl.inv;item!=NULL;item=item.inv){
 			let hp=HDPickup(item);
+
+			// HH
+			if (
+				hp
+				&& !HHFunc.GetIntUI(
+					"SBDrawArmour",
+					stringArg: hp.GetClassName(),
+					intArg: hdflags,
+					doubleArg: gzflags,
+					objectArg: self
+				)
+			)
 			if(hp)hp.DrawHudStuff(self,hpl,hdflags,gzflags);
+			HHFunc.GetIntUI(
+				"SBDrawHelmet",
+				intArg: hdflags,
+				doubleArg: gzflags,
+				objectArg: self
+			);
 		}
 	}
 	color savedcolour;

@@ -20,6 +20,12 @@ class HHFunc : Service
 		else if (request == "GetWeaponFiremode")
 			GetWeaponFiremode(HDStatusBar(objectArg));
 
+		else if (request == "SBDrawArmour")
+			retVal = SBDrawArmour(stringArg, HDStatusBar(objectArg), intArg, doubleArg);
+
+		else if (request == "SBDrawHelmet")
+			SBDrawHelmet(HDStatusBar(objectArg), intArg, doubleArg);
+
 		else
 			Console.PrintF("HHFunc: Invalid request "..request.."! Please fix :[");
 
@@ -275,5 +281,35 @@ class HHFunc : Service
 				-22,-10,
 				types[0], types[1], types[2], types[3], types[4], types[5], types[6]
 			);
+	}
+
+	ui bool SBDrawArmour(
+		class<HDPickup> pkup,
+		HDStatusBar sb,
+		int hdFlags,
+		int gzFlags
+	)
+	{
+		let hp = HDPickup(sb.CPlayer.mo.FindInventory(pkup));
+
+		HHArmourType type;
+		let ti = ThinkerIterator.Create("HHArmourType", Thinker.STAT_DEFAULT);
+		while (type = HHArmourType(ti.Next()))
+		{
+			if (type.GetWornName() == hp.GetClassName())
+			{
+				type.DrawArmour(sb, hp, hdFlags, gzFlags);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	ui void SBDrawHelmet(HDStatusBar sb, int hdFlags, int gzFlags)
+	{
+		let helmet = HHBaseHelmetWorn(sb.CPlayer.mo.FindInventory("HHBaseHelmetWorn", true));
+		if (helmet)
+			helmet.DrawHUDStuff(sb, HDPlayerPawn(sb.CPlayer.mo), hdFlags, gzFlags);
 	}
 }
