@@ -12,13 +12,13 @@ class HHFunc : Service
 	{
 		int retVal = 0;
 
-		// Requires: stringArg (name), objectArg (HDStatusBar)
+		// Requires: objectArg (HDStatusBar)
 		if (request == "CheckWeaponStuff")
-			retVal = CheckWeaponStuff(stringArg, HDStatusBar(objectArg));
+			retVal = CheckWeaponStuff(HDStatusBar(objectArg));
 
 		// Requires: stringArg (name), objectArg (HDStatusBar)
 		else if (request == "GetWeaponFiremode")
-			GetWeaponFiremode(stringArg, HDStatusBar(objectArg));
+			GetWeaponFiremode(HDStatusBar(objectArg));
 
 		else
 			Console.PrintF("HHFunc: Invalid request "..request.."! Please fix :[");
@@ -128,12 +128,12 @@ class HHFunc : Service
 	transient Array<FiremodeInfo> FInfo;
 
 	// Returns True, if not a weapon, is in whitelist, or the player has a helmet worn
-	ui bool CheckWeaponStuff(class<HDWeapon> hdw, HDStatusBar sb)
+	ui bool CheckWeaponStuff(HDStatusBar sb)
 	{
 		if (sb.ShowHud || !sb.hh_hideammo.GetBool())
 			return true;
 
-		let w = HDWeapon(GetDefaultByType(hdw));
+		let w = HDWeapon(sb.CPlayer.ReadyWeapon);
 		if (w && w != WP_NOCHANGE)
 		{
 			// Read from hh_weaponwhitelist
@@ -176,15 +176,16 @@ class HHFunc : Service
 			return false;
 		}
 
-		return false;
+		// Apparently this isn't a weapon?
+		return true;
 	}
 
 	// I can't determine what int the weapon uses for its firemode,
 	// so it's better to just let the user handle it.
 	// If you wish to add your own stuff, please refer to hh_manual.md
-	ui void GetWeaponFiremode(class<HDWeapon> name, HDStatusBar sb)
+	ui void GetWeaponFiremode(HDStatusBar sb)
 	{
-		let hdw = HDWeapon(GetDefaultByType(name));
+		let hdw = HDWeapon(sb.CPlayer.ReadyWeapon);
 
 		// Already been initialised?
 		if (FMRefIds.Size() == 0)
