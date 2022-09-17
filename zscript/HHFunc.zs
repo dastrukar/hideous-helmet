@@ -20,9 +20,11 @@ class HHFunc : Service
 		else if (request == "GetWeaponFiremode")
 			GetWeaponFiremode(HDStatusBar(objectArg));
 
+		// Requires: stringArg (name), objectArg (HDStatusBar), intArg (hdFlags), doubleArg (gzFlags)
 		else if (request == "SBDrawArmour")
 			retVal = SBDrawArmour(stringArg, HDStatusBar(objectArg), intArg, doubleArg);
 
+		// Requires: objectArg (HDStatusBar), intArg (hdFlags), doubleArg (gzFlags)
 		else if (request == "SBDrawHelmet")
 			SBDrawHelmet(HDStatusBar(objectArg), intArg, doubleArg);
 
