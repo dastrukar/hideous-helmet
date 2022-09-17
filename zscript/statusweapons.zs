@@ -4,20 +4,27 @@
 extend class HDStatusBar{
 	virtual void drawweaponstatus(weapon w){
 		let hdw=hdweapon(w);
-		if(hdw&&HHFunc.GetIntUI("CheckWeaponStuff", objectArg: self)){
-			if(hdw)hdw.DrawHUDStuff(self,hdw,hpl);else{
-				if(cplayer.readyweapon.ammotype1)drawwepnum(
-					hpl.countinv(cplayer.readyweapon.ammotype1),
-					getdefaultbytype(w.ammotype1).maxamount
-				);
-				if(cplayer.readyweapon.ammotype2)drawwepnum(
-					hpl.countinv(cplayer.readyweapon.ammotype2),
-					getdefaultbytype(w.ammotype2).maxamount,
-					posy:-10
-				);
-			}
-		}else if(hdw&&!hh_hidefiremode.GetBool()){
+
+		// HH
+		if (
+			hdw
+			&& !(HHFunc.GetIntUI("CheckWeaponStuff", objectArg: self) && !hh_hidefiremode.GetBool())
+		)
+		{
 			HHFunc.GetIntUI("GetWeaponFiremode", objectArg: self);
+			return;
+		}
+
+		if(hdw)hdw.DrawHUDStuff(self,hdw,hpl);else{
+			if(cplayer.readyweapon.ammotype1)drawwepnum(
+				hpl.countinv(cplayer.readyweapon.ammotype1),
+				getdefaultbytype(w.ammotype1).maxamount
+			);
+			if(cplayer.readyweapon.ammotype2)drawwepnum(
+				hpl.countinv(cplayer.readyweapon.ammotype2),
+				getdefaultbytype(w.ammotype2).maxamount,
+				posy:-10
+			);
 		}
 	}
 	void drawwepnum(int value,double mxval,int posx=-16,int posy=-6,bool alwaysprecise=false){
