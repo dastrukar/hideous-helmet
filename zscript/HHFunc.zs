@@ -22,7 +22,7 @@ struct HHFunc
 
 	static bool IsWornArmour(string name)
 	{
-		ThinkerIterator ti = ThinkerIterator.Create("HHArmourType");
+		let ti = ThinkerIterator.Create("HHArmourType", STAT_DEFAULT);
 
 		// Is this a valid armour name?
 		HHArmourType hhat;
@@ -36,7 +36,7 @@ struct HHFunc
 
 	static bool IsArmour(string name)
 	{
-		ThinkerIterator ti = ThinkerIterator.Create("HHArmourType");
+		let ti = ThinkerIterator.Create("HHArmourType", STAT_DEFAULT);
 
 		// Is this a valid armour name?
 		HHArmourType hhat;

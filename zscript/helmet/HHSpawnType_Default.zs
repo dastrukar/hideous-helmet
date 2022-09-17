@@ -1,4 +1,4 @@
-// If you want to override the default spawn type, just use a ThinkerIterator and destroy this
+// If you want to override the default spawn type, just use a ThinkerIterator and destroy this (preferably using statnum STAT_DEFAULT)
 class HHSpawnType_Default : HHSpawnType
 {
 	override bool CheckConditions(Actor T, int time)
