@@ -20,13 +20,12 @@ class HudHelmetWorn : HHBaseHelmetWorn
 		Super.DrawHUDStuff(sb, hpl, hdFlags, gzFlags);
 		string helmetSprite = "HELMA0";
 		string helmetBack = "HELMB0";
-		bool showOnTop = sb.hh_durabilitytop.GetBool();
 
 		Vector2 pos =
 			(hdFlags & HDSB_AUTOMAP)? (24, 86) :
 			(hdFlags & HDSB_MUGSHOT)? (((sb.HudLevel == 1)? -85 : -55), -18) :
 			(0, -sb.mIndexFont.mFont.GetHeight() * 2 - 14);
-		Vector2 coords = (pos.x, pos.y + sb.hh_helmetoffsety.GetInt());
+		Vector2 coords = (pos.x, pos.y + hh_helmetoffsety);
 
 		sb.DrawBar(
 			helmetSprite, helmetBack,
@@ -37,7 +36,7 @@ class HudHelmetWorn : HHBaseHelmetWorn
 
 		if (sb.showhud) sb.DrawString(
 			sb.pNewSmallFont, sb.FormatNumber(Durability),
-			coords + (10, (showOnTop)? -14 : -7),
+			coords + (10, (hh_durabilitytop)? -14 : -7),
 			gzFlags | sb.DI_ITEM_CENTER | sb.DI_TEXT_ALIGN_RIGHT,
 			Font.CR_DARKGRAY,
 			scale: (0.5, 0.5)

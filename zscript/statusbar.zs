@@ -12,6 +12,11 @@ class HDStatusBar:DoomStatusBar{
 	string mug;
 	int bigitemyofs;
 	color sbcolour;
+
+	// Helmet stuff
+	bool ShowHud;
+	Service HHFunc;
+
 	override void Init(){
 		BaseStatusBar.Init();
 		SetSize(0,320,200);
@@ -80,6 +85,10 @@ class HDStatusBar:DoomStatusBar{
 
 			ang += angStep;
 		}
+
+		// HH
+		ShowHud = false;
+		HHFunc = ServiceIterator.Find("HHFunc").Next();
 	}
 
 	const circleVertCount = 24;
@@ -118,6 +127,13 @@ class HDStatusBar:DoomStatusBar{
 	transient cvar hud_aspectscale;
 	transient cvar crosshaircolor;
 
+	// HH
+	transient cvar hh_bigbrotheriswatchingyou;
+	transient cvar hh_hideammo;
+	transient cvar hh_hidestatus;
+	transient cvar hh_hidecompass;
+	transient cvar hh_hidefiremode;
+
 	void PushCircleUVCoords(Shape2D circle, vector2 scale = (1, 1)){
 		circle.Clear(Shape2D.C_Coords);
 		for(int i = 0; i < circleVertCount; i++){
@@ -138,6 +154,15 @@ class HDStatusBar:DoomStatusBar{
 			PushCircleUVCoords(scopeCircleShape, scopeCircleScale);
 
 			didInitScopeShape = true;
+		}
+
+		if (!hh_bigbrotheriswatchingyou)
+		{
+			hh_bigbrotheriswatchingyou = CVar.GetCVar("hh_bigbrotheriswatchingyou", CPlayer);
+			hh_hideammo = CVar.GetCVar("hh_hideammo", CPlayer);
+			hh_hidestatus = CVar.GetCVar("hh_hidestatus", CPlayer);
+			hh_hidecompass = CVar.GetCVar("hh_hidecompass", CPlayer);
+			hh_hidefiremode = CVar.GetCVar("hh_hidefiremode", CPlayer);
 		}
 
 		if(!hd_mugshot){

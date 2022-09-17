@@ -3,7 +3,7 @@ version "4.7"
 // [[ Armour Compatibility ]]
 #include "zscript/armour/HHArmourNerf.zs"
 #include "zscript/armour/HHArmourNerfHandler.zs"
-//#include "zscript/armour/HHArmourType.zs" (in statusbar.zs)
+#include "zscript/armour/HHArmourType.zs"
 #include "zscript/armour/HHArmourType_HDArmourWorn.zs"
 #include "zscript/armour/HHArmourTypeHandler.zs"
 
@@ -39,7 +39,7 @@ version "4.7"
 
 // [[ ETC ]]
 #include "zscript/HHConstants.zs"
-//#include "zscript/HHFunc.zs" (in statusbar.zs)
-//#include "zscript/FiremodeInfo.zs" (in statusbar.zs)
+#include "zscript/HHFunc.zs"
+#include "zscript/FiremodeInfo.zs"
 #include "zscript/HHHandler.zs"
 #include "zscript/HHWhitelistMenu.zs"
