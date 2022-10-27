@@ -28,4 +28,16 @@ HHManager_ModulesNotSupported = "This helmet doesn't support modules.";
 HHManager_NoModules = "\c[Black]No modules available.";
 HHManager_NoModulesLoaded = "\c[Black]No modules loaded.";
 
+Module_BreakMsg0 = "As you try to jam it in, the module explodes into pieces.";
+Module_BreakMsg1 = "The module crumbles into pieces as it touches the helmet.";
+Module_BreakMsg2 = "The module shatters apart the moment it collides with the module port.";
+Module_BreakMsg3 = "The module vaporises itself the moment you loaded it in.";
+Module_BreakMsg4 = "The module breaks apart under the force of you loading it into the helmet.";
+Module_BreakMsg5 = "Module gone. Think about module. Regret.";
+Module_BreakMsg6 = "The module broke. Why???";
+Module_BreakMsg7 = "As the module breaks, you start cursing at the RNGesus.";
+Module_BreakMsg8 = "It broke. What. The. Hell.";
+Module_BreakMsg9 = "Another one bites the dust.";
+Module_BreakMsg10 = "It broke. Why did they thought to make these things so fragile?";
+
 HUDModule_Name = "HUD Module";
