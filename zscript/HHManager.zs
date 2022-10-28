@@ -508,10 +508,10 @@ class HHManager : HDWeapon
 			else
 			{
 				// Load Module
-				HHModuleStorage moduleStorage = Invoker.GetModuleStorage(helmet);
-				if (moduleStorage.Modules.Size() == 0)
+				if (Invoker._Modules.Size() == 0)
 					return;
 
+				HHModuleStorage moduleStorage = Invoker.GetModuleStorage(helmet);
 				Invoker._Modules[Invoker._ModuleIndex].TryLoadModule(moduleStorage, HDPlayerPawn(Invoker.Owner));
 			}
 		}
