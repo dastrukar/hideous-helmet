@@ -67,8 +67,13 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 		tossed.Mags.Clear();
 		tossed.Mags.Push(Durability);
 		tossed.Amount = 1;
+
+		// Spawning a helmet always creates a ModuleStorage, this overwrites it
+		tossed.ModuleStorage.Clear();
+		tossed.InternalModuleStorage.Clear();
 		tossed.ModuleStorage.Push(ModuleStorage);
 		tossed.InternalModuleStorage.Push(InternalModuleStorage);
+
 		Owner.A_Log(Stringtable.Localize("$HelmetWorn_Remove"), true);
 		Destroy();
 		return tossed;

@@ -4,6 +4,7 @@
 // While not as strong as its older counterparts, the helmet is still capable enough to stop most common bullets flying towards someone's head.
 // Commonly dubbed "Heads Up Display(HUD) Helmet", the MKIV comes with a new advanced module system that allows it accept more modules than ever before.
 // Also, the MKIV used to have more processing power in the past. However, due to budget constraints, only a few were ever made.
+
 class HudHelmet : HHBaseHelmet
 {
 	Default
