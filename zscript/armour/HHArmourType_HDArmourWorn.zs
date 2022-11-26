@@ -33,7 +33,8 @@ class HHArmourType_HDArmourWorn : HHArmourType
 			gzFlags
 		);
 
-		if (HHFunc.FindHelmet(hdp))
+		HHBaseHelmetWorn helmet = HHFunc.FindHelmet(hdp);
+		if (helmet.ShowHUD)
 		{
 			sb.DrawString(
 				sb.pNewSmallFont,

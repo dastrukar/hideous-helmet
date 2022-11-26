@@ -1,12 +1,18 @@
 version "4.7"
 #include "zscript/HHConstants.zs"
 
+#include "zscript/HHFunc.zs"
+#include "zscript/FiremodeInfo.zs"
+#include "zscript/armour/HHArmourType.zs"
 #include "zscript/armour/HHArmourNerf.zs"
 #include "zscript/armour/HHArmourNerfHandler.zs"
 #include "zscript/armour/HHArmourType_HDArmourWorn.zs"
 #include "zscript/armour/HHArmourTypeHandler.zs"
 
 #include "zscript/helmet/base.zs"
+
+#include "zscript/hudelements/HHWeaponStatus.zs"
+
 #include "zscript/helmet/HasHelmet.zs"
 #include "zscript/helmet/HHSkinHandler.zs"
 #include "zscript/helmet/HHHelmetSpawner.zs"
