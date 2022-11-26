@@ -34,12 +34,15 @@ class HudHelmetWorn : HHBaseHelmetWorn
 			gzFlags
 		);
 
-		if (sb.showhud) sb.DrawString(
-			sb.pNewSmallFont, sb.FormatNumber(Durability),
-			coords + (10, (hh_durabilitytop)? -14 : -7),
-			gzFlags | sb.DI_ITEM_CENTER | sb.DI_TEXT_ALIGN_RIGHT,
-			Font.CR_DARKGRAY,
-			scale: (0.5, 0.5)
-		);
+		if (ShowHUD)
+		{
+			sb.DrawString(
+				sb.pNewSmallFont, sb.FormatNumber(Durability),
+				coords + (10, (hh_durabilitytop)? -14 : -7),
+				gzFlags | sb.DI_ITEM_CENTER | sb.DI_TEXT_ALIGN_RIGHT,
+				Font.CR_DARKGRAY,
+				scale: (0.5, 0.5)
+			);
+		}
 	}
 }

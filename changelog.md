@@ -7,6 +7,9 @@ Date format: DD/MM/YYYY
 Added:
 * Helmet Manager! Using a helmet will now open this up instead. Hopefully it doesn't make wearing the helmet *too* clunky.
 
+Compat:
+* Now requires HUD Core, because I can't be arsed to mess with `statusbar.zs` anymore.
+
 Tweaks:
 * Helmets can't be stored into backpacks anymore. (due to balancing and techincal reasons)
 * Helmets now take more damage when shot in the head.

@@ -7,12 +7,14 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 	int MaxDurability;
 	HHModuleStorage ModuleStorage;
 	HHModuleStorage InternalModuleStorage;
+	int ShowHUD;
 
 	property HelmetBulk: _helmetBulk;
 	property TossHelmet: _tossHelmet;
 	property MaxDurability: MaxDurability;
 
-	Default {
+	Default
+	{
 		+Inventory.ISARMOR;
 		Inventory.MaxAmount 1;
 		HDDamageHandler.Priority 0;
@@ -29,6 +31,7 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 		Durability = MaxDurability;
 		ModuleStorage = HHModuleStorage(new("HHModuleStorage"));
 		InternalModuleStorage = HHModuleStorage(new("HHModuleStorage"));
+		ShowHUD = 0;
 	}
 
 	override double GetBulk()
@@ -307,6 +310,9 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 	// Process module stuff
 	override void DoEffect()
 	{
+		if (ShowHUD > 0)
+			--ShowHUD;
+
 		// Internal modules
 		for (int i = 0; i < InternalModuleStorage.Modules.Size(); i++)
 		{

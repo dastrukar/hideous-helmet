@@ -1,15 +1,18 @@
 // Shows your HUD
 class HUDModule : HHBaseModule
 {
+	int number;
 	Default
 	{
 		HHBaseModule.ModuleEnergy 5;
 		Tag "$HUDModule_Name";
 	}
 
-	override void DoHUDStuff(HDStatusBar sb, HDPlayerPawn hdp)
+	override void DoModuleEffect(Actor actor)
 	{
-		sb.ShowHud = 2;
+		HHBaseHelmetWorn helmet = HHFunc.FindHelmet(actor);
+		if (helmet)
+			helmet.ShowHUD = 2;
 	}
 }
 

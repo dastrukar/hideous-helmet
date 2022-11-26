@@ -56,6 +56,10 @@ class HHFunc : Service
 		else if (request == "IsArmour")
 			retVal = IsArmour(stringArg);
 
+		// Requires: objectArg (Actor)
+		else if (request == "GetShowHUD")
+			retVal = GetShowHUD(Actor(objectArg));
+
 		else
 			Console.PrintF("HHFunc: Invalid request "..request.."! Please fix :[");
 
@@ -82,6 +86,7 @@ class HHFunc : Service
 
 		return retVal;
 	}
+
 
 	// This looks for any HHBaseHelmetWorn, not HHBaseHelmet
 	static HHBaseHelmetWorn FindHelmet(Actor actor)
@@ -130,15 +135,25 @@ class HHFunc : Service
 		return false;
 	}
 
+	static int GetShowHUD(Actor actor)
+	{
+		HHBaseHelmetWorn helmet = HHFunc.FindHelmet(actor);
+		return (helmet && helmet.ShowHUD);
+	}
+
 
 	// UI and non-static stuff (you probably won't use these)
 	transient Array<string> FMRefIds;
 	transient Array<FiremodeInfo> FInfo;
+	transient CVar hh_hideammo;
 
 	// Returns True, if not a weapon, is in whitelist, or the player has a helmet worn
 	ui bool CheckWeaponStuff(HDStatusBar sb)
 	{
-		if (sb.ShowHud || !sb.hh_hideammo.GetBool())
+		if (!hh_hideammo)
+			hh_hideammo = CVar.GetCVar("hh_hideammo", sb.CPlayer);
+
+		if (HHFunc.GetShowHUD(sb.hpl) || !hh_hideammo.GetBool())
 			return true;
 
 		let w = HDWeapon(sb.CPlayer.ReadyWeapon);
@@ -195,6 +210,8 @@ class HHFunc : Service
 	ui void GetWeaponFiremode(HDStatusBar sb)
 	{
 		let hdw = HDWeapon(sb.CPlayer.ReadyWeapon);
+		if (!hdw)
+			return;
 
 		// Already been initialised?
 		if (FMRefIds.Size() == 0)

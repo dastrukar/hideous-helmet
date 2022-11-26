@@ -8,6 +8,10 @@ version "4.7"
 #include "zscript/armour/HHArmourTypeHandler.zs"
 
 
+// [[ HUDElements ]]
+#include "zscript/hudelements/HHWeaponStatus.zs"
+
+
 // [[ Helmet/Module Manager ]]
 #include "zscript/HHManager.zs"
 
