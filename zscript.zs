@@ -12,6 +12,13 @@ version "4.7"
 #include "zscript/helmet/base.zs"
 
 #include "zscript/hudelements/HHWeaponStatus.zs"
+#include "zscript/hudelements/HHEKG.zs"
+#include "zscript/hudelements/HHHeartbeat.zs"
+#include "zscript/hudelements/HHItemAdditions.zs"
+#include "zscript/hudelements/HHMugshot.zs"
+#include "zscript/hudelements/HHPosition.zs"
+#include "zscript/hudelements/HHCompass.zs"
+#include "zscript/hudelements/HHAutomapPos.zs"
 
 #include "zscript/helmet/HasHelmet.zs"
 #include "zscript/helmet/HHSkinHandler.zs"

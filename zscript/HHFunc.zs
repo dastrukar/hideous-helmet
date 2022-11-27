@@ -141,7 +141,7 @@ class HHFunc : Service
 
 	static int GetShowHUD(Actor actor)
 	{
-		let helmet = HHFunc.FindHelmet(actor);
+		int helmet = (HHFunc.FindHelmet(actor))? 1 : 0;
 		return (helmet);
 	}
 
@@ -331,7 +331,7 @@ class HHFunc : Service
 
 	ui void SBDrawHelmet(HDStatusBar sb, int hdFlags, int gzFlags)
 	{
-		let helmet = HDArmourWorn(sb.CPlayer.mo.FindInventory("HHBaseHelmetWorn", true));
+		let helmet = HDArmourWorn(sb.CPlayer.mo.FindInventory("HHelmetWorn", true));
 		if (helmet)
 			helmet.DrawHUDStuff(sb, HDPlayerPawn(sb.CPlayer.mo), hdFlags, gzFlags);
 	}

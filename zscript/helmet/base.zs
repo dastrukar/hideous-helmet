@@ -210,13 +210,13 @@ class HHelmetWorn : HDArmourWorn
 		// Drawing helmet on the HUD is handled in statusbar.zs for layering reasons.
 		string helmetSprite = "HELMA0";
 		string helmetBack = "HELMB0";
-		bool d = sb.hh_durabilitytop.GetBool();
+		bool d = hh_durabilitytop;
 
 		Vector2 helmpos =
 			(hdFlags & HDSB_AUTOMAP)? (24, 86) :
 			(hdFlags & HDSB_MUGSHOT)? (((sb.HudLevel == 1) ? -85 : -55), -18) :
 			(0, -sb.mIndexFont.mFont.GetHeight() * 2 - 14);
-		Vector2 coords = (helmPos.x, helmPos.y + sb.hh_helmetoffsety.GetInt());
+		Vector2 coords = (helmPos.x, helmPos.y + hh_helmetoffsety);
 
 		sb.DrawBar(
 			helmetSprite, helmetBack,
