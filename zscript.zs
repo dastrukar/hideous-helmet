@@ -19,6 +19,7 @@ version "4.7"
 #include "zscript/hudelements/HHPosition.zs"
 #include "zscript/hudelements/HHCompass.zs"
 #include "zscript/hudelements/HHAutomapPos.zs"
+#include "zscript/hudelements/HHWoundCounter.zs"
 
 #include "zscript/helmet/HasHelmet.zs"
 #include "zscript/helmet/HHSkinHandler.zs"
