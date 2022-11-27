@@ -49,10 +49,6 @@ class HHFunc : Service
 			retVal = CheckForArmour(Actor(objectArg));
 
 		// Requires: stringArg (name)
-		else if (request == "IsWornArmour")
-			retVal = IsWornArmour(stringArg);
-
-		// Requires: stringArg (name)
 		else if (request == "IsArmour")
 			retVal = IsArmour(stringArg);
 
@@ -81,6 +77,10 @@ class HHFunc : Service
 		if (request == "FindHelmet")
 			retVal = Object(FindHelmet(Actor(objectArg)));
 
+		// Requires: stringArg (name)
+		else if (request == "FindArmourType")
+			retVal = FindArmourType(stringArg);
+
 		else
 			Console.PrintF("HHFunc: Invalid request "..request.."! Please fix :[");
 
@@ -99,26 +99,30 @@ class HHFunc : Service
 		for (Inventory i = actor.Inv; i; i = i.Inv)
 		{
 			HDDamageHandler hdh = HDDamageHandler(i);
-			if (!hdh) continue;
+			if (!hdh)
+				continue;
 
 			string arm = hdh.GetClassName();
-			if (IsWornArmour(arm)) return true;
+			if (FindArmourType(arm))
+				return true;
 		}
+
 		return false;
 	}
 
-	static bool IsWornArmour(string name)
+	static HHArmourType FindArmourType(string name)
 	{
 		let ti = ThinkerIterator.Create("HHArmourType", Thinker.STAT_DEFAULT);
 
 		// Is this a valid armour name?
-		HHArmourType hhat;
-		while (hhat = HHArmourType(ti.next()))
+		HHArmourType type;
+		while (type = HHArmourType(ti.next()))
 		{
-			if (name == hhat.GetWornName()) return true;
+			if (name == type.GetWornName())
+				return type;
 		}
 
-		return false;
+		return NULL;
 	}
 
 	static bool IsArmour(string name)

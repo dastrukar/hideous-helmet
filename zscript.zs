@@ -10,6 +10,13 @@ version "4.7"
 
 // [[ HUDElements ]]
 #include "zscript/hudelements/HHWeaponStatus.zs"
+#include "zscript/hudelements/HHEKG.zs"
+#include "zscript/hudelements/HHHeartbeat.zs"
+#include "zscript/hudelements/HHItemAdditions.zs"
+#include "zscript/hudelements/HHMugshot.zs"
+#include "zscript/hudelements/HHPosition.zs"
+#include "zscript/hudelements/HHCompass.zs"
+#include "zscript/hudelements/HHAutomapPos.zs"
 
 
 // [[ Helmet/Module Manager ]]

@@ -13,6 +13,7 @@ Compat:
 Tweaks:
 * Helmets can't be stored into backpacks anymore. (due to balancing and techincal reasons)
 * Helmets now take more damage when shot in the head.
+* Weapon world sprite is now visible without a helmet. (not sure why i did this in the first place)
 
 Misc:
 * Reorganised files again
