@@ -81,8 +81,7 @@ class HHWoundCounter : HUDElement
 				0.6,
 				scale: (0.5, 0.5)
 			);
-			if (biggestWound && biggestWound.Depth)
-				of = Clamp(int(biggestWound.Depth * 0.2), 1, 3);
+			of = Clamp(int(biggestWound.Depth * 0.2), 1, 3);
 
 			if (sb.hpl.Flip)
 				of = -of;
