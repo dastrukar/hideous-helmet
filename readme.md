@@ -5,6 +5,9 @@
 
 ![image](https://user-images.githubusercontent.com/32709291/129836058-2d2113c3-da37-4f06-9ac8-6fad363a06d4.png)
 
+## NOTICE
+This branch requires [HUD Core](https://github.com/dastrukar/hdest-hudcore) to work.
+
 
 ## What?
 Hideous Helmet adds a new "armour" piece called `HUD Helmet`.
