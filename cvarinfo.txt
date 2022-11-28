@@ -17,7 +17,7 @@ user bool hh_showbleed=true;
 user bool hh_woundcounter=true;
 user bool hh_showbleedwhenbleeding=false;
 user bool hh_onlyshowopenwounds=false;
-nosave bool hh_wc_usedynamiccol=true;
+user bool hh_wc_usedynamiccol=true;
 
 nosave int hh_helmetoffsety=0;
 nosave bool hh_durabilitytop=false;
