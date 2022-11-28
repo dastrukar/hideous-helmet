@@ -33,6 +33,7 @@ OptionMenu "HHOptions"{
 	Option "Show wound count", "hh_woundcounter", "YesNo", "hh_showbleed"
 	Option "Hide indicator when not bleeding", "hh_showbleedwhenbleeding", "YesNo", "hh_showbleed"
 	Option "Only show open wounds", "hh_onlyshowopenwounds", "YesNo"
+	Option "Use colours based on your status", "hh_wc_usedynamiccol", "YesNo"
 	StaticText " "
 
 	StaticText "= DANGER ZONE =", "Red"

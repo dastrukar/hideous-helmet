@@ -4,6 +4,7 @@ class HHWoundCounter : HUDElement
 	private transient CVar _hh_showbleedwhenbleeding;
 	private transient CVar _hh_woundcounter;
 	private transient CVar _hh_onlyshowopenwounds;
+	private transient CVar _hh_wc_usedynamiccol;
 	private string _WoundCounter;
 
 	override void Init(HCStatusbar sb)
@@ -21,6 +22,7 @@ class HHWoundCounter : HUDElement
 			_hh_showbleedwhenbleeding = CVar.GetCVar("hh_showbleedwhenbleeding", sb.CPlayer);
 			_hh_woundcounter = CVar.GetCVar("hh_woundcounter", sb.CPlayer);
 			_hh_onlyshowopenwounds = CVar.GetCVar("hh_onlyshowopenwounds", sb.CPlayer);
+			_hh_wc_usedynamiccol = CVar.GetCVar("hh_wc_usedynamiccol", sb.CPlayer);
 		}
 
 		if (!sb.hpl)
@@ -87,8 +89,28 @@ class HHWoundCounter : HUDElement
 				of = -of;
 		}
 
-		sb.DrawRect(coords.x + 2, coords.y + of, 2, 6);
-		sb.DrawRect(coords.x, coords.y + 2 + of, 6, 2);
+		Color fillColour =
+			(sb.hpl.Health > 70 || !_hh_wc_usedynamiccol.GetBool())? Color(255, sb.SBColour.R, sb.SBColour.G, sb.SBColour.B) :
+			(sb.hpl.Health > 33)? Color(255, 240, 210, 10) :
+			Color(255, 220, 0, 0);
+
+		int fillFlags = sb.DI_SCREEN_CENTER_BOTTOM;
+		sb.Fill(
+			fillColour,
+			coords.x + 2,
+			coords.y + of,
+			2,
+			6,
+			fillFlags
+		);
+		sb.Fill(
+			fillColour,
+			coords.x,
+			coords.y + 2 + of,
+			6,
+			2,
+			fillFlags
+		);
 
 		if (_hh_woundcounter.GetBool())
 		{
