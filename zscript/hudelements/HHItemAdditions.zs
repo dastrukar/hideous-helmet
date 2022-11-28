@@ -1,13 +1,9 @@
 class HHItemAdditions : HUDItemAdditions
 {
-	private transient ThinkerIterator _HHArmourTypeIterator;
 	private HHBaseHelmetWorn _Helmet;
 
 	override void Tick(HCStatusbar sb)
 	{
-		if (!_HHArmourTypeIterator)
-			_HHArmourTypeIterator = ThinkerIterator.Create("HHArmourType");
-
 		if (sb.hpl)
 			_Helmet = HHFunc.FindHelmet(sb.hpl);
 	}
