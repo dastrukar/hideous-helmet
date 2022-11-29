@@ -17,12 +17,12 @@ class HHWeaponStatus : HUDWeaponStatus
 		if (!HDWeapon(sb.CPlayer.ReadyWeapon))
 			return;
 
-		if (!_HHFunc.GetIntUI("CheckWeaponStuff", objectArg: sb) && !_hh_hidefiremode.GetBool())
+		if (_HHFunc.GetIntUI("CheckWeaponStuff", objectArg: sb))
 		{
-			_HHFunc.GetIntUI("GetWeaponFiremode", objectArg: sb);
+			Super.DrawHUDStuff(sb, state, ticFrac);
 			return;
 		}
-
-		Super.DrawHUDStuff(sb, state, ticFrac);
+		else if (!_hh_hidefiremode.GetBool())
+			_HHFunc.GetIntUI("GetWeaponFiremode", objectArg: sb);
 	}
 }
