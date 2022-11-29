@@ -29,14 +29,25 @@ class HHFunc : Service
 			SBDrawHelmet(HDStatusBar(objectArg), intArg, doubleArg);
 
 		else
-			Console.PrintF("HHFunc: Invalid request "..request.."! Please fix :[");
+			retVal = HandleGetInt(request, stringArg, intArg, doubleArg, objectArg);
 
 		return retVal;
 	}
 
 	override int GetInt(
 		String request,
-		String stringarg,
+		String stringArg,
+		int intArg,
+		double doubleArg,
+		Object objectArg
+	)
+	{
+		return HandleGetInt(request, stringArg, intArg, doubleArg, objectArg);
+	}
+
+	clearscope int HandleGetInt(
+		String request,
+		String stringArg,
 		int intArg,
 		double doubleArg,
 		Object objectArg
@@ -89,12 +100,12 @@ class HHFunc : Service
 
 
 	// This looks for any HHBaseHelmetWorn, not HHBaseHelmet
-	static HHelmetWorn FindHelmet(Actor actor)
+	static clearscope HHelmetWorn FindHelmet(Actor actor)
 	{
 		return HHelmetWorn(actor.FindInventory("HHelmetWorn", true));
 	}
 
-	static bool CheckForArmour(Actor actor)
+	static clearscope bool CheckForArmour(Actor actor)
 	{
 		for (Inventory i = actor.Inv; i; i = i.Inv)
 		{
@@ -110,7 +121,7 @@ class HHFunc : Service
 		return false;
 	}
 
-	static HHArmourType FindArmourType(string name)
+	static clearscope HHArmourType FindArmourType(string name)
 	{
 		let ti = ThinkerIterator.Create("HHArmourType", Thinker.STAT_DEFAULT);
 
@@ -125,7 +136,7 @@ class HHFunc : Service
 		return NULL;
 	}
 
-	static bool IsArmour(string name)
+	static clearscope bool IsArmour(string name)
 	{
 		let ti = ThinkerIterator.Create("HHArmourType", Thinker.STAT_DEFAULT);
 
@@ -139,7 +150,7 @@ class HHFunc : Service
 		return false;
 	}
 
-	static int GetShowHUD(Actor actor)
+	static clearscope int GetShowHUD(Actor actor)
 	{
 		int helmet = (HHFunc.FindHelmet(actor))? 1 : 0;
 		return (helmet);
