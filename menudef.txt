@@ -109,10 +109,10 @@ OptionMenu "HHPOS"{
 	SafeCommand "Reset position options", "hh_options_reset_pos"
 }
 
-AddOptionMenu "HDAddonMenu"{
+AddOptionMenu "OptionsMenu"{
 	Submenu "Hideous Helmet Options", "HHOptions"
 }
 
-AddOptionMenu "HDOptionsMenu" after "HDControlsMenu" {
+AddOptionMenu "HDAddonMenu"{
 	Submenu "Hideous Helmet Options", "HHOptions"
 }
