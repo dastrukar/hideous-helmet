@@ -113,6 +113,6 @@ AddOptionMenu "OptionsMenu"{
 	Submenu "Hideous Helmet Options", "HHOptions"
 }
 
-AddOptionMenu "HDOptionsMenu" after "HDControlsMenu" {
+AddOptionMenu "HDAddonMenu"{
 	Submenu "Hideous Helmet Options", "HHOptions"
 }
