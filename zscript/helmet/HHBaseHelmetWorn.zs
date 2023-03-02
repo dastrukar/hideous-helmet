@@ -254,10 +254,10 @@ class HHBaseHelmetWorn : HDArmourWorn abstract
 				{
 					if (
 						penetrated ||
-						FRandom(0, 1) <= 0.75
+						FRandom(0, 1) <= 0.25
 					)
 					{
-						// 75% chance to damage the helmet if shot in the face
+						// 25% chance to not damage the helmet if shot in the face
 						ddd = 1;
 					}
 				}
