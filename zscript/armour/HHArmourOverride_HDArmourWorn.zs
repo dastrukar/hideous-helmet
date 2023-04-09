@@ -1,23 +1,19 @@
-class HHArmourType_HDArmourWorn : HHArmourType
+class HHArmourOverride_HDArmourWorn : HCItemOverride
 {
-	override string GetName()
+	override void Init(HCStatusbar sb)
 	{
-		return "HDArmour";
+		Priority = 0;
+		OverrideType = HCOVERRIDETYPE_ITEM;
 	}
 
-	override string GetWornName()
+	override bool CheckItem(Inventory item)
 	{
-		return "HDArmourWorn";
+		return (item.GetClassName() == "HDArmourWorn");
 	}
 
-	override void DrawArmour(
-		HDStatusBar sb,
-		HDPickup hp,
-		int hdFlags,
-		int gzFlags
-	)
+	override void DrawHUDStuff(HCStatusbar sb, Inventory item, int hdFlags, int gzFlags)
 	{
-		let arm = HDArmourWorn(hp);
+		let arm = HDArmourWorn(item);
 		let hdp = HDPlayerPawn(arm.Owner);
 		Vector2 coords =
 			(hdFlags & HDSB_AUTOMAP)? (4, 86) :

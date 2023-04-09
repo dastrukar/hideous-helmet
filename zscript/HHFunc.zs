@@ -20,14 +20,6 @@ class HHFunc : Service
 		else if (request == "GetWeaponFiremode")
 			GetWeaponFiremode(HDStatusBar(objectArg));
 
-		// Requires: stringArg (name), objectArg (HDStatusBar), intArg (hdFlags), doubleArg (gzFlags)
-		else if (request == "SBDrawArmour")
-			retVal = SBDrawArmour(stringArg, HDStatusBar(objectArg), intArg, doubleArg);
-
-		// Requires: objectArg (HDStatusBar), intArg (hdFlags), doubleArg (gzFlags)
-		else if (request == "SBDrawHelmet")
-			SBDrawHelmet(HDStatusBar(objectArg), intArg, doubleArg);
-
 		else
 			retVal = HandleGetInt(request, stringArg, intArg, doubleArg, objectArg);
 
@@ -59,10 +51,6 @@ class HHFunc : Service
 		if (request == "CheckForArmour")
 			retVal = CheckForArmour(Actor(objectArg));
 
-		// Requires: stringArg (name)
-		else if (request == "IsArmour")
-			retVal = IsArmour(stringArg);
-
 		// Requires: objectArg (Actor)
 		else if (request == "GetShowHUD")
 			retVal = GetShowHUD(Actor(objectArg));
@@ -88,10 +76,6 @@ class HHFunc : Service
 		if (request == "FindHelmet")
 			retVal = Object(FindHelmet(Actor(objectArg)));
 
-		// Requires: stringArg (name)
-		else if (request == "FindArmourType")
-			retVal = FindArmourType(stringArg);
-
 		else
 			Console.PrintF("HHFunc: Invalid request "..request.."! Please fix :[");
 
@@ -110,41 +94,14 @@ class HHFunc : Service
 		for (Inventory i = actor.Inv; i; i = i.Inv)
 		{
 			HDDamageHandler hdh = HDDamageHandler(i);
-			if (!hdh)
+			if (
+				!hdh ||
+				!(hdh is "HDArmourWorn") ||
+				hdh is "HHelmetWorn"
+			)
 				continue;
 
-			string arm = hdh.GetClassName();
-			if (FindArmourType(arm))
-				return true;
-		}
-
-		return false;
-	}
-
-	static clearscope HHArmourType FindArmourType(string name)
-	{
-		let ti = ThinkerIterator.Create("HHArmourType", Thinker.STAT_DEFAULT);
-
-		// Is this a valid armour name?
-		HHArmourType type;
-		while (type = HHArmourType(ti.next()))
-		{
-			if (name == type.GetWornName())
-				return type;
-		}
-
-		return NULL;
-	}
-
-	static clearscope bool IsArmour(string name)
-	{
-		let ti = ThinkerIterator.Create("HHArmourType", Thinker.STAT_DEFAULT);
-
-		// Is this a valid armour name?
-		HHArmourType hhat;
-		while (hhat = HHArmourType(ti.next()))
-		{
-			if (name == hhat.GetName()) return true;
+			return true;
 		}
 
 		return false;
@@ -315,35 +272,5 @@ class HHFunc : Service
 				-22,-10,
 				types[0], types[1], types[2], types[3], types[4], types[5], types[6]
 			);
-	}
-
-	ui bool SBDrawArmour(
-		class<HDPickup> pkup,
-		HDStatusBar sb,
-		int hdFlags,
-		int gzFlags
-	)
-	{
-		let hp = HDPickup(sb.CPlayer.mo.FindInventory(pkup));
-
-		HHArmourType type;
-		let ti = ThinkerIterator.Create("HHArmourType", Thinker.STAT_DEFAULT);
-		while (type = HHArmourType(ti.Next()))
-		{
-			if (type.GetWornName() == hp.GetClassName())
-			{
-				type.DrawArmour(sb, hp, hdFlags, gzFlags);
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	ui void SBDrawHelmet(HDStatusBar sb, int hdFlags, int gzFlags)
-	{
-		let helmet = HDArmourWorn(sb.CPlayer.mo.FindInventory("HHelmetWorn", true));
-		if (helmet)
-			helmet.DrawHUDStuff(sb, HDPlayerPawn(sb.CPlayer.mo), hdFlags, gzFlags);
 	}
 }

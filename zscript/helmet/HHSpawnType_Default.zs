@@ -15,7 +15,11 @@ class HHSpawnType_Default : HHSpawnType
 		);
 		bool isArmour = (
 			time < 2 &&
-			HHFunc.IsArmour(T.GetClassName()) &&
+			!(T is "HHelmet") &&
+			(
+				T is "HDArmour" ||
+				(T is "HDMagAmmo" && HDMagAmmo(T).bIsArmor)
+			) &&
 			FRandom(0, 1) <= hh_armourspawn
 		);
 

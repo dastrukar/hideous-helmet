@@ -1,32 +1,19 @@
 version "4.7"
 
-class HHArmourTypeHandler_HDCorporateArmour : EventHandler
+class HHArmourOverride_HDCorporateArmourWorn : HCItemOverride
 {
-	override void WorldLoaded(WorldEvent e)
+	override void Init(HCStatusbar sb)
 	{
-		New("HHArmourType_HDCorporateArmourWorn");
-		Destroy();
-	}
-}
-
-class HHArmourType_HDCorporateArmourWorn : HHArmourType
-{
-	override string GetName()
-	{
-		return "HDCorporateArmour";
+		Priority = 0;
+		OverrideType = HCOVERRIDETYPE_ITEM;
 	}
 
-	override string GetWornName()
+	override bool CheckItem(Inventory item)
 	{
-		return "HDCorporateArmourWorn";
+		return (item.GetClassName() == "HDCorporateArmourWorn");
 	}
 
-	override void DrawArmour(
-		HDStatusBar sb,
-		HDPickup hp,
-		int hdFlags,
-		int gzFlags
-	)
+	override void DrawHUDStuff(HCStatusbar sb, Inventory item, int hdFlags, int gzFlags)
 	{
 		let arm = HDCorporateArmourWorn(hp);
 		let hdp = HDPlayerPawn(arm.Owner);
