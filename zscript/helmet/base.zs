@@ -233,10 +233,10 @@ class HHelmetWorn : HDArmourWorn
 		);
 	}
 
-	override inventory CreateTossable(int amt)
+	override Inventory CreateTossable(int amt)
 	{
-		let hdp = HDPlayerPawn(Owner);
-		if (hdp.striptime > 0) return null;
+		if (HDPlayerPawn(Owner) && HDPlayerPawn(Owner).striptime > 0)
+			return null;
 
 		PrintHelmetDebug();
 
