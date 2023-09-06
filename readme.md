@@ -51,7 +51,7 @@ Marines or jackboots with helmets should also drop them on death.\
 
 ## Releases
 You should only use the release versions if you're using a [release version of Hideous Destructor](https://codeberg.org/mc776/hideousdestructor/releases).\
-Otherwise, just [clone the latest master](https://github.com/dastrukar/hideous-helmet/archive/refs/heads/master.zip) repo and pray that it works.
+Otherwise, just [clone the latest master](https://github.com/dastrukar/hideous-helmet/archive/refs/heads/hudcore.zip) repo and pray that it works.
 
 
 ## Compatibility
