@@ -3,6 +3,7 @@ class HHArmourNerf : HDDamageHandler
 {
 	Default
 	{
+		+Inventory.UNTOSSABLE;
 		Inventory.MaxAmount 1;
 		HDPickup.WornLayer 0;
 		HDDamageHandler.Priority 0;
