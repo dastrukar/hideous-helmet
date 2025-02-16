@@ -1,13 +1,10 @@
 # Hideous Helmet
 > An addon for [Hideous Destructor](https://codeberg.org/mc776/hideousdestructor) [*(Forum link)*](https://forum.zdoom.org/viewtopic.php?f=43&t=12973). Adds a helmet that shows the HUD, with some additional stuff.
 > This addon is meant to work with the [latest main(unstable) of Hideous Destructor.](https://codeberg.org/mc776/hideousdestructor/archive/main.zip)\
+> ### Requires [HUD Core](https://github.com/dastrukar/hdest-hudcore) to work.
 > *(unless i forgot to update it to work with latest)*
 
 ![image](https://user-images.githubusercontent.com/32709291/129836058-2d2113c3-da37-4f06-9ac8-6fad363a06d4.png)
-
-## NOTICE
-This branch requires [HUD Core](https://github.com/dastrukar/hdest-hudcore) to work.
-
 
 ## What?
 Hideous Helmet adds a new "armour" piece called `HUD Helmet`.
