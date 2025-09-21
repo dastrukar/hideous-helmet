@@ -3,8 +3,8 @@ class HasHelmet : InventoryFlag
 {
 	override void Tick()
 	{
-		// Drop helmet if dead
-		if (!Owner && Owner.health >= 1) return;
+		// Spawn helmet if dead
+		if (!Owner || Owner.health >= 1) return;
 
 		// If has helmet, use that for durability
 		int durability;
