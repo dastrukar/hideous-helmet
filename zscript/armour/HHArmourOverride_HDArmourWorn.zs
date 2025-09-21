@@ -26,7 +26,7 @@ class HHArmourOverride_HDArmourWorn : HCItemOverride
 			arm.Durability,
 			(arm.Mega)? HDCONST_BATTLEARMOUR : HDCONST_GARRISONARMOUR,
 			coords, -1, sb.SHADER_VERT,
-			gzFlags
+			gzFlags | sb.DI_TRANSLATABLE
 		);
 
 		if (HHFunc.GetShowHUD(sb.hpl))
