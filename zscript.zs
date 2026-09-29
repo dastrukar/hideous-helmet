@@ -4,7 +4,6 @@ version "4.14"
 #include "zscript/HHFunc.zs"
 #include "zscript/FiremodeInfo.zs"
 
-#include "zscript/armour/HHArmourNerf.zs"
 #include "zscript/armour/HHArmourNerfHandler.zs"
 #include "zscript/armour/HHArmourOverride_HDArmourWorn.zs"
 

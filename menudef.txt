@@ -52,8 +52,8 @@ OptionMenu "HHRNG"{
 	StaticText " "
 
 	StaticText "= Helmets randomly dropped from enemies =", "Gold"
-	Slider "Min. Durability", "hh_d_random_min", 0, 72, 1
-	Slider "Max Durability", "hh_d_random_max", 0, 72, 1
+	Slider "Min. Durability", "hh_d_random_min", 0, 32, 1
+	Slider "Max Durability", "hh_d_random_max", 0, 32, 1
 	StaticText " "
 
 	StaticText "= DANGER ZONE =", "Red"

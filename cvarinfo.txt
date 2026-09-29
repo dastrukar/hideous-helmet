@@ -23,7 +23,7 @@ nosave int hh_helmetoffsety=0;
 nosave bool hh_durabilitytop=false;
 
 server int hh_d_random_min=8;
-server int hh_d_random_max=62;
+server int hh_d_random_max=28;
 
 server float hh_armourspawn=0.50;
 server float hh_marinespawn=0.35;

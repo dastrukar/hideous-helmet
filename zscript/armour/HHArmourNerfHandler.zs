@@ -2,36 +2,14 @@
 // Even if they have a helmet/don't have armour, as HHArmourNerf does some checks on its own
 class HHArmourNerfHandler : EventHandler
 {
-	override void WorldTick()
-	{
-		if (!hh_nerfarmour) return;
-
-		// Loop through all the players
-		for (int i; i < MAXPLAYERS; i++)
-		{
-			let hdp = HDPlayerPawn(Players[i].mo);
-
-			// Check for armour
-			if (!(
-				hdp &&
-				!hdp.FindInventory("HHArmourNerf") &&
-				HHFunc.CheckForArmour(hdp)
-			)) continue;
-
-			hdp.GiveInventory("HHArmourNerf", 1);
-			if (hh_debug) Console.PrintF("Gave Nerf to "..CVar.GetCVar("name", players[i]).GetString());
-		}
-	}
-
 	// Enemies must suffer as much as you
 	override void WorldThingSpawned(WorldEvent e)
 	{
-		let T = e.Thing;
-
-		if (hh_nerfarmour && T is "HDMobBase")
+		// TODO: define which HDArmourWorn Subclasses should be nerfed?
+		if (hh_nerfarmour && (e.Thing is "GarrisonArmourWorn" || e.Thing is "BattleArmourWorn"))
 		{
-			if (hh_debug) Console.PrintF("Gave Nerf to "..T.GetClassName());
-			T.GiveInventory("HHArmourNerf", 1);
+			HDArmourWorn T = HDArmourWorn(e.Thing);
+			T.coverage = T.coverage&~(HDArmourWorn.ARMOUR_HEAD|HDArmourWorn.ARMOUR_FACE);
 		}
 	}
 }

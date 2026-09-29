@@ -1,0 +1,15 @@
+[enu default]
+
+TAG_HHELMET = "HUD Helmet";
+TAG_HHELMETSPARE = "HUD Helmet (spare)";
+
+PICKUP_HHELMET = "Picked up the HUD helmet.";
+
+HHELMET_PUTON = "You put on the helmet.";
+HHELMET_REMOVE = "Removing helmet first.";
+
+HHELMET_DUR90 = " Seems to be fine.";
+HHELMET_DUR70 = " This helmet has definitely seen better days.";
+HHELMET_DUR50 = " It's better than nothing.";
+HHELMET_DUR30 = " Does this helmet even work?";
+HHELMET_DUR20 = " Just don't get hit.";
